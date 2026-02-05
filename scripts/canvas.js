@@ -5,6 +5,7 @@
 class ParticleCanvas {
     constructor() {
         this.canvas = document.getElementById('particle-canvas');
+        if (!this.canvas) return;
         this.ctx = this.canvas.getContext('2d');
         this.particles = [];
         this.mouse = { x: null, y: null, radius: 150 };
@@ -129,11 +130,11 @@ class ParticleCanvas {
 
     animate() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
+
         this.updateParticles();
         this.drawConnections();
         this.particles.forEach(p => this.drawParticle(p));
-        
+
         requestAnimationFrame(() => this.animate());
     }
 }
