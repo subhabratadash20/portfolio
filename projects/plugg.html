@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PLUGG - AI-Powered Social Networking App by Subhabrata Das">
+    <title>PLUGG | Subhabrata Das</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/animations.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/project-detail.css">
+</head>
+
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-bracket">&lt;</span>SD<span class="logo-bracket">/&gt;</span>
+            </a>
+            <a href="../index.html#projects" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-hero-content animate-on-scroll">
+                <div class="project-emoji">💞</div>
+                <h1 class="project-hero-title">PLUGG</h1>
+                <p class="project-hero-subtitle">AI-Powered Social Networking App</p>
+                <div class="project-hero-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">AI</span>
+                    <span class="tag">Socket.IO</span>
+                    <span class="tag">RevenueCat</span>
+                    <span class="tag">Firebase</span>
+                </div>
+                <div class="project-hero-links">
+                    <a href="#" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"></path>
+                            <path d="M12 8v8m-4-4h8"></path>
+                        </svg>
+                        App Store
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Play Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="section">
+        <div class="container">
+            <div class="project-overview glass-card animate-on-scroll">
+                <h2>Overview</h2>
+                <p>
+                    Developed an intelligent social networking application that uses AI to match users based on
+                    interests, preferences, and lifestyle. The platform enables meaningful connections through
+                    smart matchmaking and real-time communication features.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Key Features</h2>
+
+            <div class="features-grid">
+                <!-- AI-Powered Matchmaking -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Matchmaking</h3>
+                    <ul class="feature-list">
+                        <li>Intelligent user matching based on interests, preferences, and lifestyle compatibility</li>
+                        <li>Smart compatibility scoring for meaningful connection suggestions</li>
+                        <li>Personalized recommendation engine for user discovery</li>
+                    </ul>
+                </div>
+
+                <!-- Real-Time Chat System -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">💬</div>
+                    <h3>Real-Time Chat System</h3>
+                    <ul class="feature-list">
+                        <li>Socket.IO-based real-time messaging with instant delivery and typing indicators</li>
+                        <li>Read receipts and message status updates for seamless communication</li>
+                        <li>Rich media support including images, videos, documents, and voice messages</li>
+                        <li>GIPHY integration for expressive GIF communication</li>
+                    </ul>
+                </div>
+
+                <!-- Location-Based Discovery -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">📍</div>
+                    <h3>Location-Based Discovery</h3>
+                    <ul class="feature-list">
+                        <li>Geolocation services for nearby user discovery and location-based matching</li>
+                        <li>Geocoding for smart location display and distance calculations</li>
+                        <li>Privacy-focused location sharing controls for user safety</li>
+                    </ul>
+                </div>
+
+                <!-- Push Notifications -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Push Notifications</h3>
+                    <ul class="feature-list">
+                        <li>Firebase Cloud Messaging (FCM) for real-time notification delivery</li>
+                        <li>Background notification handling for messages, matches, and connection requests</li>
+                        <li>Notification deep linking for seamless in-app navigation</li>
+                    </ul>
+                </div>
+
+                <!-- Interactive Onboarding -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Interactive Onboarding</h3>
+                    <ul class="feature-list">
+                        <li>Story-like interactive onboarding flow with smooth transitions</li>
+                        <li>Personal details collection with validation and interest discovery</li>
+                        <li>Identity verification process for platform authenticity</li>
+                    </ul>
+                </div>
+
+                <!-- Subscription System -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">💳</div>
+                    <h3>Subscription System</h3>
+                    <ul class="feature-list">
+                        <li>RevenueCat integration for cross-platform subscription management</li>
+                        <li>In-app purchase flow for premium features and benefits</li>
+                        <li>Subscription status sync and entitlement handling</li>
+                    </ul>
+                </div>
+
+                <!-- Secure Authentication -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Secure Authentication</h3>
+                    <ul class="feature-list">
+                        <li>Multi-provider authentication (Apple Sign-In, Google Sign-In)</li>
+                        <li>OTP verification flow with secure PIN input</li>
+                        <li>Encrypted credential storage and secure session management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Tech Stack</h2>
+            <div class="tech-stack-grid animate-on-scroll">
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Frontend</span>
+                    <span class="tech-value">Flutter, Dart, GetX</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Real-Time</span>
+                    <span class="tech-value">Socket.IO</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Backend</span>
+                    <span class="tech-value">Firebase (Auth, FCM), RevenueCat</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Storage</span>
+                    <span class="tech-value">Hive, Flutter Secure Storage</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Architecture</span>
+                    <span class="tech-value">Clean Architecture, Feature-First</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Platforms</span>
+                    <span class="tech-value">iOS, Android</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="../index.html#projects" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to All Projects
+            </a>
+        </div>
+    </footer>
+
+    <script src="../scripts/canvas.js"></script>
+    <script src="../scripts/main.js"></script>
+</body>
+
+</html>

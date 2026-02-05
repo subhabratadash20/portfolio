@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NORA AI - AI-Powered Personal Assistant App by Subhabrata Das">
+    <title>NORA AI | Subhabrata Das</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/animations.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/project-detail.css">
+</head>
+
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-bracket">&lt;</span>SD<span class="logo-bracket">/&gt;</span>
+            </a>
+            <a href="../index.html#projects" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-hero-content animate-on-scroll">
+                <div class="project-emoji">🤖</div>
+                <h1 class="project-hero-title">NORA AI</h1>
+                <p class="project-hero-subtitle">AI-Powered Personal Assistant App</p>
+                <div class="project-hero-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">OpenAI</span>
+                    <span class="tag">ElevenLabs</span>
+                    <span class="tag">Socket.IO</span>
+                    <span class="tag">Firebase</span>
+                </div>
+                <div class="project-hero-links">
+                    <a href="#" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"></path>
+                            <path d="M12 8v8m-4-4h8"></path>
+                        </svg>
+                        App Store
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Play Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="section">
+        <div class="container">
+            <div class="project-overview glass-card animate-on-scroll">
+                <h2>Overview</h2>
+                <p>
+                    Built an intelligent AI-powered personal assistant application that helps users manage their
+                    daily life through natural voice and text conversations. Nora acts as a smart companion,
+                    handling reminders, notes, events, and providing personalized assistance while learning
+                    user preferences over time.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Key Features</h2>
+
+            <div class="features-grid">
+                <!-- Conversational AI -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Conversational AI Assistant</h3>
+                    <ul class="feature-list">
+                        <li>Real-time AI chat system with natural language understanding</li>
+                        <li>Context-aware responses that understand user intent</li>
+                        <li>Message feedback system for continuous AI improvement</li>
+                    </ul>
+                </div>
+
+                <!-- Voice-First Experience -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🎙️</div>
+                    <h3>Voice-First Experience</h3>
+                    <ul class="feature-list">
+                        <li>Advanced speech-to-text for hands-free voice commands</li>
+                        <li>Dual TTS engines (OpenAI TTS & ElevenLabs) with emotional voice synthesis</li>
+                        <li>Real-time audio feedback and waveform visualization</li>
+                    </ul>
+                </div>
+
+                <!-- Smart Alarm System -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Smart Alarm & Reminder System</h3>
+                    <ul class="feature-list">
+                        <li>Intelligent alarm scheduling with platform-native integration</li>
+                        <li>iOS AlarmKit & Android AlarmManager support</li>
+                        <li>Background task handling for reliable alarm triggers</li>
+                    </ul>
+                </div>
+
+                <!-- Calendar Management -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">📅</div>
+                    <h3>Calendar & Event Management</h3>
+                    <ul class="feature-list">
+                        <li>Native device calendar sync for seamless event management</li>
+                        <li>Event creation through natural conversation</li>
+                        <li>Smart date/time parsing from natural language inputs</li>
+                    </ul>
+                </div>
+
+                <!-- Notes System -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">📝</div>
+                    <h3>Notes & Memory System</h3>
+                    <ul class="feature-list">
+                        <li>Note-taking with categories for organized storage</li>
+                        <li>Quick note capture through voice or text</li>
+                        <li>Search and retrieval for easy access</li>
+                    </ul>
+                </div>
+
+                <!-- Fitness Tracking -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">💪</div>
+                    <h3>Fitness & Wellness Tracking</h3>
+                    <ul class="feature-list">
+                        <li>Fitness tracking module for health monitoring</li>
+                        <li>Personalized fitness recommendations</li>
+                        <li>Goal-based tracking and progress insights</li>
+                    </ul>
+                </div>
+
+                <!-- Push Notifications -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Real-Time Notifications</h3>
+                    <ul class="feature-list">
+                        <li>Firebase Cloud Messaging for instant alerts</li>
+                        <li>Foreground/background notification handling</li>
+                        <li>Deep linking for seamless navigation</li>
+                    </ul>
+                </div>
+
+                <!-- Personalization -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Personalization & Accessibility</h3>
+                    <ul class="feature-list">
+                        <li>Dynamic theming with Dark/Light mode switching</li>
+                        <li>Multi-language support with real-time switching</li>
+                        <li>Responsive UI with smooth animations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Tech Stack</h2>
+            <div class="tech-stack-grid animate-on-scroll">
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Frontend</span>
+                    <span class="tech-value">Flutter, Dart, GetX</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Real-Time</span>
+                    <span class="tech-value">Socket.IO</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">AI/Voice</span>
+                    <span class="tech-value">OpenAI TTS, ElevenLabs, STT</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Backend</span>
+                    <span class="tech-value">Firebase (Auth, FCM, Functions)</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Native</span>
+                    <span class="tech-value">iOS AlarmKit, Android AlarmManager</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Architecture</span>
+                    <span class="tech-value">Clean Architecture, Feature-First</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Highlights -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Architecture Highlights</h2>
+            <div class="architecture-grid animate-on-scroll">
+                <div class="arch-card glass-card">
+                    <h4>Clean Architecture</h4>
+                    <p>Separated domain, data, and presentation layers for maintainability and testability</p>
+                </div>
+                <div class="arch-card glass-card">
+                    <h4>Feature-First Structure</h4>
+                    <p>Organized codebase by features (Chat, Alarms, Notes, Events) for scalable development</p>
+                </div>
+                <div class="arch-card glass-card">
+                    <h4>Reactive State Management</h4>
+                    <p>GetX for efficient state management and dependency injection</p>
+                </div>
+                <div class="arch-card glass-card">
+                    <h4>Offline-First Approach</h4>
+                    <p>Local caching for core features to ensure app usability without connectivity</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="../index.html#projects" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to All Projects
+            </a>
+        </div>
+    </footer>
+
+    <script src="../scripts/canvas.js"></script>
+    <script src="../scripts/main.js"></script>
+</body>
+
+</html>

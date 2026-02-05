@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DIY Marketplace - Handmade Commerce Platform by Subhabrata Das">
+    <title>DIY Marketplace | Subhabrata Das</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/animations.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/project-detail.css">
+</head>
+
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-bracket">&lt;</span>SD<span class="logo-bracket">/&gt;</span>
+            </a>
+            <a href="../index.html#projects" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-hero-content animate-on-scroll">
+                <div class="project-emoji">🛍️</div>
+                <h1 class="project-hero-title">DIY Marketplace</h1>
+                <p class="project-hero-subtitle">Handmade Commerce Platform</p>
+                <div class="project-hero-tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">Moyasar</span>
+                    <span class="tag">RTL</span>
+                    <span class="tag">E-Commerce</span>
+                </div>
+                <div class="project-hero-links">
+                    <a href="#" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"></path>
+                            <path d="M12 8v8m-4-4h8"></path>
+                        </svg>
+                        App Store
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Play Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="section">
+        <div class="container">
+            <div class="project-overview glass-card animate-on-scroll">
+                <h2>Overview</h2>
+                <p>
+                    Built a mobile commerce platform that connects artisans and crafters with buyers seeking
+                    unique handmade products. The app provides a complete marketplace experience with separate
+                    buyer and seller interfaces, real-time messaging, and secure payment processing.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Key Features</h2>
+
+            <div class="features-grid">
+                <!-- Dual-Role Marketplace -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🏪</div>
+                    <h3>Dual-Role Marketplace</h3>
+                    <ul class="feature-list">
+                        <li>Seamless buyer and seller experiences within a single app</li>
+                        <li>Dedicated seller dashboard with sales analytics and earnings tracking</li>
+                        <li>Buyer-focused discovery with search, filters, and category browsing</li>
+                    </ul>
+                </div>
+
+                <!-- Shopping Experience -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🛒</div>
+                    <h3>Complete Shopping Experience</h3>
+                    <ul class="feature-list">
+                        <li>Smooth add-to-cart animations and real-time cart updates</li>
+                        <li>Multi-step checkout flow with address management</li>
+                        <li>Order tracking system with status updates</li>
+                        <li>Product reviews and ratings for buyer feedback</li>
+                    </ul>
+                </div>
+
+                <!-- Payment Integration -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">💳</div>
+                    <h3>Secure Payment Integration</h3>
+                    <ul class="feature-list">
+                        <li>Moyasar payment gateway for secure transactions</li>
+                        <li>Saved payment cards management for faster checkout</li>
+                        <li>Transaction history and payment receipts</li>
+                    </ul>
+                </div>
+
+                <!-- In-App Messaging -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">💬</div>
+                    <h3>In-App Messaging</h3>
+                    <ul class="feature-list">
+                        <li>Real-time chat system for buyer-seller communication</li>
+                        <li>Conversation management with message history</li>
+                        <li>Push notifications for new messages and order updates</li>
+                    </ul>
+                </div>
+
+                <!-- Seller Tools -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🏬</div>
+                    <h3>Seller Tools</h3>
+                    <ul class="feature-list">
+                        <li>Product listing with multiple images and variant support</li>
+                        <li>Shop customization for brand identity</li>
+                        <li>Bank account integration for seamless payouts</li>
+                        <li>Sales analytics dashboard with revenue charts</li>
+                    </ul>
+                </div>
+
+                <!-- Multi-Language Support -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Multi-Language Support</h3>
+                    <ul class="feature-list">
+                        <li>Full Arabic and English localization</li>
+                        <li>RTL (Right-to-Left) layout support for Arabic users</li>
+                        <li>Dynamic language switching without app restart</li>
+                    </ul>
+                </div>
+
+                <!-- Modern UI/UX -->
+                <div class="feature-card glass-card animate-on-scroll">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Modern UI/UX</h3>
+                    <ul class="feature-list">
+                        <li>Skeleton loading states for smooth content transitions</li>
+                        <li>Dark and light theme support with system preference</li>
+                        <li>Responsive layouts for various screen sizes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Tech Stack</h2>
+            <div class="tech-stack-grid animate-on-scroll">
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Frontend</span>
+                    <span class="tech-value">Flutter, Dart, GetX</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Backend</span>
+                    <span class="tech-value">Firebase (Auth, Firestore, FCM)</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Payments</span>
+                    <span class="tech-value">Moyasar</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Storage</span>
+                    <span class="tech-value">GetStorage, Cached Network Images</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Architecture</span>
+                    <span class="tech-value">Clean Architecture, MVC Pattern</span>
+                </div>
+                <div class="tech-item glass-card">
+                    <span class="tech-category">Platforms</span>
+                    <span class="tech-value">iOS, Android</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="../index.html#projects" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to All Projects
+            </a>
+        </div>
+    </footer>
+
+    <script src="../scripts/canvas.js"></script>
+    <script src="../scripts/main.js"></script>
+</body>
+
+</html>
