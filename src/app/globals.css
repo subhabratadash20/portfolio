@@ -486,6 +486,8 @@ button {
   width: min(1000px, 100%);
   height: 620px;
   margin: var(--space-2xl) auto var(--space-3xl);
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
 .pipeline-center {
@@ -585,30 +587,55 @@ button {
   }
 }
 
-.pipeline-orbit {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+/* Individual orbit for each skill icon */
+.orbital-rings {
+  display: none; /* Replaced by individual node orbits */
 }
 
-.pipeline-orbit--outer {
-  --radius: 260px;
-}
-
-.pipeline-orbit--inner {
-  --radius: 190px;
-}
-
-.pipeline-node {
+/* Container for all orbiting nodes */
+.pipeline-orbits {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: rotate(var(--angle)) translateX(var(--radius));
-  transform-origin: center center;
-  animation: orbitSpin var(--spin-duration) linear infinite;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  z-index: 2;
 }
 
-.pipeline-node.orbit-reverse {
+/* Each node has its own orbital plane with visible ring */
+.pipeline-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--orbit-size, 460px);
+  height: var(--orbit-size, 460px);
+  margin-left: calc(var(--orbit-size, 460px) / -2);
+  margin-top: calc(var(--orbit-size, 460px) / -2);
+  transform-style: preserve-3d;
+  /* Each node gets unique 3D rotation via inline style */
+  transform: rotateX(var(--rx, 70deg)) rotateY(var(--ry, 0deg)) rotateZ(var(--rz, 0deg));
+}
+
+/* Visible orbit ring for each node */
+.pipeline-node::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* The actual icon container that travels on the orbit */
+.pipeline-node-traveler {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  animation: orbitTravel var(--spin-duration, 30s) linear infinite;
+}
+
+.pipeline-node.orbit-reverse .pipeline-node-traveler {
   animation-direction: reverse;
 }
 
@@ -622,17 +649,27 @@ button {
   background: transparent;
   border: none;
   border-radius: 0;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   box-shadow: none;
   position: relative;
   cursor: pointer;
   color: inherit;
-  animation: counterSpin var(--spin-duration) linear infinite, nodePulse 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+  /* Counter-rotate to keep icon upright */
+  animation: keepUpright var(--spin-duration, 30s) linear infinite;
 }
 
 .pipeline-node.orbit-reverse .pipeline-node-inner {
-  animation-direction: reverse, normal;
+  animation-direction: reverse;
+}
+
+/* Keep icon facing the viewer */
+.pipeline-node-inner::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .logo-icon {
@@ -641,11 +678,21 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), rgba(124, 58, 237, 0.15));
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(124, 58, 237, 0.3));
   border-radius: 50%;
-  border: 1px solid rgba(0, 217, 255, 0.25);
-  filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.35));
-  animation: iconGlow 3s ease-in-out infinite;
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  box-shadow: 
+      0 0 12px rgba(0, 217, 255, 0.5),
+      0 0 25px rgba(124, 58, 237, 0.3);
+  transition: all 0.3s ease;
+  backface-visibility: visible;
+}
+
+.logo-icon:hover {
+  box-shadow: 
+      0 0 20px rgba(0, 217, 255, 0.8),
+      0 0 40px rgba(124, 58, 237, 0.5);
+  transform: scale(1.2);
 }
 
 .logo-icon img {
@@ -659,41 +706,21 @@ button {
   filter: brightness(0) invert(1);
 }
 
-@keyframes nodePulse {
-  0%, 100% {
-      box-shadow: var(--shadow-md);
-  }
-  50% {
-      box-shadow: 0 0 18px rgba(124, 58, 237, 0.35);
-  }
-}
-
-@keyframes orbitSpin {
+@keyframes orbitTravel {
   from {
-      transform: rotate(var(--angle)) translateX(var(--radius));
+      transform: rotate(0deg) translateX(calc(var(--orbit-size, 460px) / 2));
   }
   to {
-      transform: rotate(calc(var(--angle) + 360deg)) translateX(var(--radius));
+      transform: rotate(360deg) translateX(calc(var(--orbit-size, 460px) / 2));
   }
 }
 
-@keyframes counterSpin {
+@keyframes keepUpright {
   from {
-      transform: rotate(calc(-1 * var(--angle)));
+      transform: rotateZ(0deg) rotateX(calc(-1 * var(--rx, 70deg))) rotateY(calc(-1 * var(--ry, 0deg)));
   }
   to {
-      transform: rotate(calc(-1 * var(--angle) - 360deg));
-  }
-}
-
-@keyframes iconGlow {
-  0%, 100% {
-      filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.35));
-      transform: scale(1);
-  }
-  50% {
-      filter: drop-shadow(0 0 12px rgba(124, 58, 237, 0.55));
-      transform: scale(1.05);
+      transform: rotateZ(-360deg) rotateX(calc(-1 * var(--rx, 70deg))) rotateY(calc(-1 * var(--ry, 0deg)));
   }
 }
 
@@ -734,44 +761,16 @@ button {
 
 @media (max-width: 1024px) {
   .pipeline-wrapper {
-      height: 520px;
+      height: 500px;
   }
 
-  .pipeline-orbit--outer {
-      --radius: 220px;
-  }
-
-  .pipeline-orbit--inner {
-      --radius: 165px;
+  .pipeline-node {
+      --orbit-size: 360px !important;
   }
 
   .pipeline-center {
-      width: 220px;
-      height: 220px;
-  }
-}
-
-@media (max-width: 900px) {
-  .pipeline-wrapper {
-      height: 480px;
-  }
-
-  .pipeline-orbit--outer {
-      --radius: 200px;
-  }
-
-  .pipeline-orbit--inner {
-      --radius: 150px;
-  }
-
-  .pipeline-center {
-      width: 200px;
-      height: 200px;
-  }
-
-  .pipeline-node-inner {
-      min-width: 78px;
-      padding: 8px 10px;
+      width: 180px;
+      height: 180px;
   }
 
   .logo-icon {
@@ -785,15 +784,37 @@ button {
   }
 }
 
+@media (max-width: 900px) {
+  .pipeline-wrapper {
+      height: 450px;
+  }
+
+  .pipeline-node {
+      --orbit-size: 320px !important;
+  }
+
+  .pipeline-center {
+      width: 160px;
+      height: 160px;
+  }
+
+  .logo-icon {
+      width: 36px;
+      height: 36px;
+  }
+
+  .logo-icon img {
+      width: 20px;
+      height: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .pipeline-wrapper {
       height: auto;
       margin: var(--space-xl) auto var(--space-2xl);
       padding: 0 var(--space-md);
-  }
-
-  .pipeline-lines {
-      display: none;
+      perspective: none;
   }
 
   .pipeline-center {
@@ -802,8 +823,8 @@ button {
       left: auto;
       transform: none;
       margin: 0 auto var(--space-xl);
-      width: 180px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
   }
 
   .sun-core::before {
@@ -814,28 +835,39 @@ button {
       inset: -24px;
   }
 
-  .pipeline-orbit {
+  /* Grid layout for mobile */
+  .pipeline-orbits {
       position: static;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: var(--space-md);
       height: auto;
-      margin-bottom: var(--space-lg);
-  }
-
-  .pipeline-orbit--inner {
-      margin-bottom: 0;
+      width: 100%;
+      transform: none;
   }
 
   .pipeline-node {
       position: static;
-      transform: none;
-      animation: none;
+      width: auto !important;
+      height: auto !important;
+      margin: 0 !important;
+      transform: none !important;
+  }
+
+  /* Hide orbit rings on mobile */
+  .pipeline-node::before {
+      display: none;
+  }
+
+  .pipeline-node-traveler {
+      position: static;
+      animation: none !important;
   }
 
   .pipeline-node-inner {
       width: 100%;
-      animation: nodePulse 6s ease-in-out infinite;
+      transform: none !important;
+      animation: none !important;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -853,7 +885,7 @@ button {
       height: 20px;
   }
 
-  /* Show labels on mobile since hover doesn't work well */
+  /* Show labels on mobile */
   .pipeline-node-inner::after {
       position: static;
       transform: none;
@@ -868,14 +900,14 @@ button {
 }
 
 @media (max-width: 600px) {
-  .pipeline-orbit {
+  .pipeline-orbits {
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-sm);
   }
 
   .pipeline-center {
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
   }
 
   .logo-icon {
@@ -898,14 +930,14 @@ button {
       padding: 0;
   }
 
-  .pipeline-orbit {
+  .pipeline-orbits {
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-xs);
   }
 
   .pipeline-center {
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       margin-bottom: var(--space-lg);
   }
 
@@ -946,8 +978,8 @@ button {
   }
 
   .pipeline-center {
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
   }
 
   .logo-icon {
@@ -2210,30 +2242,216 @@ button {
 .hire-card {
   padding: var(--space-2xl);
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(26, 26, 46, 0.8) 0%, rgba(18, 18, 26, 0.9) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  transition: all var(--transition-base);
 }
 
-.hire-icon {
-  width: 64px;
-  height: 64px;
+/* Futuristic glow border effect */
+.hire-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(0, 217, 255, 0.5), rgba(124, 58, 237, 0.5));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+/* Animated corner accents */
+.hire-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border-top: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+  opacity: 0.5;
+  transition: all var(--transition-base);
+}
+
+.hire-card:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  transform: translateY(-8px);
+  box-shadow: 
+      0 20px 40px rgba(124, 58, 237, 0.2),
+      0 0 30px rgba(0, 217, 255, 0.1);
+}
+
+.hire-card:hover::before {
+  opacity: 1;
+}
+
+.hire-card:hover::after {
+  width: 50px;
+  height: 50px;
+  opacity: 1;
+}
+
+.hire-icon-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto var(--space-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--gradient-primary);
+}
+
+.hire-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
   border-radius: 50%;
   color: white;
-  margin: 0 auto var(--space-lg);
+  position: relative;
+  z-index: 3;
+  box-shadow: 
+      0 0 20px rgba(124, 58, 237, 0.5),
+      0 0 40px rgba(0, 217, 255, 0.3);
+}
+
+/* Orbital rings - React-style atom */
+.hire-orbit {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid rgba(0, 217, 255, 0.3);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+}
+
+.hire-orbit--1 {
+  transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg);
+  animation: orbitRotate1 8s linear infinite;
+}
+
+.hire-orbit--2 {
+  transform: translate(-50%, -50%) rotateX(70deg) rotateZ(60deg);
+  animation: orbitRotate2 10s linear infinite;
+}
+
+.hire-orbit--3 {
+  transform: translate(-50%, -50%) rotateX(70deg) rotateZ(120deg);
+  animation: orbitRotate3 12s linear infinite;
+}
+
+/* Traveling particles on orbits */
+.hire-orbit::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 
+      0 0 10px var(--color-accent),
+      0 0 20px var(--color-accent);
+  animation: particleGlow 2s ease-in-out infinite;
+}
+
+.hire-orbit--2::before {
+  background: var(--color-primary-light);
+  box-shadow: 
+      0 0 10px var(--color-primary-light),
+      0 0 20px var(--color-primary);
+  animation-delay: 0.5s;
+}
+
+.hire-orbit--3::before {
+  background: #fff;
+  box-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(0, 217, 255, 0.5);
+  animation-delay: 1s;
+}
+
+@keyframes orbitRotate1 {
+  from { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg); }
+  to { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(360deg); }
+}
+
+@keyframes orbitRotate2 {
+  from { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(60deg); }
+  to { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(420deg); }
+}
+
+@keyframes orbitRotate3 {
+  from { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(120deg); }
+  to { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(480deg); }
+}
+
+@keyframes particleGlow {
+  0%, 100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+  }
+  50% {
+      opacity: 0.6;
+      transform: translateX(-50%) scale(0.8);
+  }
 }
 
 .hire-card h3 {
   font-size: var(--text-lg);
   font-weight: 600;
   margin-bottom: var(--space-md);
+  background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hire-card p {
   color: var(--color-text-secondary);
   font-size: var(--text-sm);
-  line-height: 1.6;
+  line-height: 1.7;
+}
+
+/* Reduce animations on mobile for performance */
+@media (max-width: 768px) {
+  .hire-icon-wrapper {
+      width: 80px;
+      height: 80px;
+  }
+
+  .hire-icon {
+      width: 48px;
+      height: 48px;
+  }
+
+  .hire-orbit {
+      animation: none;
+      border-color: rgba(0, 217, 255, 0.15);
+  }
+  
+  .hire-orbit::before {
+      display: none;
+  }
+  
+  .hire-card::after {
+      display: none;
+  }
+
+  .hire-card::before {
+      display: none;
+  }
 }
 
 .project-subtitle {

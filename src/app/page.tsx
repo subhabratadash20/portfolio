@@ -87,42 +87,44 @@ type LogoNode = {
   key: string;
   label: string;
   icon: string;
-  angle: string;
-  delay: number;
   duration: number;
   reverse?: boolean;
+  // 3D rotation for the orbital plane
+  rx: number;
+  ry: number;
+  rz: number;
+  // Orbit size
+  size: number;
 };
 
-const orbitStyle = (angle: string, duration: number) =>
-  ({ "--angle": angle, "--spin-duration": `${duration}s` } as CSSProperties);
 const iconify = (icon: string) =>
   `https://api.iconify.design/${icon}.svg?color=%23ffffff`;
 
-const logoNodesOuter: LogoNode[] = [
-  { key: "flutter", label: "Flutter", icon: iconify("simple-icons:flutter"), angle: "-90deg", delay: 0, duration: 38 },
-  { key: "dart", label: "Dart", icon: iconify("simple-icons:dart"), angle: "-60deg", delay: 150, duration: 34, reverse: true },
-  { key: "firebase", label: "Firebase", icon: iconify("simple-icons:firebase"), angle: "-30deg", delay: 300, duration: 42 },
-  { key: "google-cloud", label: "Google Cloud", icon: iconify("simple-icons:googlecloud"), angle: "0deg", delay: 450, duration: 36, reverse: true },
-  { key: "openai", label: "OpenAI", icon: iconify("simple-icons:openai"), angle: "30deg", delay: 600, duration: 40 },
-  { key: "gemini", label: "Gemini", icon: iconify("simple-icons:googlegemini"), angle: "60deg", delay: 750, duration: 32, reverse: true },
-  { key: "claude", label: "Claude", icon: iconify("simple-icons:anthropic"), angle: "90deg", delay: 900, duration: 44 },
-  { key: "google-maps", label: "Google Maps", icon: iconify("simple-icons:googlemaps"), angle: "120deg", delay: 1050, duration: 35, reverse: true },
-  { key: "git", label: "Git", icon: iconify("simple-icons:git"), angle: "150deg", delay: 1200, duration: 39 },
-  { key: "python", label: "Python", icon: iconify("simple-icons:python"), angle: "180deg", delay: 1350, duration: 33, reverse: true },
-  { key: "java", label: "Java", icon: iconify("mdi:language-java"), angle: "210deg", delay: 1500, duration: 41 },
-  { key: "c", label: "C", icon: iconify("simple-icons:c"), angle: "240deg", delay: 1650, duration: 37, reverse: true },
-];
-
-const logoNodesInner: LogoNode[] = [
-  { key: "getx", label: "GetX", icon: iconify("simple-icons:getx"), angle: "-80deg", delay: 100, duration: 26 },
-  { key: "provider", label: "Provider", icon: iconify("mdi:layers-triple"), angle: "-40deg", delay: 250, duration: 24, reverse: true },
-  { key: "riverpod", label: "Riverpod", icon: "https://riverpod.dev/img/logo.svg", angle: "0deg", delay: 400, duration: 28 },
-  { key: "hive", label: "Hive", icon: iconify("simple-icons:apachehive"), angle: "40deg", delay: 550, duration: 22, reverse: true },
-  { key: "nosql", label: "NoSQL", icon: iconify("tabler:database"), angle: "80deg", delay: 700, duration: 30 },
-  { key: "rest", label: "REST APIs", icon: iconify("tabler:api"), angle: "120deg", delay: 850, duration: 23, reverse: true },
-  { key: "geofencing", label: "Geofencing", icon: iconify("tabler:map-pin"), angle: "160deg", delay: 1000, duration: 27 },
-  { key: "cicd", label: "CI/CD", icon: iconify("tabler:git-merge"), angle: "200deg", delay: 1150, duration: 25, reverse: true },
-  { key: "agile", label: "Agile", icon: iconify("tabler:repeat"), angle: "240deg", delay: 1300, duration: 29 },
+// Each icon gets its own unique 3D orbital plane
+const skillNodes: LogoNode[] = [
+  // Outer orbit nodes - larger orbits, various 3D orientations
+  { key: "flutter", label: "Flutter", icon: iconify("simple-icons:flutter"), duration: 35, rx: 75, ry: 0, rz: 0, size: 460 },
+  { key: "dart", label: "Dart", icon: iconify("simple-icons:dart"), duration: 32, reverse: true, rx: 70, ry: 30, rz: 15, size: 480 },
+  { key: "firebase", label: "Firebase", icon: iconify("simple-icons:firebase"), duration: 38, rx: 65, ry: 60, rz: 0, size: 450 },
+  { key: "google-cloud", label: "Google Cloud", icon: iconify("simple-icons:googlecloud"), duration: 30, reverse: true, rx: 75, ry: 90, rz: 10, size: 470 },
+  { key: "openai", label: "OpenAI", icon: iconify("simple-icons:openai"), duration: 36, rx: 60, ry: 120, rz: 20, size: 455 },
+  { key: "gemini", label: "Gemini", icon: iconify("simple-icons:googlegemini"), duration: 33, reverse: true, rx: 70, ry: 150, rz: 5, size: 475 },
+  { key: "claude", label: "Claude", icon: iconify("simple-icons:anthropic"), duration: 40, rx: 65, ry: 180, rz: 25, size: 465 },
+  { key: "google-maps", label: "Google Maps", icon: iconify("simple-icons:googlemaps"), duration: 34, reverse: true, rx: 75, ry: 210, rz: 0, size: 445 },
+  { key: "git", label: "Git", icon: iconify("simple-icons:git"), duration: 37, rx: 70, ry: 240, rz: 15, size: 485 },
+  { key: "python", label: "Python", icon: iconify("simple-icons:python"), duration: 31, reverse: true, rx: 60, ry: 270, rz: 10, size: 460 },
+  { key: "java", label: "Java", icon: iconify("mdi:language-java"), duration: 39, rx: 75, ry: 300, rz: 20, size: 470 },
+  { key: "c", label: "C", icon: iconify("simple-icons:c"), duration: 35, reverse: true, rx: 65, ry: 330, rz: 5, size: 455 },
+  // Inner orbit nodes - smaller orbits, different 3D orientations
+  { key: "getx", label: "GetX", icon: iconify("simple-icons:getx"), duration: 28, rx: 80, ry: 15, rz: 30, size: 340 },
+  { key: "provider", label: "Provider", icon: iconify("mdi:layers-triple"), duration: 25, reverse: true, rx: 70, ry: 55, rz: 45, size: 350 },
+  { key: "riverpod", label: "Riverpod", icon: "https://riverpod.dev/img/logo.svg", duration: 30, rx: 75, ry: 95, rz: 15, size: 330 },
+  { key: "hive", label: "Hive", icon: iconify("simple-icons:apachehive"), duration: 26, reverse: true, rx: 65, ry: 135, rz: 60, size: 360 },
+  { key: "nosql", label: "NoSQL", icon: iconify("tabler:database"), duration: 32, rx: 80, ry: 175, rz: 25, size: 345 },
+  { key: "rest", label: "REST APIs", icon: iconify("tabler:api"), duration: 27, reverse: true, rx: 70, ry: 215, rz: 40, size: 355 },
+  { key: "geofencing", label: "Geofencing", icon: iconify("tabler:map-pin"), duration: 29, rx: 75, ry: 255, rz: 10, size: 335 },
+  { key: "cicd", label: "CI/CD", icon: iconify("tabler:git-merge"), duration: 24, reverse: true, rx: 65, ry: 295, rz: 55, size: 365 },
+  { key: "agile", label: "Agile", icon: iconify("tabler:repeat"), duration: 31, rx: 80, ry: 335, rz: 20, size: 340 },
 ];
 
 export default function Home() {
@@ -183,6 +185,7 @@ export default function Home() {
             </a>
           </div>
           <div className="pipeline-wrapper animate-on-scroll">
+            {/* Central profile photo */}
             <div className="pipeline-center sun-core">
               <img
                 className="profile-photo"
@@ -192,61 +195,41 @@ export default function Home() {
                 height={220}
               />
             </div>
-            <svg className="pipeline-lines" viewBox="0 0 1000 600" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="pipeGradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#7C3AED" />
-                  <stop offset="100%" stopColor="#00D9FF" />
-                </linearGradient>
-              </defs>
-              <path className="pipeline-base" d="M500 300 m -260 0 a 260 260 0 1 0 520 0 a 260 260 0 1 0 -520 0" />
-              <path className="pipeline-flow pipeline-flow--outer" d="M500 300 m -260 0 a 260 260 0 1 0 520 0 a 260 260 0 1 0 -520 0" />
-              <path className="pipeline-base pipeline-base--inner" d="M500 300 m -190 0 a 190 190 0 1 0 380 0 a 190 190 0 1 0 -380 0" />
-              <path className="pipeline-flow pipeline-flow--inner" d="M500 300 m -190 0 a 190 190 0 1 0 380 0 a 190 190 0 1 0 -380 0" />
-            </svg>
-            <div className="pipeline-orbit pipeline-orbit--outer">
-              {logoNodesOuter.map((node) => (
+            
+            {/* Each skill icon has its own orbit with unique 3D orientation */}
+            <div className="pipeline-orbits">
+              {skillNodes.map((node) => (
                 <div
                   key={node.key}
                   className={`pipeline-node ${node.reverse ? "orbit-reverse" : ""}`}
-                  style={orbitStyle(node.angle, node.duration)}
+                  style={{
+                    "--rx": `${node.rx}deg`,
+                    "--ry": `${node.ry}deg`,
+                    "--rz": `${node.rz}deg`,
+                    "--orbit-size": `${node.size}px`,
+                    "--spin-duration": `${node.duration}s`,
+                  } as React.CSSProperties}
                 >
-                  <button
-                    type="button"
-                    className="pipeline-node-inner"
-                    data-label={node.label}
-                    aria-label={node.label}
-                    style={{ animationDelay: `${node.delay}ms` }}
-                  >
-                  <div className="logo-icon">
-                    <img src={node.icon} alt={node.label} />
+                  <div className="pipeline-node-traveler">
+                    <button
+                      type="button"
+                      className="pipeline-node-inner"
+                      data-label={node.label}
+                      aria-label={node.label}
+                      style={{
+                        "--rx": `${node.rx}deg`,
+                        "--ry": `${node.ry}deg`,
+                      } as React.CSSProperties}
+                    >
+                      <div className="logo-icon">
+                        <img
+                          src={node.icon}
+                          alt={node.label}
+                          style={node.key === "riverpod" ? { filter: "brightness(0) invert(1)" } : undefined}
+                        />
+                      </div>
+                    </button>
                   </div>
-                  </button>
-                </div>
-              ))}
-            </div>
-            <div className="pipeline-orbit pipeline-orbit--inner">
-              {logoNodesInner.map((node) => (
-                <div
-                  key={node.key}
-                  className={`pipeline-node ${node.reverse ? "orbit-reverse" : ""}`}
-                  style={orbitStyle(node.angle, node.duration)}
-                >
-                  <button
-                    type="button"
-                    className="pipeline-node-inner"
-                    data-label={node.label}
-                    aria-label={node.label}
-                    style={{ animationDelay: `${node.delay}ms` }}
-                  >
-                  <div className="logo-icon">
-                    <img
-                      src={node.icon}
-                      alt={node.label}
-                      style={node.key === "riverpod" ? { filter: "brightness(0) invert(1)" } : undefined}
-                    />
-                  </div>
-                  </button>
                 </div>
               ))}
             </div>
@@ -555,30 +538,45 @@ export default function Home() {
           <div className="hire-content">
             <div className="hire-grid">
             <div className="hire-card glass-card animate-on-scroll">
-              <div className="hire-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
+              <div className="hire-icon-wrapper">
+                <div className="hire-orbit hire-orbit--1"></div>
+                <div className="hire-orbit hire-orbit--2"></div>
+                <div className="hire-orbit hire-orbit--3"></div>
+                <div className="hire-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
               </div>
               <h3>3+ Years Experience</h3>
               <p>Real-world Flutter development experience across diverse industry sectors</p>
             </div>
             <div className="hire-card glass-card animate-on-scroll">
-              <div className="hire-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
+              <div className="hire-icon-wrapper">
+                <div className="hire-orbit hire-orbit--1"></div>
+                <div className="hire-orbit hire-orbit--2"></div>
+                <div className="hire-orbit hire-orbit--3"></div>
+                <div className="hire-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                  </svg>
+                </div>
               </div>
               <h3>Proven Track Record</h3>
               <p>Delivering high-quality apps published on App Store & Play Store</p>
             </div>
             <div className="hire-card glass-card animate-on-scroll">
-              <div className="hire-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
+              <div className="hire-icon-wrapper">
+                <div className="hire-orbit hire-orbit--1"></div>
+                <div className="hire-orbit hire-orbit--2"></div>
+                <div className="hire-orbit hire-orbit--3"></div>
+                <div className="hire-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
               </div>
               <h3>Deadline Committed</h3>
               <p>Client-oriented approach with strong commitment to timelines</p>
