@@ -6,42 +6,57 @@
      useEffect(() => {
          const cleanups: Array<() => void> = [];
  
-         const initScrollProgress = () => {
-             const progressBar = document.getElementById("scrollProgress");
-             if (!progressBar) return;
+const initScrollProgress = () => {
+            const progressBar = document.getElementById("scrollProgress");
+            if (!progressBar) return;
+
+            let ticking = false;
+            const handleScroll = () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const scrollTop = window.scrollY;
+                        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                        progressBar.style.width = `${progress}%`;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            };
+
+            window.addEventListener("scroll", handleScroll, { passive: true });
+            handleScroll();
+
+            cleanups.push(() => window.removeEventListener("scroll", handleScroll));
+        };
  
-             const handleScroll = () => {
-                 const scrollTop = window.scrollY;
-                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                 const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-                 progressBar.style.width = `${progress}%`;
-             };
- 
-             window.addEventListener("scroll", handleScroll);
-             handleScroll();
- 
-             cleanups.push(() => window.removeEventListener("scroll", handleScroll));
-         };
- 
-         const initNavigation = () => {
-             const nav = document.getElementById("nav");
-             if (!nav) return;
- 
-             let lastScroll = 0;
-             const handleScroll = () => {
-                 const currentScroll = window.scrollY;
- 
-                 if (currentScroll > lastScroll && currentScroll > 100) {
-                     nav.classList.add("hidden");
-                 } else {
-                     nav.classList.remove("hidden");
-                 }
- 
-                 lastScroll = currentScroll;
-             };
- 
-             window.addEventListener("scroll", handleScroll);
-             cleanups.push(() => window.removeEventListener("scroll", handleScroll));
+const initNavigation = () => {
+            const nav = document.getElementById("nav");
+            if (!nav) return;
+
+            let lastScroll = 0;
+            let ticking = false;
+            
+            const handleScroll = () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const currentScroll = window.scrollY;
+
+                        if (currentScroll > lastScroll && currentScroll > 100) {
+                            nav.classList.add("hidden");
+                        } else {
+                            nav.classList.remove("hidden");
+                        }
+
+                        lastScroll = currentScroll;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            };
+
+            window.addEventListener("scroll", handleScroll, { passive: true });
+            cleanups.push(() => window.removeEventListener("scroll", handleScroll));
  
 const navToggle = document.getElementById("navToggle");
             const navMenu = document.getElementById("navMenu");
@@ -110,40 +125,49 @@ const navToggle = document.getElementById("navToggle");
              });
          };
  
-         const initScrollAnimations = () => {
-             const animatedElements = document.querySelectorAll<HTMLElement>(".animate-on-scroll");
-             if (!animatedElements.length) return;
- 
-             const observer = new IntersectionObserver(
-                 (entries) => {
-                     entries.forEach((entry) => {
-                         if (entry.isIntersecting) {
-                             entry.target.classList.add("animated");
-                         }
-                     });
-                 },
-                 {
-                     threshold: 0.1,
-                     rootMargin: "0px 0px -50px 0px",
-                 }
-             );
- 
-             animatedElements.forEach((el) => observer.observe(el));
- 
-             const rafId = requestAnimationFrame(() => {
-                 animatedElements.forEach((el) => {
-                     const rect = el.getBoundingClientRect();
-                     if (rect.top < window.innerHeight && rect.bottom > 0) {
-                         el.classList.add("animated");
-                     }
-                 });
-             });
- 
-             cleanups.push(() => {
-                 observer.disconnect();
-                 cancelAnimationFrame(rafId);
-             });
-         };
+const initScrollAnimations = () => {
+            const animatedElements = document.querySelectorAll<HTMLElement>(".animate-on-scroll");
+            if (!animatedElements.length) return;
+
+            // Detect mobile for adjusted thresholds
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            // Use requestAnimationFrame for smoother class additions
+                            requestAnimationFrame(() => {
+                                entry.target.classList.add("animated");
+                            });
+                            // Unobserve after animating to reduce work
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: isMobile ? 0.05 : 0.1,
+                    rootMargin: isMobile ? "0px 0px -20px 0px" : "0px 0px -50px 0px",
+                }
+            );
+
+            animatedElements.forEach((el) => observer.observe(el));
+
+            // Initial check for elements already in view
+            requestAnimationFrame(() => {
+                animatedElements.forEach((el) => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        el.classList.add("animated");
+                        observer.unobserve(el);
+                    }
+                });
+            });
+
+            cleanups.push(() => {
+                observer.disconnect();
+            });
+        };
  
          const initTypewriter = () => {
              const typewriter = document.getElementById("typewriter");

@@ -109,13 +109,13 @@ const logoNodesOuter: LogoNode[] = [
   { key: "google-maps", label: "Google Maps", icon: iconify("simple-icons:googlemaps"), angle: "120deg", delay: 1050, duration: 35, reverse: true },
   { key: "git", label: "Git", icon: iconify("simple-icons:git"), angle: "150deg", delay: 1200, duration: 39 },
   { key: "python", label: "Python", icon: iconify("simple-icons:python"), angle: "180deg", delay: 1350, duration: 33, reverse: true },
-  { key: "java", label: "Java", icon: iconify("simple-icons:java"), angle: "210deg", delay: 1500, duration: 41 },
+  { key: "java", label: "Java", icon: iconify("mdi:language-java"), angle: "210deg", delay: 1500, duration: 41 },
   { key: "c", label: "C", icon: iconify("simple-icons:c"), angle: "240deg", delay: 1650, duration: 37, reverse: true },
 ];
 
 const logoNodesInner: LogoNode[] = [
   { key: "getx", label: "GetX", icon: iconify("simple-icons:getx"), angle: "-80deg", delay: 100, duration: 26 },
-  { key: "provider", label: "Provider", icon: iconify("tabler:layers"), angle: "-40deg", delay: 250, duration: 24, reverse: true },
+  { key: "provider", label: "Provider", icon: iconify("mdi:layers-triple"), angle: "-40deg", delay: 250, duration: 24, reverse: true },
   { key: "riverpod", label: "Riverpod", icon: "https://riverpod.dev/img/logo.svg", angle: "0deg", delay: 400, duration: 28 },
   { key: "hive", label: "Hive", icon: iconify("simple-icons:apachehive"), angle: "40deg", delay: 550, duration: 22, reverse: true },
   { key: "nosql", label: "NoSQL", icon: iconify("tabler:database"), angle: "80deg", delay: 700, duration: 30 },
@@ -240,7 +240,11 @@ export default function Home() {
                     style={{ animationDelay: `${node.delay}ms` }}
                   >
                   <div className="logo-icon">
-                    <img src={node.icon} alt={node.label} />
+                    <img
+                      src={node.icon}
+                      alt={node.label}
+                      style={node.key === "riverpod" ? { filter: "brightness(0) invert(1)" } : undefined}
+                    />
                   </div>
                   </button>
                 </div>
@@ -548,7 +552,8 @@ export default function Home() {
             <span className="section-number">05.</span>
             Why Hire Me?
           </h2>
-          <div className="hire-grid">
+          <div className="hire-content">
+            <div className="hire-grid">
             <div className="hire-card glass-card animate-on-scroll">
               <div className="hire-icon">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -578,6 +583,7 @@ export default function Home() {
               <h3>Deadline Committed</h3>
               <p>Client-oriented approach with strong commitment to timelines</p>
             </div>
+          </div>
           </div>
         </div>
       </section>

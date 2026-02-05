@@ -654,6 +654,11 @@ button {
   display: block;
 }
 
+/* Make Riverpod logo white to match other icons */
+.logo-icon img[alt="Riverpod"] {
+  filter: brightness(0) invert(1);
+}
+
 @keyframes nodePulse {
   0%, 100% {
       box-shadow: var(--shadow-md);
@@ -1212,17 +1217,11 @@ button {
 
   /* Hire Grid Mobile */
   .hire-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-lg);
+      gap: var(--space-md);
   }
 
   .hire-card {
-      padding: var(--space-xl);
-  }
-
-  .hire-icon {
-      width: 56px;
-      height: 56px;
+      padding: var(--space-lg);
   }
 
   /* Contact Section Mobile */
@@ -1363,7 +1362,8 @@ button {
   .timeline-details li {
       font-size: var(--text-xs);
   }
-}
+
+  }
 
 /* Extra small phones */
 @media (max-width: 360px) {
@@ -1387,7 +1387,8 @@ button {
   .hero-badge {
       font-size: 0.65rem;
   }
-}
+
+  }
 
 /* =========================================
    Legacy Styles: animations.css
@@ -1534,6 +1535,79 @@ button {
   .animate-on-scroll {
       opacity: 1;
       transform: none;
+  }
+}
+
+/* =========================================
+   Mobile Performance Optimizations
+   ========================================= */
+@media (max-width: 768px) {
+  /* Reduce backdrop-filter usage (very expensive on mobile) */
+  .glass-card,
+  .nav,
+  .nav-menu {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Simplify box-shadows on mobile */
+  .glass-card:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Reduce animation complexity */
+  .pipeline-node-inner {
+      animation: none;
+  }
+
+  .logo-icon {
+      animation: none;
+      filter: none;
+  }
+
+  /* Disable glow effects on mobile for performance */
+  .sun-core {
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
+  }
+
+  .sun-core::before,
+  .sun-core::after {
+      box-shadow: none;
+  }
+
+  /* Simplify scroll animations */
+  .animate-on-scroll {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  /* GPU acceleration hints for animated elements */
+  .pipeline-node,
+  .animate-on-scroll,
+  .nav {
+      will-change: transform;
+      transform: translateZ(0);
+  }
+}
+
+/* Touch device specific optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable all hover-triggered animations */
+  .glass-card:hover,
+  .btn:hover,
+  .skill-tag:hover,
+  .project-link:hover,
+  .nav-link:hover {
+      transform: none;
+  }
+
+  /* Reduce particle canvas opacity on touch devices */
+  #particle-canvas {
+      opacity: 0.6;
+  }
+
+  /* Simplify transitions */
+  * {
+      transition-duration: 0.2s !important;
   }
 }
 
@@ -2120,10 +2194,17 @@ button {
   color: var(--color-accent);
 }
 
+.hire-content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .hire-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
 }
 
 .hire-card {
