@@ -131,6 +131,7 @@ export default function Home() {
       <LegacyCanvas />
       <div className="scroll-progress" id="scrollProgress"></div>
 
+      <div className="nav-backdrop" id="navBackdrop"></div>
       <nav className="nav" id="nav">
         <div className="nav-container">
           <a href="#hero" className="nav-logo">

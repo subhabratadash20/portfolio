@@ -43,28 +43,50 @@
              window.addEventListener("scroll", handleScroll);
              cleanups.push(() => window.removeEventListener("scroll", handleScroll));
  
-             const navToggle = document.getElementById("navToggle");
-             const navMenu = document.getElementById("navMenu");
-             const navLinks = Array.from(document.querySelectorAll<HTMLElement>(".nav-link"));
- 
-             if (navToggle && navMenu) {
-                 const toggleMenu = () => {
-                     navToggle.classList.toggle("active");
-                     navMenu.classList.toggle("active");
-                 };
- 
-                 navToggle.addEventListener("click", toggleMenu);
-                 cleanups.push(() => navToggle.removeEventListener("click", toggleMenu));
- 
-                 navLinks.forEach((link) => {
-                     const closeMenu = () => {
-                         navToggle.classList.remove("active");
-                         navMenu.classList.remove("active");
-                     };
-                     link.addEventListener("click", closeMenu);
-                     cleanups.push(() => link.removeEventListener("click", closeMenu));
-                 });
-             }
+const navToggle = document.getElementById("navToggle");
+            const navMenu = document.getElementById("navMenu");
+            const navBackdrop = document.getElementById("navBackdrop");
+            const navLinks = Array.from(document.querySelectorAll<HTMLElement>(".nav-link"));
+
+            if (navToggle && navMenu) {
+                const toggleMenu = () => {
+                    navToggle.classList.toggle("active");
+                    navMenu.classList.toggle("active");
+                    navBackdrop?.classList.toggle("active");
+                    // Prevent body scroll when menu is open
+                    document.body.style.overflow = navMenu.classList.contains("active") ? "hidden" : "";
+                };
+
+                const closeMenu = () => {
+                    navToggle.classList.remove("active");
+                    navMenu.classList.remove("active");
+                    navBackdrop?.classList.remove("active");
+                    document.body.style.overflow = "";
+                };
+
+                navToggle.addEventListener("click", toggleMenu);
+                cleanups.push(() => navToggle.removeEventListener("click", toggleMenu));
+
+                // Close menu when clicking backdrop
+                if (navBackdrop) {
+                    navBackdrop.addEventListener("click", closeMenu);
+                    cleanups.push(() => navBackdrop.removeEventListener("click", closeMenu));
+                }
+
+                navLinks.forEach((link) => {
+                    link.addEventListener("click", closeMenu);
+                    cleanups.push(() => link.removeEventListener("click", closeMenu));
+                });
+
+                // Close menu on escape key
+                const handleEscape = (e: KeyboardEvent) => {
+                    if (e.key === "Escape" && navMenu.classList.contains("active")) {
+                        closeMenu();
+                    }
+                };
+                document.addEventListener("keydown", handleEscape);
+                cleanups.push(() => document.removeEventListener("keydown", handleEscape));
+            }
  
              navLinks.forEach((link) => {
                  const handleClick = (e: Event) => {
@@ -244,9 +266,13 @@
              });
          };
  
-         const initTiltEffect = () => {
-             const tiltElements = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
-             if (!tiltElements.length) return;
+const initTiltEffect = () => {
+            // Disable tilt effect on touch devices
+            const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+            if (isTouchDevice) return;
+
+            const tiltElements = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
+            if (!tiltElements.length) return;
  
              tiltElements.forEach((el) => {
                  let rotation = { x: 0, y: 0 };
