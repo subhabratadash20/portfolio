@@ -30,7 +30,7 @@ export default function Contact() {
                             </div>
                         </a>
 
-                        <a href="https://linkedin.com/in/subhabratadas" target="_blank" rel="noopener noreferrer" className="glass-card p-8 rounded-2xl hover:border-accent/40 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center gap-4 group">
+                        <a href="https://linkedin.com/in/subhabratadash" target="_blank" rel="noopener noreferrer" className="glass-card p-8 rounded-2xl hover:border-accent/40 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center gap-4 group">
                             <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-text-secondary group-hover:text-accent group-hover:bg-accent/10 transition-colors">
                                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                             </div>

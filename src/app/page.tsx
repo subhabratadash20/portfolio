@@ -3,6 +3,7 @@ import type { ReactNode, CSSProperties } from "react";
 import profilePhoto from "../../1770286377375(1).png";
 import LegacyCanvas from "@/components/LegacyCanvas";
 import LegacyInteractions from "@/components/LegacyInteractions";
+import Navbar from "@/components/Navbar";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
@@ -133,26 +134,7 @@ export default function Home() {
       <LegacyCanvas />
       <div className="scroll-progress" id="scrollProgress"></div>
 
-      <div className="nav-backdrop" id="navBackdrop"></div>
-      <nav className="nav" id="nav">
-        <div className="nav-container">
-          <a href="#hero" className="nav-logo">
-            <span className="logo-bracket">&lt;</span>SD<span className="logo-bracket">/&gt;</span>
-          </a>
-          <button className="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <ul className="nav-menu" id="navMenu">
-            <li><a href="#about" className="nav-link">About</a></li>
-            <li><a href="#experience" className="nav-link">Experience</a></li>
-            <li><a href="#skills" className="nav-link">Skills</a></li>
-            <li><a href="#projects" className="nav-link">Projects</a></li>
-            <li><a href="#contact" className="nav-link nav-link--cta">Contact</a></li>
-          </ul>
-        </div>
-      </nav>
+      <Navbar />
 
       <section className="hero" id="hero">
         <div className="hero-content">
@@ -195,7 +177,7 @@ export default function Home() {
                 height={220}
               />
             </div>
-            
+
             {/* Each skill icon has its own orbit with unique 3D orientation */}
             <div className="pipeline-orbits">
               {skillNodes.map((node) => (
@@ -537,51 +519,51 @@ export default function Home() {
           </h2>
           <div className="hire-content">
             <div className="hire-grid">
-            <div className="hire-card glass-card animate-on-scroll">
-              <div className="hire-icon-wrapper">
-                <div className="hire-orbit hire-orbit--1"></div>
-                <div className="hire-orbit hire-orbit--2"></div>
-                <div className="hire-orbit hire-orbit--3"></div>
-                <div className="hire-icon">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                  </svg>
+              <div className="hire-card glass-card animate-on-scroll">
+                <div className="hire-icon-wrapper">
+                  <div className="hire-orbit hire-orbit--1"></div>
+                  <div className="hire-orbit hire-orbit--2"></div>
+                  <div className="hire-orbit hire-orbit--3"></div>
+                  <div className="hire-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                  </div>
                 </div>
+                <h3>3+ Years Experience</h3>
+                <p>Real-world Flutter development experience across diverse industry sectors</p>
               </div>
-              <h3>3+ Years Experience</h3>
-              <p>Real-world Flutter development experience across diverse industry sectors</p>
-            </div>
-            <div className="hire-card glass-card animate-on-scroll">
-              <div className="hire-icon-wrapper">
-                <div className="hire-orbit hire-orbit--1"></div>
-                <div className="hire-orbit hire-orbit--2"></div>
-                <div className="hire-orbit hire-orbit--3"></div>
-                <div className="hire-icon">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                  </svg>
+              <div className="hire-card glass-card animate-on-scroll">
+                <div className="hire-icon-wrapper">
+                  <div className="hire-orbit hire-orbit--1"></div>
+                  <div className="hire-orbit hire-orbit--2"></div>
+                  <div className="hire-orbit hire-orbit--3"></div>
+                  <div className="hire-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                  </div>
                 </div>
+                <h3>Proven Track Record</h3>
+                <p>Delivering high-quality apps published on App Store & Play Store</p>
               </div>
-              <h3>Proven Track Record</h3>
-              <p>Delivering high-quality apps published on App Store & Play Store</p>
-            </div>
-            <div className="hire-card glass-card animate-on-scroll">
-              <div className="hire-icon-wrapper">
-                <div className="hire-orbit hire-orbit--1"></div>
-                <div className="hire-orbit hire-orbit--2"></div>
-                <div className="hire-orbit hire-orbit--3"></div>
-                <div className="hire-icon">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
+              <div className="hire-card glass-card animate-on-scroll">
+                <div className="hire-icon-wrapper">
+                  <div className="hire-orbit hire-orbit--1"></div>
+                  <div className="hire-orbit hire-orbit--2"></div>
+                  <div className="hire-orbit hire-orbit--3"></div>
+                  <div className="hire-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                  </div>
                 </div>
+                <h3>Deadline Committed</h3>
+                <p>Client-oriented approach with strong commitment to timelines</p>
               </div>
-              <h3>Deadline Committed</h3>
-              <p>Client-oriented approach with strong commitment to timelines</p>
             </div>
-          </div>
           </div>
         </div>
       </section>
@@ -609,7 +591,7 @@ export default function Home() {
                 <span className="contact-label">Email</span>
                 <span className="contact-value">subhabratadash2@gmail.com</span>
               </a>
-              <a href="https://linkedin.com/in/subhabratadas" target="_blank" rel="noopener" className="contact-card glass-card">
+              <a href="https://linkedin.com/in/subhabratadash" target="_blank" rel="noopener" className="contact-card glass-card">
                 <div className="contact-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
