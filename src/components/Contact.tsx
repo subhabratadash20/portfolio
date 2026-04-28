@@ -14,7 +14,7 @@ export default function Contact() {
             <Reveal delay={200}>
                 <div className="max-w-4xl mx-auto text-center font-medium">
                     <p className="text-xl text-text-secondary mb-12 leading-relaxed">
-                        I'm currently open to freelance engagements and new opportunities.
+                        I'm currently open to new opportunities.
                         Whether you have a project in mind or just want to say hi,
                         I'd love to hear from you!
                     </p>

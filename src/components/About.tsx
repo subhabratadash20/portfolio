@@ -22,10 +22,6 @@ export default function About() {
                             and robust backend solutions. I'm dedicated to developing scalable and high-performance
                             applications leveraging Flutter, Dart, Firebase, and REST APIs.
                         </p>
-                        <p>
-                            Available for <span className="text-accent font-semibold">freelance engagements</span> in mobile development,
-                            AI-driven solutions, and UI/UX design consultation.
-                        </p>
                     </div>
                 </Reveal>
 

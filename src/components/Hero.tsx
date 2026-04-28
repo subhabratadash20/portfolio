@@ -27,7 +27,7 @@ export default function Hero() {
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 rounded-full text-sm font-medium text-accent mb-8 animate-fadeInUp">
                     <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                    Available for freelance & opportunities
+                    Open to new opportunities
                 </div>
 
                 {/* Title */}

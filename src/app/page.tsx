@@ -140,7 +140,7 @@ export default function Home() {
         <div className="hero-content">
           <div className="hero-badge animate-on-scroll">
             <span className="badge-dot"></span>
-            Available for freelance & opportunities
+            Open to new opportunities
           </div>
           <h1 className="hero-title animate-on-scroll">
             <span className="hero-greeting">Hi, I'm</span>
@@ -275,10 +275,6 @@ export default function Home() {
                 With expertise in creating cross-platform applications, I focus on seamless AI integration
                 and robust backend solutions. I'm dedicated to developing scalable and high-performance
                 applications leveraging Flutter, Dart, Firebase, and REST APIs.
-              </p>
-              <p>
-                Available for <span className="highlight">freelance engagements</span> in mobile development,
-                AI-driven solutions, and UI/UX design consultation.
               </p>
             </div>
             <div className="about-stats animate-on-scroll">
@@ -665,7 +661,7 @@ export default function Home() {
           </h2>
           <div className="contact-content">
             <p className="contact-intro animate-on-scroll">
-              I'm currently open to freelance engagements and new opportunities.
+              I'm currently open to new opportunities.
               Whether you have a project in mind or just want to say hi,
               I'd love to hear from you!
             </p>

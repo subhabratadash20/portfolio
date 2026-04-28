@@ -62,9 +62,26 @@ export default function Navbar() {
                 }}
             >
                 <div className="nav-container">
-                    <Link href="#hero" className="nav-logo">
-                        <span className="logo-bracket">&lt;</span>SD
-                        <span className="logo-bracket">/&gt;</span>
+                    <Link href="#hero" className="nav-logo flex items-center gap-3">
+                        <div 
+                            className="relative flex items-center justify-center shrink-0"
+                            style={{ width: "40px", height: "40px" }}
+                        >
+                            <div className="absolute inset-0 bg-accent/20 blur-lg rounded-full animate-pulse" />
+                            <img 
+                                src="/logo.png" 
+                                alt="SD Logo" 
+                                className="relative w-full h-full object-contain rounded-lg"
+                                style={{ 
+                                    width: "100%", 
+                                    height: "100%"
+                                }}
+                            />
+                        </div>
+                        <span className="hidden sm:inline-block">
+                            <span className="logo-bracket">&lt;</span>SD
+                            <span className="logo-bracket">/&gt;</span>
+                        </span>
                     </Link>
 
                     <button
