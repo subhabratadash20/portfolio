@@ -107,10 +107,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         scrollIndicator.style.pointerEvents = p > 0.15 ? "none" : "auto";
       }
 
-      // Animate profile photo (elevation and graceful fade as grid occupies view)
+      // Animate profile photo (elevation and graceful transition as grid occupies view)
       if (centerPhotoRef.current) {
-        const photoScale = 1 - p * 0.15;
-        const photoY = p * -40;
+        const photoScale = 1 - p * 0.16;
+        const photoY = p * -85;
         centerPhotoRef.current.style.transform = `translate(-50%, calc(-50% + ${photoY}px)) scale(${photoScale})`;
         centerPhotoRef.current.style.boxShadow = `0 0 ${40 + p * 30}px rgba(0, 217, 255, ${0.25 + p * 0.2})`;
       }
@@ -126,10 +126,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       // Available container width clamped to responsive viewport margins
       const maxGridWidth = Math.min(winW - (isMobile ? 32 : 80), 1280);
       const colWidth = maxGridWidth / cols;
-      const rowHeight = isMobile ? 80 : 96;
+      const rowHeight = isMobile ? 74 : 88;
       const totalWidth = (cols - 1) * colWidth;
-      // Center the grid vertically below the profile image so it is fully inside the viewport
-      const gridStartY = isMobile ? 130 : 140;
+      // Position grid higher up in the viewport
+      const gridStartY = isMobile ? 60 : 70;
 
       // Update positions of each skill node
       SKILL_NODES.forEach((node, i) => {
