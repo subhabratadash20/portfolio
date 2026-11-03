@@ -3133,3 +3133,564 @@ button {
 
 
 
+
+
+/* =========================================
+   Interactive UI Revamp & Console Cockpit
+   ========================================= */
+.canvas-hud {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(18, 18, 26, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hud-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.hud-pill {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hud-pill:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hud-pill.active {
+  background: linear-gradient(135deg, #7C3AED 0%, #00D9FF 100%);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(0, 217, 255, 0.4);
+}
+
+/* Cockpit / Dev Console */
+.dev-cockpit-section {
+  padding: 80px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.cockpit-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 40px;
+}
+
+.cockpit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  color: #A78BFA;
+  margin-bottom: 16px;
+}
+
+.live-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: pulse-dot 1.8s infinite;
+}
+
+.cockpit-title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.cockpit-sub {
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.cockpit-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.console-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(10, 10, 15, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.console-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.dot-red { background: #EF4444; }
+.dot-yellow { background: #F59E0B; }
+.dot-green { background: #10B981; }
+
+.console-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.console-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-tertiary);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.console-tab-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.console-tab-btn.active {
+  color: #00D9FF;
+  background: rgba(0, 217, 255, 0.12);
+  border: 1px solid rgba(0, 217, 255, 0.25);
+}
+
+.copy-cli-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-cli-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Terminal Body */
+.terminal-body {
+  padding: 24px;
+  background: rgba(8, 8, 12, 0.95);
+  font-family: var(--font-mono);
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.terminal-logs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 240px;
+}
+
+.log-line {
+  font-size: 0.85rem;
+}
+
+.log-prompt {
+  display: flex;
+  gap: 8px;
+  color: #A78BFA;
+  margin-bottom: 2px;
+}
+
+.prompt-sym {
+  color: #00D9FF;
+  font-weight: 700;
+}
+
+.prompt-cmd {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.log-text {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  padding-left: 16px;
+}
+
+.log-text.system {
+  color: #10B981;
+}
+
+.terminal-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.terminal-enter-btn {
+  background: #7C3AED;
+  border: none;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Telemetry Grid */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 24px;
+  background: rgba(8, 8, 12, 0.95);
+}
+
+.metric-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.metric-number {
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #ffffff;
+  margin: 10px 0 4px;
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.metric-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7C3AED, #00D9FF);
+  border-radius: 9999px;
+}
+
+/* Stack Grid */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 24px;
+  background: rgba(8, 8, 12, 0.95);
+}
+
+.stack-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.stack-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stack-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.badge-status {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.stack-card p {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* Architecture Section */
+.architecture-interactive-section {
+  padding: 80px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.arch-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 36px;
+}
+
+.arch-title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.arch-sub {
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+}
+
+.arch-nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.arch-nav-btn {
+  background: rgba(26, 26, 46, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.arch-nav-btn:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  transform: translateY(-2px);
+}
+
+.arch-nav-btn.active {
+  background: rgba(124, 58, 237, 0.18);
+  border-color: #7C3AED;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+.arch-nav-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.arch-nav-badge {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: #00D9FF;
+  font-weight: 600;
+}
+
+.arch-nav-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.arch-board {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.arch-board-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  flex-wrap: gap;
+  gap: 20px;
+}
+
+.arch-board-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.arch-board-desc {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.arch-step-advance-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #7C3AED 0%, #00D9FF 100%);
+  border: none;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+  transition: all 0.2s ease;
+}
+
+.arch-step-advance-btn:hover {
+  transform: scale(1.03);
+}
+
+.arch-pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  position: relative;
+}
+
+.arch-layer-card {
+  background: rgba(18, 18, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.arch-layer-card:hover {
+  border-color: rgba(0, 217, 255, 0.3);
+  transform: translateY(-4px);
+}
+
+.arch-layer-card.active-layer {
+  border-color: #00D9FF;
+  background: rgba(0, 217, 255, 0.08);
+  box-shadow: 0 0 24px rgba(0, 217, 255, 0.25);
+}
+
+.arch-layer-step-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-tertiary);
+  margin-bottom: 10px;
+}
+
+.layer-active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00D9FF;
+  box-shadow: 0 0 8px #00D9FF;
+}
+
+.arch-layer-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.arch-layer-tech {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: #A78BFA;
+  margin-bottom: 12px;
+}
+
+.arch-layer-detail {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.arch-arrow-connector {
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.3);
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .arch-arrow-connector {
+    display: none;
+  }
+}

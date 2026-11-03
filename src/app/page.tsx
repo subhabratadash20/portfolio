@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode, CSSProperties } from "react";
 import profilePhoto from "../../1770286377375(1).png";
-import LegacyCanvas from "@/components/LegacyCanvas";
+import InteractiveCyberCanvas from "@/components/InteractiveCyberCanvas";
+import InteractiveDevConsole from "@/components/InteractiveDevConsole";
+import InteractiveSystemArchitecture from "@/components/InteractiveSystemArchitecture";
 import LegacyInteractions from "@/components/LegacyInteractions";
 import Navbar from "@/components/Navbar";
 import ProjectShowcase from "@/components/ProjectShowcase";
@@ -29,37 +31,37 @@ type LogoNode = {
 const iconify = (icon: string) =>
   `https://api.iconify.design/${icon.replace(":", "/")}.svg?color=%23ffffff`;
 
-// Each icon gets its own unique 3D orbital plane
+// Each icon gets its own unique 3D orbital plane with local SVG assets
 const skillNodes: LogoNode[] = [
   // Outer orbit nodes - larger orbits, various 3D orientations
-  { key: "flutter", label: "Flutter", icon: iconify("simple-icons:flutter"), duration: 35, rx: 75, ry: 0, rz: 0, size: 460 },
-  { key: "dart", label: "Dart", icon: iconify("simple-icons:dart"), duration: 32, reverse: true, rx: 70, ry: 30, rz: 15, size: 480 },
-  { key: "firebase", label: "Firebase", icon: iconify("simple-icons:firebase"), duration: 38, rx: 65, ry: 60, rz: 0, size: 450 },
-  { key: "google-cloud", label: "Google Cloud", icon: iconify("simple-icons:googlecloud"), duration: 30, reverse: true, rx: 75, ry: 90, rz: 10, size: 470 },
-  { key: "openai", label: "OpenAI", icon: iconify("simple-icons:openai"), duration: 36, rx: 60, ry: 120, rz: 20, size: 455 },
-  { key: "gemini", label: "Gemini", icon: iconify("simple-icons:googlegemini"), duration: 33, reverse: true, rx: 70, ry: 150, rz: 5, size: 475 },
-  { key: "claude", label: "Claude", icon: iconify("simple-icons:anthropic"), duration: 40, rx: 65, ry: 180, rz: 25, size: 465 },
-  { key: "google-maps", label: "Google Maps", icon: iconify("simple-icons:googlemaps"), duration: 34, reverse: true, rx: 75, ry: 210, rz: 0, size: 445 },
-  { key: "git", label: "Git", icon: iconify("simple-icons:git"), duration: 37, rx: 70, ry: 240, rz: 15, size: 485 },
-  { key: "python", label: "Python", icon: iconify("simple-icons:python"), duration: 31, reverse: true, rx: 60, ry: 270, rz: 10, size: 460 },
-  { key: "java", label: "Java", icon: iconify("mdi:language-java"), duration: 39, rx: 75, ry: 300, rz: 20, size: 470 },
-  { key: "c", label: "C", icon: iconify("simple-icons:c"), duration: 35, reverse: true, rx: 65, ry: 330, rz: 5, size: 455 },
+  { key: "flutter", label: "Flutter", icon: "/icons/flutter.svg", duration: 35, rx: 75, ry: 0, rz: 0, size: 460 },
+  { key: "dart", label: "Dart", icon: "/icons/dart.svg", duration: 32, reverse: true, rx: 70, ry: 30, rz: 15, size: 480 },
+  { key: "firebase", label: "Firebase", icon: "/icons/firebase.svg", duration: 38, rx: 65, ry: 60, rz: 0, size: 450 },
+  { key: "google-cloud", label: "Google Cloud", icon: "/icons/google-cloud.svg", duration: 30, reverse: true, rx: 75, ry: 90, rz: 10, size: 470 },
+  { key: "openai", label: "OpenAI", icon: "/icons/openai.svg", duration: 36, rx: 60, ry: 120, rz: 20, size: 455 },
+  { key: "gemini", label: "Gemini", icon: "/icons/gemini.svg", duration: 33, reverse: true, rx: 70, ry: 150, rz: 5, size: 475 },
+  { key: "claude", label: "Claude", icon: "/icons/claude.svg", duration: 40, rx: 65, ry: 180, rz: 25, size: 465 },
+  { key: "google-maps", label: "Google Maps", icon: "/icons/google-maps.svg", duration: 34, reverse: true, rx: 75, ry: 210, rz: 0, size: 445 },
+  { key: "git", label: "Git", icon: "/icons/git.svg", duration: 37, rx: 70, ry: 240, rz: 15, size: 485 },
+  { key: "python", label: "Python", icon: "/icons/python.svg", duration: 31, reverse: true, rx: 60, ry: 270, rz: 10, size: 460 },
+  { key: "java", label: "Java", icon: "/icons/java.svg", duration: 39, rx: 75, ry: 300, rz: 20, size: 470 },
+  { key: "c", label: "C", icon: "/icons/c.svg", duration: 35, reverse: true, rx: 65, ry: 330, rz: 5, size: 455 },
   // Inner orbit nodes - smaller orbits, different 3D orientations
-  { key: "getx", label: "GetX", icon: iconify("simple-icons:getx"), duration: 28, rx: 80, ry: 15, rz: 30, size: 340 },
-  { key: "provider", label: "Provider", icon: iconify("mdi:layers-triple"), duration: 25, reverse: true, rx: 70, ry: 55, rz: 45, size: 350 },
-  { key: "riverpod", label: "Riverpod", icon: "https://riverpod.dev/img/logo.svg", duration: 30, rx: 75, ry: 95, rz: 15, size: 330 },
-  { key: "hive", label: "Hive", icon: iconify("simple-icons:apachehive"), duration: 26, reverse: true, rx: 65, ry: 135, rz: 60, size: 360 },
-  { key: "nosql", label: "NoSQL", icon: iconify("tabler:database"), duration: 32, rx: 80, ry: 175, rz: 25, size: 345 },
-  { key: "rest", label: "REST APIs", icon: iconify("tabler:api"), duration: 27, reverse: true, rx: 70, ry: 215, rz: 40, size: 355 },
-  { key: "geofencing", label: "Geofencing", icon: iconify("tabler:map-pin"), duration: 29, rx: 75, ry: 255, rz: 10, size: 335 },
-  { key: "cicd", label: "CI/CD", icon: iconify("tabler:git-merge"), duration: 24, reverse: true, rx: 65, ry: 295, rz: 55, size: 365 },
-  { key: "agile", label: "Agile", icon: iconify("tabler:repeat"), duration: 31, rx: 80, ry: 335, rz: 20, size: 340 },
+  { key: "getx", label: "GetX", icon: "/icons/getx.svg", duration: 28, rx: 80, ry: 15, rz: 30, size: 340 },
+  { key: "provider", label: "Provider", icon: "/icons/provider.svg", duration: 25, reverse: true, rx: 70, ry: 55, rz: 45, size: 350 },
+  { key: "riverpod", label: "Riverpod", icon: "/icons/riverpod.svg", duration: 30, rx: 75, ry: 95, rz: 15, size: 330 },
+  { key: "hive", label: "Hive", icon: "/icons/hive.svg", duration: 26, reverse: true, rx: 65, ry: 135, rz: 60, size: 360 },
+  { key: "nosql", label: "NoSQL", icon: "/icons/nosql.svg", duration: 32, rx: 80, ry: 175, rz: 25, size: 345 },
+  { key: "rest", label: "REST APIs", icon: "/icons/rest.svg", duration: 27, reverse: true, rx: 70, ry: 215, rz: 40, size: 355 },
+  { key: "geofencing", label: "Geofencing", icon: "/icons/geofencing.svg", duration: 29, rx: 75, ry: 255, rz: 10, size: 335 },
+  { key: "cicd", label: "CI/CD", icon: "/icons/cicd.svg", duration: 24, reverse: true, rx: 65, ry: 295, rz: 55, size: 365 },
+  { key: "agile", label: "Agile", icon: "/icons/agile.svg", duration: 31, rx: 80, ry: 335, rz: 20, size: 340 },
 ];
 
 export default function Home() {
   return (
     <main>
-      <LegacyCanvas />
+      <InteractiveCyberCanvas />
       <div className="scroll-progress" id="scrollProgress"></div>
 
       <Navbar />
@@ -440,6 +442,12 @@ export default function Home() {
           <p className="projects-note animate-on-scroll">+ Additional client solutions, enterprise modules &amp; ongoing production releases</p>
         </div>
       </section>
+
+      {/* Interactive Architecture Flow Simulator */}
+      <InteractiveSystemArchitecture />
+
+      {/* Interactive Developer Telemetry Cockpit */}
+      <InteractiveDevConsole />
 
       <section className="section why-hire" id="why-hire">
         <div className="container">

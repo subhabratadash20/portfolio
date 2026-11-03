@@ -113,6 +113,8 @@ export default function Navbar() {
                         <li><Link href="#experience" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Experience</Link></li>
                         <li><Link href="#skills" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Skills</Link></li>
                         <li><Link href="#projects" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Projects</Link></li>
+                        <li><Link href="#architecture" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Architecture</Link></li>
+                        <li><Link href="#cockpit" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Console</Link></li>
                         <li><Link href="#contact" className="nav-link nav-link--cta" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
                     </ul>
                 </div>
