@@ -15,6 +15,55 @@ body {
   overflow-x: hidden;
 }
 
+/* =========================================
+   Global Sleek Dark Cyberpunk Scrollbar
+   ========================================= */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 217, 255, 0.3) rgba(10, 10, 16, 0.85);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 16, 0.85);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 217, 255, 0.28);
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 217, 255, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 217, 255, 0.6);
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(10, 10, 16, 0.85);
+}
+
+/* Complete elimination of scrollbar where requested for UX */
+.no-scrollbar,
+.agent-chips-tray,
+.console-tabs {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.agent-chips-tray::-webkit-scrollbar,
+.console-tabs::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 /* Utilities */
 .glass-card {
   background: rgba(26, 26, 46, 0.6);
@@ -446,7 +495,7 @@ button {
   gap: var(--space-lg);
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: var(--space-3xl);
+  margin-bottom: 12px;
 }
 
 .hero-scroll-indicator {
@@ -2644,7 +2693,8 @@ button {
   align-items: center;
   justify-content: center;
   gap: var(--space-md);
-  margin-top: var(--space-xl);
+  margin-top: 0;
+  margin-bottom: 14px;
 }
 
 .hero-social-link {
@@ -3708,15 +3758,20 @@ button {
 .orbital-sphere-wrapper {
   position: relative;
   width: min(1360px, 96vw);
-  height: 1140px;
-  margin: calc(var(--space-2xl) + 24px) auto var(--space-xl);
+  height: 920px;
+  margin: 0 auto var(--space-lg);
   perspective: 1200px;
   transform-style: preserve-3d;
 }
 
+.orbital-sphere-wrapper .pipeline-center,
+.orbital-rings-overlay,
+.orbital-nodes-stage {
+  top: 280px;
+}
+
 .orbital-rings-overlay {
   position: absolute;
-  top: 50%;
   left: 50%;
   transform-style: preserve-3d;
   pointer-events: none;
@@ -3736,7 +3791,6 @@ button {
 
 .orbital-nodes-stage {
   position: absolute;
-  top: 50%;
   left: 50%;
   width: 0;
   height: 0;
@@ -3786,13 +3840,23 @@ button {
 
 @media (max-width: 900px) {
   .orbital-sphere-wrapper {
-    height: 1260px;
+    height: 1180px;
+  }
+  .orbital-sphere-wrapper .pipeline-center,
+  .orbital-rings-overlay,
+  .orbital-nodes-stage {
+    top: 250px;
   }
 }
 
 @media (max-width: 768px) {
   .orbital-sphere-wrapper {
-    height: 1420px;
+    height: 1360px;
+  }
+  .orbital-sphere-wrapper .pipeline-center,
+  .orbital-rings-overlay,
+  .orbital-nodes-stage {
+    top: 220px;
   }
   .skill-node-label {
     font-size: 0.68rem;
@@ -3802,7 +3866,12 @@ button {
 
 @media (max-width: 480px) {
   .orbital-sphere-wrapper {
-    height: 1480px;
+    height: 1420px;
+  }
+  .orbital-sphere-wrapper .pipeline-center,
+  .orbital-rings-overlay,
+  .orbital-nodes-stage {
+    top: 200px;
   }
 }
 
@@ -4184,9 +4253,19 @@ button {
   display: flex;
   gap: 6px;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 8px 14px;
   background: rgba(8, 8, 12, 0.8);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.agent-chips-tray::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .agent-chip {

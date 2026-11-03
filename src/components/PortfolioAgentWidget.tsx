@@ -311,7 +311,7 @@ export default function PortfolioAgentWidget() {
           </div>
 
           {/* Quick Suggestions Chips */}
-          <div className="agent-chips-tray">
+          <div className="agent-chips-tray no-scrollbar">
             {PROMPT_SUGGESTIONS.map((suggestion) => (
               <button
                 key={suggestion}

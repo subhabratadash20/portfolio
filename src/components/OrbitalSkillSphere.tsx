@@ -70,16 +70,16 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Track the vertical midpoint of the sphere container relative to the screen height
-      const containerCenter = rect.top + rect.height * 0.4;
+      const isMobile = window.innerWidth < 768;
+      const sphereCenterY = isMobile ? 220 : 280;
+      const sphereScreenY = rect.top + sphereCenterY;
       const screenCenter = windowHeight * 0.5;
 
-      // Trigger starts further downwards in the scroll so the 3D sphere stays intact longer
       // Starts morphing once the sphere is centered in the viewport, completing smoothly as user scrolls down
-      const start = screenCenter + 20;
-      const end = screenCenter - 180;
+      const start = screenCenter + 30;
+      const end = screenCenter - 160;
 
-      const progress = Math.min(Math.max((start - containerCenter) / (start - end), 0), 1);
+      const progress = Math.min(Math.max((start - sphereScreenY) / (start - end), 0), 1);
 
       scrollProgressRef.current = progress;
     };
@@ -111,10 +111,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       }
 
       // Animate profile photo: Zoom effect smoothly in sync with scroll progress p (1.0 -> 1.35)
-      // Elevated upward (-220px desktop, -170px mobile) to ensure zero overlap with grid cards below
+      // Elevated upward (-190px desktop, -140px mobile) to ensure zero overlap with grid cards below
       if (centerPhotoRef.current) {
         const photoZoom = 1 + p * 0.35; // smooth zoom-in up to 135%
-        const photoY = p * (isMobile ? -170 : -220); // elevated high above row 0
+        const photoY = p * (isMobile ? -140 : -190); // elevated high above row 0
         centerPhotoRef.current.style.transform = `translate(-50%, calc(-50% + ${photoY}px)) scale(${photoZoom})`;
         centerPhotoRef.current.style.boxShadow = `0 0 ${40 + p * 50}px rgba(0, 217, 255, ${0.25 + p * 0.35}), 0 0 ${80 + p * 60}px rgba(124, 58, 237, ${0.2 + p * 0.3})`;
         centerPhotoRef.current.style.zIndex = "2";
@@ -134,7 +134,7 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       const rowHeight = isMobile ? 115 : 148; // Increased row gap for breathing space
       const totalWidth = (cols - 1) * colWidth;
       // Position grid safely below the zoomed profile photo with zero overlap and ample breathing space
-      const gridStartY = isMobile ? 150 : 190;
+      const gridStartY = isMobile ? 120 : 160;
 
       // Update positions of each skill node
       SKILL_NODES.forEach((node, i) => {
@@ -172,8 +172,8 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
 
         // Dynamic collision avoidance with profile photo during zoom transition
         if (ease > 0.15 && Math.abs(currentX) < 160) {
-          const profileBottom = (isMobile ? -170 : -220) * p + 140 * (1 + p * 0.35) * 0.5;
-          const minSafeY = profileBottom + 35; // 35px clear buffer below photo
+          const profileBottom = (isMobile ? -140 : -190) * p + 140 * (1 + p * 0.35) * 0.5;
+          const minSafeY = profileBottom + 30; // 30px clear buffer below photo
           if (currentY < minSafeY) {
             currentY = (1 - ease) * currentY + ease * minSafeY;
           }

@@ -514,7 +514,7 @@ export default function InteractiveDevConsole() {
               </div>
 
               {/* Prompt Chips Tray (positioned right above input bar) */}
-              <div className="agent-chips-tray">
+              <div className="agent-chips-tray no-scrollbar">
                 {COPILOT_SUGGESTIONS.map((suggestion) => (
                   <button
                     key={suggestion}
