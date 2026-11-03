@@ -8,6 +8,7 @@ import OrbitalSkillSphere from "@/components/OrbitalSkillSphere";
 import LegacyInteractions from "@/components/LegacyInteractions";
 import Navbar from "@/components/Navbar";
 import ProjectShowcase from "@/components/ProjectShowcase";
+import PortfolioAgentWidget from "@/components/PortfolioAgentWidget";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
@@ -631,6 +632,7 @@ export default function Home() {
         </div>
       </footer>
 
+      <PortfolioAgentWidget />
       <LegacyInteractions />
     </main>
   );
