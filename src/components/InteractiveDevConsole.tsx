@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Terminal, ShieldCheck, Cpu, Database, Flame, Sparkles, Copy, Check, Play, Eraser, Bot, Send, User } from "lucide-react";
-import { askPortfolioAgent, ChatMessage } from "@/lib/openRouterAgent";
+import { Terminal, ShieldCheck, Cpu, Database, Flame, Sparkles, Copy, Check, Play, Eraser, Bot, Send, User, FileText } from "lucide-react";
+import { askPortfolioAgent, ChatMessage, generateDynamicAgentGreeting } from "@/lib/openRouterAgent";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
+import RealtimeResumeModal from "@/components/RealtimeResumeModal";
 
 type LogEntry = {
   id: string;
@@ -17,13 +18,14 @@ interface EmbeddedChatMessage extends ChatMessage {
   isStreaming?: boolean;
 }
 
-const SUGGESTED_COMMANDS = ["apps", "skills", "nora", "telemetry", "contact", "clear"];
+const SUGGESTED_COMMANDS = ["apps", "cv", "skills", "nora", "telemetry", "contact", "clear"];
 
 const COPILOT_SUGGESTIONS = [
+  "📄 Generate Realtime CV",
+  "Overview of all 10 production apps",
+  "How does BluFix's AI Analyzer work?",
+  "Explain Etana's recommendation engine & moderator",
   "Explain Nora AI's supervisor agent & device bridges",
-  "Explain BluFix AI's multi-agent diagnostic pipeline",
-  "How does Etana's PostgreSQL + Firestore architecture work?",
-  "What Flutter state management libraries do you use?",
 ];
 
 export default function InteractiveDevConsole() {
@@ -32,6 +34,7 @@ export default function InteractiveDevConsole() {
   const [copied, setCopied] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const logsContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Embedded Copilot State
@@ -40,8 +43,7 @@ export default function InteractiveDevConsole() {
   const [copilotMessages, setCopilotMessages] = useState<EmbeddedChatMessage[]>([
     {
       role: "assistant",
-      content:
-        "👋 Welcome to the **Senior Architecture Copilot**! I can answer deep architectural questions about Subhabrata's production systems, such as **Nora AI** (LangGraph supervisor agent, native device bridges, FastAPI/Socket.IO handshake), **BluFix AI**, **Etana Oroko**, and his **Flutter 3.11 / Node 22** stack.",
+      content: generateDynamicAgentGreeting(),
     },
   ]);
   const copilotEndRef = useRef<HTMLDivElement | null>(null);
@@ -141,11 +143,17 @@ export default function InteractiveDevConsole() {
     switch (cmd.toLowerCase()) {
       case "help":
         response =
-          "AVAILABLE COMMANDS:\n• 'apps'      : Production releases (Nora AI, BluFix AI, Rent Roll Pulse, Etana Oroko, Konnectax)\n• 'skills'    : Complete mobile, backend & database tech stack\n• 'nora'      : Deep architectural overview of Nora AI agentic ecosystem\n• 'telemetry' : Real-time SLA, P95 latency and GPU target benchmarks\n• 'contact'   : Direct senior architect communication endpoints\n• 'clear'     : Wipe terminal buffer with clear animation\n• Or type any custom question to consult the AI Copilot directly!";
+          "AVAILABLE COMMANDS:\n• 'apps'      : Production releases across 10 deployed applications\n• 'cv'        : Launch verified ATS resume & print-ready CV preview\n• 'skills'    : Complete mobile, backend & database tech stack\n• 'nora'      : Deep architectural overview of Nora AI agentic ecosystem\n• 'telemetry' : Real-time SLA, P95 latency and GPU target benchmarks\n• 'contact'   : Direct senior architect communication endpoints\n• 'clear'     : Wipe terminal buffer with clear animation\n• Or type any custom question to consult the AI Copilot directly!";
+        break;
+      case "cv":
+      case "resume":
+        setIsResumeModalOpen(true);
+        response =
+          "SUBHABRATA DAS — VERIFIED ATS RESUME\n• Role: Senior Flutter Developer & AI-Powered Systems Architect (3+ Years Experience)\n• Education: BCA with High Honors (8.99 CGPA, 2020-2023)\n• Production Systems: Nora AI, BluFix AI, Etana Oroko, Rent Roll Pulse, Konnectax (10 Apps Total)\n• Direct Email: subhabratadash1@gmail.com\n\n[Action Executed]: Opening print-ready ATS resume preview modal...";
         break;
       case "apps":
         response =
-          "PRODUCTION SYSTEMS DEPLOYED:\n[1] Nora AI           -> Autonomous Multi-Agent Executive Assistant (LangGraph / FastAPI / Socket.IO / Device Bridges)\n[2] BluFix AI         -> Multi-Agent Diagnostic Dispatch & Technician Radar (Node 22 / Postgres / Flutter)\n[3] Rent Roll Pulse   -> FinTech Real Estate Valuation & Automated AMI PDF Engine\n[4] Etana Oroko       -> Dual-Identity Social RTC & Agora WebRTC Live Broadcasts\n[5] Konnectax         -> Tax Compliance SaaS (Live on iOS App Store & Google Play)\n[6] Plugg             -> AI-Powered Realtime Matchmaking & Compatibility Graph";
+          "10 PRODUCTION SYSTEMS ARCHITECTED:\n[1] Nora AI           -> Autonomous Executive Assistant (LangGraph / FastAPI / Socket.IO / Device Bridges)\n[2] BluFix AI         -> Two-Stage Acoustic Fault Analyzer & Technician Radar Dispatch\n[3] Rent Roll Pulse   -> FinTech Real Estate Valuation & Automated AMI PDF Engine\n[4] Etana Oroko       -> Dual-Identity Social RTC & Gemini 3.8 Moderation & Agora WebRTC\n[5] Konnectax         -> Multi-Platform RTMP Live Streaming (YouTube, Facebook, TikTok via Mux)\n[6] Plugg             -> AI Matchmaking & Socket.IO Rich Media Chat\n[7] Flinki            -> Sports Q-Commerce, Tournament RSVP & In-App Video Player\n[8] Stylaa            -> Dual Customer/Merchant Salon Booking & AI Beauty Recommendations\n[9] Groundmetrx       -> Enterprise Fleet Telemetry & Automated Polygon Geofencing Alerts\n[10] DIY Marketplace  -> Bilingual Arabic RTL Crafters Marketplace & Moyasar Payments";
         break;
       case "skills":
         response =
@@ -204,6 +212,26 @@ export default function InteractiveDevConsole() {
   const handleCopilotSend = async (queryText?: string) => {
     const text = (queryText || copilotInput).trim();
     if (!text || copilotLoading) return;
+
+    if (text.toLowerCase().includes("generate realtime cv")) {
+      setCopilotInput("");
+      const newHistory: EmbeddedChatMessage[] = [
+        ...copilotMessages.map((m) => ({ role: m.role, content: m.content })),
+        { role: "user", content: "Generate Realtime CV" },
+      ];
+      setCopilotMessages(newHistory);
+      setCopilotLoading(true);
+
+      const localCv = await askPortfolioAgent("generate cv", newHistory);
+      setCopilotLoading(false);
+
+      if (copilotStreamTimerRef.current) clearInterval(copilotStreamTimerRef.current);
+      setCopilotMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: localCv, isStreaming: false },
+      ]);
+      return;
+    }
 
     setCopilotInput("");
     const newHistory: EmbeddedChatMessage[] = [
@@ -423,7 +451,15 @@ export default function InteractiveDevConsole() {
                     </div>
                     <div className="agent-message-bubble">
                       <div className="agent-markdown-content">
-                        <MarkdownRenderer content={m.content} isStreaming={m.isStreaming} />
+                        <MarkdownRenderer
+                          content={m.content}
+                          isStreaming={m.isStreaming}
+                          onAction={(action) => {
+                            if (action === "DOWNLOAD_CV") {
+                              setIsResumeModalOpen(true);
+                            }
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -553,6 +589,12 @@ export default function InteractiveDevConsole() {
           )}
         </div>
       </div>
+
+      {/* Realtime ATS Resume Modal */}
+      <RealtimeResumeModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
+      />
     </section>
   );
 }

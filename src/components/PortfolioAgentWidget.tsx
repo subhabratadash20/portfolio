@@ -1,19 +1,21 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Bot, X, Send, Sparkles, User, RefreshCw, Key } from "lucide-react";
-import { askPortfolioAgent, ChatMessage } from "@/lib/openRouterAgent";
+import { Bot, X, Send, Sparkles, User, RefreshCw, Key, FileText } from "lucide-react";
+import { askPortfolioAgent, ChatMessage, generateDynamicAgentGreeting } from "@/lib/openRouterAgent";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
+import RealtimeResumeModal from "@/components/RealtimeResumeModal";
 
 export interface ExtendedChatMessage extends ChatMessage {
   isStreaming?: boolean;
 }
 
 const PROMPT_SUGGESTIONS = [
+  "📄 Generate Realtime CV",
+  "Overview of all 10 production apps",
+  "How does BluFix's AI Analyzer work?",
+  "Explain Etana's recommendation engine & moderator",
   "Explain Nora AI's supervisor agent & device bridges",
-  "Explain BluFix AI's multi-agent diagnostic pipeline",
-  "How does Etana's PostgreSQL + Firestore architecture work?",
-  "What Flutter state management libraries do you use?",
   "How can I contact Subhabrata for a role?",
 ];
 
@@ -23,17 +25,34 @@ export default function PortfolioAgentWidget() {
   const [loading, setLoading] = useState(false);
   const [customKey, setCustomKey] = useState("");
   const [showKeyInput, setShowKeyInput] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+  const [hasStreamedGreeting, setHasStreamedGreeting] = useState(false);
 
   const [messages, setMessages] = useState<ExtendedChatMessage[]>([
     {
       role: "assistant",
-      content:
-        "👋 Hi! I'm Subhabrata's **AI Copilot**. Ask me anything about his production systems (**Nora AI**, **BluFix AI**, **Etana Oroko**, **Rent Roll Pulse**), supervisor agents, native device bridges, or technical architecture!",
+      content: generateDynamicAgentGreeting(),
     },
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const streamTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Listen for global CV modal trigger
+  useEffect(() => {
+    const handleOpenCvModal = () => setIsResumeModalOpen(true);
+    window.addEventListener("open-cv-modal", handleOpenCvModal);
+    return () => window.removeEventListener("open-cv-modal", handleOpenCvModal);
+  }, []);
+
+  // When widget is first opened by user, stream a fresh real-time dynamic greeting
+  useEffect(() => {
+    if (isOpen && !hasStreamedGreeting) {
+      setHasStreamedGreeting(true);
+      const greeting = generateDynamicAgentGreeting();
+      streamGreeting(greeting);
+    }
+  }, [isOpen, hasStreamedGreeting]);
 
   useEffect(() => {
     if (isOpen) {
@@ -41,25 +60,48 @@ export default function PortfolioAgentWidget() {
     }
   }, [messages, isOpen, loading]);
 
-  // Clean up any streaming intervals on unmount
   useEffect(() => {
     return () => {
       if (streamTimerRef.current) clearInterval(streamTimerRef.current);
     };
   }, []);
 
+  const streamGreeting = (fullGreeting: string) => {
+    if (streamTimerRef.current) clearInterval(streamTimerRef.current);
+
+    setMessages([
+      { role: "assistant", content: "", isStreaming: true },
+    ]);
+
+    let charIdx = 0;
+    const step = Math.max(2, Math.floor(fullGreeting.length / 70));
+
+    streamTimerRef.current = setInterval(() => {
+      charIdx += step;
+      if (charIdx >= fullGreeting.length) {
+        if (streamTimerRef.current) clearInterval(streamTimerRef.current);
+        setMessages([
+          { role: "assistant", content: fullGreeting, isStreaming: false },
+        ]);
+      } else {
+        const chunk = fullGreeting.slice(0, charIdx);
+        setMessages([
+          { role: "assistant", content: chunk, isStreaming: true },
+        ]);
+      }
+    }, 18);
+  };
+
   const streamTextIntoMessages = (fullText: string) => {
     if (streamTimerRef.current) clearInterval(streamTimerRef.current);
 
-    // Initial placeholder message with isStreaming: true
     setMessages((prev) => [
       ...prev,
       { role: "assistant", content: "", isStreaming: true },
     ]);
 
     let charIdx = 0;
-    // Faster dynamic step for longer texts so it finishes within ~1.8 seconds
-    const step = Math.max(1, Math.floor(fullText.length / 100));
+    const step = Math.max(1, Math.floor(fullText.length / 95));
 
     streamTimerRef.current = setInterval(() => {
       charIdx += step;
@@ -86,12 +128,28 @@ export default function PortfolioAgentWidget() {
           return updated;
         });
       }
-    }, 18);
+    }, 16);
   };
 
   const handleSend = async (textToSend?: string) => {
     const userQuery = (textToSend || input).trim();
     if (!userQuery || loading) return;
+
+    // Handle instant CV chip trigger
+    if (userQuery.toLowerCase().includes("generate realtime cv")) {
+      setInput("");
+      const newHistory: ExtendedChatMessage[] = [
+        ...messages.map((m) => ({ role: m.role, content: m.content })),
+        { role: "user", content: "Generate Realtime CV" },
+      ];
+      setMessages(newHistory);
+      setLoading(true);
+
+      const localCv = await askPortfolioAgent("generate cv", newHistory);
+      setLoading(false);
+      streamTextIntoMessages(localCv);
+      return;
+    }
 
     setInput("");
     const newHistory: ExtendedChatMessage[] = [
@@ -112,7 +170,7 @@ export default function PortfolioAgentWidget() {
         {
           role: "assistant",
           content:
-            "I encountered a temporary connection issue. You can contact Subhabrata directly at **subhabratadash1@gmail.com**!",
+            "I encountered a temporary connection issue. You can contact Subhabrata directly at **subhabratadash1@gmail.com**!\n\n[[ACTION:DOWNLOAD_CV]]",
           isStreaming: false,
         },
       ]);
@@ -122,7 +180,7 @@ export default function PortfolioAgentWidget() {
   return (
     <>
       {/* Floating Launcher Button at Bottom Left */}
-      <div className="portfolio-agent-launcher">
+      <div className="portfolio-agent-launcher no-print">
         <button
           type="button"
           className="agent-fab-btn"
@@ -144,7 +202,7 @@ export default function PortfolioAgentWidget() {
 
       {/* Floating Chat Modal */}
       {isOpen && (
-        <div className="portfolio-agent-modal glass-card">
+        <div className="portfolio-agent-modal glass-card no-print">
           {/* Header */}
           <div className="agent-modal-header">
             <div className="agent-header-info">
@@ -155,11 +213,19 @@ export default function PortfolioAgentWidget() {
                 <h4 className="agent-title">Subhabrata AI Copilot</h4>
                 <div className="agent-status">
                   <span className="agent-online-dot" />
-                  <span>Online • Hybrid Cloudflare Edge Engine</span>
+                  <span>Online • 10 Systems & Realtime CV</span>
                 </div>
               </div>
             </div>
             <div className="agent-header-actions">
+              <button
+                type="button"
+                className="agent-header-btn"
+                title="View Verified ATS Resume"
+                onClick={() => setIsResumeModalOpen(true)}
+              >
+                <FileText size={14} color="#00D9FF" />
+              </button>
               <button
                 type="button"
                 className="agent-header-btn"
@@ -171,16 +237,11 @@ export default function PortfolioAgentWidget() {
               <button
                 type="button"
                 className="agent-header-btn"
-                title="Reset conversation"
+                title="Reset conversation with fresh greeting"
                 onClick={() => {
                   if (streamTimerRef.current) clearInterval(streamTimerRef.current);
-                  setMessages([
-                    {
-                      role: "assistant",
-                      content:
-                        "Conversation reset. What would you like to know about Subhabrata's systems, code, or background?",
-                    },
-                  ]);
+                  const freshGreeting = generateDynamicAgentGreeting();
+                  streamGreeting(freshGreeting);
                 }}
               >
                 <RefreshCw size={14} />
@@ -220,7 +281,15 @@ export default function PortfolioAgentWidget() {
                 </div>
                 <div className="agent-message-bubble">
                   <div className="agent-markdown-content">
-                    <MarkdownRenderer content={m.content} isStreaming={m.isStreaming} />
+                    <MarkdownRenderer
+                      content={m.content}
+                      isStreaming={m.isStreaming}
+                      onAction={(action) => {
+                        if (action === "DOWNLOAD_CV") {
+                          setIsResumeModalOpen(true);
+                        }
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -283,6 +352,12 @@ export default function PortfolioAgentWidget() {
           </form>
         </div>
       )}
+
+      {/* Realtime ATS Resume Modal */}
+      <RealtimeResumeModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
+      />
     </>
   );
 }

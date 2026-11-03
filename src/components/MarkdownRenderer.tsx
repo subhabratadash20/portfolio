@@ -5,9 +5,10 @@ import React from "react";
 interface MarkdownRendererProps {
   content: string;
   isStreaming?: boolean;
+  onAction?: (action: string) => void;
 }
 
-export default function MarkdownRenderer({ content, isStreaming }: MarkdownRendererProps) {
+export default function MarkdownRenderer({ content, isStreaming, onAction }: MarkdownRendererProps) {
   // Parse markdown lines into structured blocks
   const parseInline = (text: string): React.ReactNode[] => {
     // Regular expressions for bold, code, link, italic
@@ -88,6 +89,41 @@ export default function MarkdownRenderer({ content, isStreaming }: MarkdownRende
 
     if (!trimmed) {
       flushList();
+      continue;
+    }
+
+    // Custom Action Token: [[ACTION:DOWNLOAD_CV]]
+    if (trimmed.includes("[[ACTION:DOWNLOAD_CV]]")) {
+      flushList();
+      renderedElements.push(
+        <div
+          key={`action-cv-${i}`}
+          className="my-3 p-3.5 rounded-xl border border-[#00D9FF]/40 bg-gradient-to-r from-[#00D9FF]/10 via-[#7C3AED]/10 to-transparent flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg shadow-black/40"
+        >
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <div className="w-9 h-9 rounded-lg bg-[#00D9FF]/20 border border-[#00D9FF]/40 flex items-center justify-center text-lg shrink-0">
+              📄
+            </div>
+            <div>
+              <div className="font-bold text-white text-xs sm:text-sm">Subhabrata Das — Official ATS Resume</div>
+              <div className="text-[11px] text-gray-400">3+ Years Experience • All 10 Production Systems • Instant PDF</div>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              if (onAction) {
+                onAction("DOWNLOAD_CV");
+              } else {
+                window.dispatchEvent(new CustomEvent("open-cv-modal"));
+              }
+            }}
+            className="w-full sm:w-auto px-3.5 py-2 rounded-lg bg-[#00D9FF] text-black font-bold text-xs hover:bg-[#00D9FF]/90 transition shadow-md shadow-[#00D9FF]/25 flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+          >
+            <span>📥 View & Print PDF</span>
+          </button>
+        </div>
+      );
       continue;
     }
 

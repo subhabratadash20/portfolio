@@ -3708,7 +3708,7 @@ button {
 .orbital-sphere-wrapper {
   position: relative;
   width: min(1360px, 96vw);
-  height: 940px;
+  height: 1140px;
   margin: var(--space-2xl) auto var(--space-xl);
   perspective: 1200px;
   transform-style: preserve-3d;
@@ -3784,13 +3784,25 @@ button {
   letter-spacing: 0.03em;
 }
 
+@media (max-width: 900px) {
+  .orbital-sphere-wrapper {
+    height: 1260px;
+  }
+}
+
 @media (max-width: 768px) {
   .orbital-sphere-wrapper {
-    height: 780px;
+    height: 1420px;
   }
   .skill-node-label {
     font-size: 0.68rem;
     padding: 2px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .orbital-sphere-wrapper {
+    height: 1480px;
   }
 }
 
@@ -4377,4 +4389,107 @@ button {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .console-topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+  .console-dots {
+    display: none;
+  }
+  .console-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 100%;
+    padding-bottom: 2px;
+  }
+  .console-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .console-tab-btn {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+  .copy-cli-btn {
+    margin-left: auto;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+  .portfolio-agent-modal {
+    left: 12px !important;
+    bottom: 74px !important;
+    width: calc(100vw - 24px) !important;
+    max-width: 440px !important;
+    height: min(580px, 80vh) !important;
+  }
+  .embedded-copilot-container {
+    height: 380px;
+  }
+}
+
+/* =========================================
+   Print Styles for ATS Resume Preview
+   ========================================= */
+@media print {
+  /* Hide all website elements */
+  body * {
+    visibility: hidden;
+  }
+  .portfolio-agent-launcher,
+  .portfolio-agent-modal,
+  header,
+  footer,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Make printable resume visible and full page */
+  .printable-resume,
+  .printable-resume * {
+    visibility: visible !important;
+  }
+
+  .printable-resume {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.4 !important;
+  }
+
+  .printable-resume h1,
+  .printable-resume h2,
+  .printable-resume h3,
+  .printable-resume h4,
+  .printable-resume strong {
+    color: #000000 !important;
+  }
+
+  .printable-resume p,
+  .printable-resume span,
+  .printable-resume li {
+    color: #374151 !important;
+  }
+
+  .printable-resume a {
+    color: #2563eb !important;
+    text-decoration: underline !important;
+  }
+
+  .printable-resume .bg-white\/\[0\.03\] {
+    background: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+  }
 }
