@@ -74,10 +74,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       const containerCenter = rect.top + rect.height * 0.4;
       const screenCenter = windowHeight * 0.5;
 
-      // Trigger starts when container center enters the lower-middle of the screen (screenCenter + 180px)
-      // Completes into the full grid right when the container reaches the exact center of the screen (screenCenter - 20px)
-      const start = screenCenter + 180;
-      const end = screenCenter - 20;
+      // Trigger starts further downwards in the scroll so the 3D sphere stays intact longer
+      // Starts morphing once the sphere is centered in the viewport, completing smoothly as user scrolls down
+      const start = screenCenter + 20;
+      const end = screenCenter - 180;
 
       const progress = Math.min(Math.max((start - containerCenter) / (start - end), 0), 1);
 

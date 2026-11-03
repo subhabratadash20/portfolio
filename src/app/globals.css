@@ -3709,7 +3709,7 @@ button {
   position: relative;
   width: min(1360px, 96vw);
   height: 1140px;
-  margin: var(--space-2xl) auto var(--space-xl);
+  margin: calc(var(--space-2xl) + 24px) auto var(--space-xl);
   perspective: 1200px;
   transform-style: preserve-3d;
 }
