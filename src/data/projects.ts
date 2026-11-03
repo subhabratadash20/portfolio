@@ -207,7 +207,8 @@ export const projects: Project[] = [
         metrics: "Dual TTS Engine + Background AlarmKit",
         links: {
             appStore: "#",
-            playStore: "#"
+            playStore: "#",
+            demo: "https://naipa.ai"
         },
         overview: "Built an intelligent AI-powered personal assistant application that helps users manage their daily life through natural voice and text conversations. Nora acts as a smart companion, handling reminders, notes, events, and providing personalized assistance while learning user preferences over time.",
         features: [
@@ -452,7 +453,7 @@ export const projects: Project[] = [
         metrics: "Live on Play Store & App Store | Node 22 API",
         links: {
             playStore: "https://play.google.com/store/apps/details?id=ai.blufix",
-            demo: "https://api.blufix.ai"
+            demo: "https://blufix.ai"
         },
         overview: "BluFix AI is a full-scale on-demand marketplace for smart home diagnostics and service dispatch. The mobile app leverages Flutter and Riverpod to connect homeowners with verified HVAC, plumbing, and electrical service providers. It incorporates a two-stage multi-agent AI diagnostic engine that analyzes photo/audio fault inputs, suggests preliminary fixes, generates automated cost estimates, and coordinates geo-fenced technician dispatch with real-time tracking, live Firestore event streams, and automated Stripe/Paystack payment settlements.",
         features: [
@@ -584,7 +585,8 @@ export const projects: Project[] = [
         metrics: "Dual PostgreSQL + Firestore RTC Engine",
         links: {
             appStore: "https://apps.apple.com/us/app/etana/id6782059746",
-            playStore: "https://play.google.com/store/apps/details?id=com.etanaoroko.app"
+            playStore: "https://play.google.com/store/apps/details?id=com.etanaoroko.app",
+            demo: "https://myetana.com"
         },
         overview: "Etana Oroko is a modern cultural and creator-focused social platform engineered with an advanced dual-layer backend architecture. It combines Firebase Data Connect (managed PostgreSQL) for relational operations (posts, nested comments, clubs, campaigns, marketplace stores) with Cloud Firestore for sub-second real-time messaging, presence tracking, and Agora-powered WebRTC video/audio communications. Integrated Gemini 3.8 Flash powers smart content moderation and contextual search.",
         features: [

@@ -27,7 +27,7 @@ type LogoNode = {
 };
 
 const iconify = (icon: string) =>
-  `https://api.iconify.design/${icon}.svg?color=%23ffffff`;
+  `https://api.iconify.design/${icon.replace(":", "/")}.svg?color=%23ffffff`;
 
 // Each icon gets its own unique 3D orbital plane
 const skillNodes: LogoNode[] = [
