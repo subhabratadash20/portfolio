@@ -66,15 +66,15 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      // Calculate true window scroll distance from top
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
 
-      // Start transition when container top reaches around 250px from top
-      // Complete transition over 400px of scrolling
-      const startTrigger = windowHeight * 0.25;
-      const scrollDist = 420;
-      const progress = Math.min(Math.max((startTrigger - rect.top) / scrollDist, 0), 1);
+      // When scrollY is 0-50px: Progress is 0 (Pure rotating 3D sphere)
+      // When scrollY is 50px-350px: Smoothly interpolates from Sphere -> Grid
+      // When scrollY >= 350px: Progress is 1 (Full structured grid)
+      const start = 40;
+      const end = 340;
+      const progress = Math.min(Math.max((scrollY - start) / (end - start), 0), 1);
 
       scrollProgressRef.current = progress;
     };
@@ -101,8 +101,8 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       // Smoothly fade out scroll indicator as user scrolls down into grid
       const scrollIndicator = document.querySelector(".hero-scroll-indicator") as HTMLElement | null;
       if (scrollIndicator) {
-        scrollIndicator.style.opacity = `${Math.max(0, 1 - p * 1.8)}`;
-        scrollIndicator.style.pointerEvents = p > 0.3 ? "none" : "auto";
+        scrollIndicator.style.opacity = `${Math.max(0, 1 - p * 3)}`;
+        scrollIndicator.style.pointerEvents = p > 0.15 ? "none" : "auto";
       }
 
       // Animate profile photo (subtle scale and elevation)
@@ -118,7 +118,7 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       const colWidth = isMobile ? 80 : 120;
       const rowHeight = isMobile ? 65 : 85;
       const totalWidth = (cols - 1) * colWidth;
-      const gridStartY = isMobile ? 190 : 200;
+      const gridStartY = isMobile ? 160 : 170;
 
       // Update positions of each skill node
       SKILL_NODES.forEach((node, i) => {
