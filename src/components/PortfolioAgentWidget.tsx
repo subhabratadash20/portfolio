@@ -35,7 +35,7 @@ export default function PortfolioAgentWidget() {
     },
   ]);
 
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
   const streamTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Listen for global CV modal trigger
@@ -54,9 +54,10 @@ export default function PortfolioAgentWidget() {
     }
   }, [isOpen, hasStreamedGreeting]);
 
+  // Safely auto-scroll ONLY the chat modal container (never moving the parent page)
   useEffect(() => {
-    if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (isOpen && messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
   }, [messages, isOpen, loading]);
 
@@ -270,7 +271,7 @@ export default function PortfolioAgentWidget() {
           )}
 
           {/* Messages Body with Rich Markdown & Streaming */}
-          <div className="agent-modal-body">
+          <div className="agent-modal-body" ref={messagesContainerRef}>
             {messages.map((m, idx) => (
               <div
                 key={idx}
@@ -307,7 +308,6 @@ export default function PortfolioAgentWidget() {
                 </div>
               </div>
             )}
-            <div ref={messagesEndRef} />
           </div>
 
           {/* Quick Suggestions Chips */}

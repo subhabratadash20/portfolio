@@ -40,13 +40,15 @@ export default function InteractiveDevConsole() {
   // Embedded Copilot State
   const [copilotInput, setCopilotInput] = useState("");
   const [copilotLoading, setCopilotLoading] = useState(false);
+  const [hasStreamedCopilotGreeting, setHasStreamedCopilotGreeting] = useState(false);
   const [copilotMessages, setCopilotMessages] = useState<EmbeddedChatMessage[]>([
     {
       role: "assistant",
-      content: generateDynamicAgentGreeting(),
+      content:
+        "👋 Welcome to Subhabrata's **Senior Architecture Copilot**! Initializing real-time telemetry...",
     },
   ]);
-  const copilotEndRef = useRef<HTMLDivElement | null>(null);
+  const copilotMessagesContainerRef = useRef<HTMLDivElement | null>(null);
   const copilotStreamTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const [history, setHistory] = useState<LogEntry[]>([
@@ -69,11 +71,47 @@ export default function InteractiveDevConsole() {
     }
   }, [history]);
 
+  // Safely auto-scroll ONLY the embedded messages container (never hijacking the browser window)
   useEffect(() => {
-    if (activeTab === "copilot" && copilotEndRef.current) {
-      copilotEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (copilotMessagesContainerRef.current) {
+      copilotMessagesContainerRef.current.scrollTop = copilotMessagesContainerRef.current.scrollHeight;
     }
-  }, [copilotMessages, activeTab, copilotLoading]);
+  }, [copilotMessages, copilotLoading]);
+
+  // Stream dynamic greeting on first tab visit
+  const streamCopilotGreeting = (fullGreeting: string) => {
+    if (copilotStreamTimerRef.current) clearInterval(copilotStreamTimerRef.current);
+
+    setCopilotMessages([
+      { role: "assistant", content: "", isStreaming: true },
+    ]);
+
+    let charIdx = 0;
+    const step = Math.max(2, Math.floor(fullGreeting.length / 65));
+
+    copilotStreamTimerRef.current = setInterval(() => {
+      charIdx += step;
+      if (charIdx >= fullGreeting.length) {
+        if (copilotStreamTimerRef.current) clearInterval(copilotStreamTimerRef.current);
+        setCopilotMessages([
+          { role: "assistant", content: fullGreeting, isStreaming: false },
+        ]);
+      } else {
+        const chunk = fullGreeting.slice(0, charIdx);
+        setCopilotMessages([
+          { role: "assistant", content: chunk, isStreaming: true },
+        ]);
+      }
+    }, 18);
+  };
+
+  useEffect(() => {
+    if (activeTab === "copilot" && !hasStreamedCopilotGreeting) {
+      setHasStreamedCopilotGreeting(true);
+      const greeting = generateDynamicAgentGreeting();
+      streamCopilotGreeting(greeting);
+    }
+  }, [activeTab, hasStreamedCopilotGreeting]);
 
   // Stream output with realistic character-by-character typewriter animation
   const streamResponse = (userCmd: string, responseText: string) => {
@@ -424,23 +462,11 @@ export default function InteractiveDevConsole() {
           {/* Tab 2: Embedded AI Architecture Copilot Cockpit */}
           {activeTab === "copilot" && (
             <div className="embedded-copilot-container">
-              {/* Prompt Chips */}
-              <div className="agent-chips-tray">
-                {COPILOT_SUGGESTIONS.map((suggestion) => (
-                  <button
-                    key={suggestion}
-                    type="button"
-                    className="agent-chip"
-                    onClick={() => handleCopilotSend(suggestion)}
-                    disabled={copilotLoading}
-                  >
-                    {suggestion}
-                  </button>
-                ))}
-              </div>
-
               {/* Messages Body */}
-              <div className="embedded-copilot-messages">
+              <div
+                className="embedded-copilot-messages"
+                ref={copilotMessagesContainerRef}
+              >
                 {copilotMessages.map((m, idx) => (
                   <div
                     key={idx}
@@ -477,7 +503,21 @@ export default function InteractiveDevConsole() {
                     </div>
                   </div>
                 )}
-                <div ref={copilotEndRef} />
+              </div>
+
+              {/* Prompt Chips Tray (positioned right above input bar) */}
+              <div className="agent-chips-tray">
+                {COPILOT_SUGGESTIONS.map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    className="agent-chip"
+                    onClick={() => handleCopilotSend(suggestion)}
+                    disabled={copilotLoading}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
               </div>
 
               {/* Input Form */}
@@ -490,7 +530,7 @@ export default function InteractiveDevConsole() {
               >
                 <input
                   type="text"
-                  placeholder="Ask about Nora AI, LangGraph supervisor, device bridges, or WebRTC..."
+                  placeholder="Ask about Nora AI, BluFix acoustic diagnostics, Etana WebRTC, or CV..."
                   value={copilotInput}
                   onChange={(e) => setCopilotInput(e.target.value)}
                   className="agent-input-field"
