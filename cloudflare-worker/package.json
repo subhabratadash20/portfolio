@@ -1,0 +1,15 @@
+{
+  "name": "subhabrata-portfolio-copilot",
+  "version": "1.0.0",
+  "description": "Edge AI Copilot worker for Subhabrata Das portfolio",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241106.0",
+    "typescript": "^5.6.3",
+    "wrangler": "^4.156.2"
+  }
+}
