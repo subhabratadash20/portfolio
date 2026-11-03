@@ -110,12 +110,14 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         scrollIndicator.style.pointerEvents = p > 0.15 ? "none" : "auto";
       }
 
-      // Animate profile photo (elevation and graceful transition as grid occupies view)
+      // Animate profile photo: Zoom effect smoothly in sync with scroll progress p (1.0 -> 1.35)
+      // Elevated upward (-140px) so the zoomed photo never overlaps the skill cards below
       if (centerPhotoRef.current) {
-        const photoScale = 1 - p * 0.16;
-        const photoY = p * -85;
-        centerPhotoRef.current.style.transform = `translate(-50%, calc(-50% + ${photoY}px)) scale(${photoScale})`;
-        centerPhotoRef.current.style.boxShadow = `0 0 ${40 + p * 30}px rgba(0, 217, 255, ${0.25 + p * 0.2})`;
+        const photoZoom = 1 + p * 0.35; // smooth zoom-in up to 135%
+        const photoY = p * -145; // elevated higher to make ample room for the grid
+        centerPhotoRef.current.style.transform = `translate(-50%, calc(-50% + ${photoY}px)) scale(${photoZoom})`;
+        centerPhotoRef.current.style.boxShadow = `0 0 ${40 + p * 50}px rgba(0, 217, 255, ${0.25 + p * 0.35}), 0 0 ${80 + p * 60}px rgba(124, 58, 237, ${0.2 + p * 0.3})`;
+        centerPhotoRef.current.style.zIndex = "2";
       }
 
       // Responsive grid geometry spanning the available screen width
@@ -131,8 +133,8 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       const colWidth = maxGridWidth / cols;
       const rowHeight = isMobile ? 96 : 120;
       const totalWidth = (cols - 1) * colWidth;
-      // Position grid cleanly centered under the photo with spacious rows
-      const gridStartY = isMobile ? 50 : 55;
+      // Position grid safely below the zoomed profile photo with zero overlap
+      const gridStartY = isMobile ? 80 : 90;
 
       // Update positions of each skill node
       SKILL_NODES.forEach((node, i) => {
