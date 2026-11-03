@@ -4,6 +4,7 @@ import profilePhoto from "../../1770286377375(1).png";
 import InteractiveCyberCanvas from "@/components/InteractiveCyberCanvas";
 import InteractiveDevConsole from "@/components/InteractiveDevConsole";
 import InteractiveSystemArchitecture from "@/components/InteractiveSystemArchitecture";
+import OrbitalSkillSphere from "@/components/OrbitalSkillSphere";
 import LegacyInteractions from "@/components/LegacyInteractions";
 import Navbar from "@/components/Navbar";
 import ProjectShowcase from "@/components/ProjectShowcase";
@@ -130,56 +131,8 @@ export default function Home() {
               </svg>
             </a>
           </div>
-          <div className="pipeline-wrapper animate-on-scroll">
-            {/* Central profile photo */}
-            <div className="pipeline-center sun-core">
-              <img
-                className="profile-photo"
-                src={profilePhoto.src}
-                alt="Subhabrata Das"
-                width={220}
-                height={220}
-              />
-            </div>
-
-            {/* Each skill icon has its own orbit with unique 3D orientation */}
-            <div className="pipeline-orbits">
-              {skillNodes.map((node) => (
-                <div
-                  key={node.key}
-                  className={`pipeline-node ${node.reverse ? "orbit-reverse" : ""}`}
-                  style={{
-                    "--rx": `${node.rx}deg`,
-                    "--ry": `${node.ry}deg`,
-                    "--rz": `${node.rz}deg`,
-                    "--orbit-size": `${node.size}px`,
-                    "--spin-duration": `${node.duration}s`,
-                  } as React.CSSProperties}
-                >
-                  <div className="pipeline-node-traveler">
-                    <button
-                      type="button"
-                      className="pipeline-node-inner"
-                      data-label={node.label}
-                      aria-label={node.label}
-                      style={{
-                        "--rx": `${node.rx}deg`,
-                        "--ry": `${node.ry}deg`,
-                      } as React.CSSProperties}
-                    >
-                      <div className="logo-icon">
-                        <img
-                          src={node.icon}
-                          alt={node.label}
-                          style={node.key === "riverpod" ? { filter: "brightness(0) invert(1)" } : undefined}
-                        />
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Scroll-Reactive 3D Sphere & Structured Grid */}
+          <OrbitalSkillSphere profilePhoto={profilePhoto} />
           <div className="hero-scroll-indicator">
             <div className="mouse">
               <div className="wheel"></div>
