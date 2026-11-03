@@ -9,6 +9,7 @@ import LegacyInteractions from "@/components/LegacyInteractions";
 import Navbar from "@/components/Navbar";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import PortfolioAgentWidget from "@/components/PortfolioAgentWidget";
+import SkillsInteractiveGrid from "@/components/SkillsInteractiveGrid";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
@@ -160,7 +161,7 @@ export default function Home() {
               </p>
             </div>
             <div className="about-stats">
-              <div className="stat-card glass-card animate-on-scroll reveal-scale">
+              <div className="stat-card glass-card animate-on-scroll stat-card-launch">
                 <div className="stat-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
@@ -170,7 +171,7 @@ export default function Home() {
                 <span className="stat-number" data-count="10">0</span><span className="stat-suffix">+</span>
                 <span className="stat-label">Apps Deployed</span>
               </div>
-              <div className="stat-card glass-card animate-on-scroll reveal-scale">
+              <div className="stat-card glass-card animate-on-scroll stat-card-launch">
                 <div className="stat-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="12" cy="12" r="10" />
@@ -180,7 +181,7 @@ export default function Home() {
                 <span className="stat-number" data-count="3">0</span><span className="stat-suffix">+</span>
                 <span className="stat-label">Years Experience</span>
               </div>
-              <div className="stat-card glass-card animate-on-scroll reveal-scale">
+              <div className="stat-card glass-card animate-on-scroll stat-card-launch">
                 <div className="stat-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
@@ -201,8 +202,8 @@ export default function Home() {
             <span className="section-number">02.</span>
             Experience & Education
           </h2>
-          <div className="timeline">
-            <div className="timeline-item animate-on-scroll reveal-left">
+          <div className="timeline animate-on-scroll">
+            <div className="timeline-item animate-on-scroll timeline-branch-left">
               <div className="timeline-marker"></div>
               <div className="timeline-content glass-card">
                 <div className="timeline-header">
@@ -237,7 +238,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="timeline-item animate-on-scroll reveal-left">
+            <div className="timeline-item animate-on-scroll timeline-branch-right">
               <div className="timeline-marker education"></div>
               <div className="timeline-content glass-card">
                 <div className="timeline-header">
@@ -264,181 +265,9 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title animate-on-scroll">
             <span className="section-number">03.</span>
-            Technical Proficiencies & Architecture Stack
+            Technical Proficiencies &amp; Architecture Stack
           </h2>
-          <div className="skills-grid">
-            {/* 1. Top Priority: Advanced Flutter & Dart 3 Architecture */}
-            <div className="skill-category glass-card animate-on-scroll reveal-card border border-[#00D9FF]/30">
-              <div className="skill-category-header">
-                <div className="skill-icon text-[#00D9FF]">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                  </svg>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#00D9FF] block">Primary Specialization</span>
-                  <h3 className="text-white">Advanced Flutter & Dart 3</h3>
-                </div>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag font-semibold text-[#00D9FF]">Flutter 3.11+</span>
-                <span className="skill-tag">Dart 3 Patterns</span>
-                <span className="skill-tag">Riverpod 3.3</span>
-                <span className="skill-tag">BLoC / Cubit</span>
-                <span className="skill-tag">Clean Architecture & DDD</span>
-                <span className="skill-tag">Dart Isolates (compute)</span>
-                <span className="skill-tag">Custom RenderObjects</span>
-                <span className="skill-tag">60-120 FPS GPU Profiling</span>
-                <span className="skill-tag">Hive Local-First DB</span>
-              </div>
-            </div>
-
-            {/* 2. Second Priority: Python & Agentic AI Frameworks */}
-            <div className="skill-category glass-card animate-on-scroll reveal-card">
-              <div className="skill-category-header">
-                <div className="skill-icon ai-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"></path>
-                    <circle cx="7.5" cy="14.5" r="1.5"></circle>
-                    <circle cx="16.5" cy="14.5" r="1.5"></circle>
-                  </svg>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 block">Second Priority</span>
-                  <h3 className="text-white">Python & Agentic AI</h3>
-                </div>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag font-semibold text-purple-400">FastAPI</span>
-                <span className="skill-tag">LangGraph Supervisors</span>
-                <span className="skill-tag">Tool-Palette Pruning</span>
-                <span className="skill-tag">OpenAI Realtime WebRTC</span>
-                <span className="skill-tag">Gemini 3.8 Flash</span>
-                <span className="skill-tag">Claude</span>
-                <span className="skill-tag">Celery & Redis Queues</span>
-                <span className="skill-tag">Beanie ODM (MongoDB)</span>
-              </div>
-            </div>
-
-            {/* 3. Third Priority: Node.js & Scalable Backend Microservices */}
-            <div className="skill-category glass-card animate-on-scroll reveal-card">
-              <div className="skill-category-header">
-                <div className="skill-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="16,18 22,12 16,6"></polyline>
-                    <polyline points="8,6 2,12 8,18"></polyline>
-                  </svg>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block">Third Priority</span>
-                  <h3 className="text-white">Node.js 22 & Microservices</h3>
-                </div>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag font-semibold text-emerald-400">Node.js 22 LTS</span>
-                <span className="skill-tag">PostgreSQL (Neon)</span>
-                <span className="skill-tag">Firebase Data Connect</span>
-                <span className="skill-tag">Cloud Firestore</span>
-                <span className="skill-tag">Redis Concurrency Locks</span>
-                <span className="skill-tag">Stripe Connect Payouts</span>
-                <span className="skill-tag">Idempotent Webhooks</span>
-              </div>
-            </div>
-
-            {/* 4. Fourth Priority: React & Modern Web */}
-            <div className="skill-category glass-card animate-on-scroll reveal-card">
-              <div className="skill-category-header">
-                <div className="skill-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">Supporting Capability</span>
-                  <h3 className="text-white">React & Modern Web</h3>
-                </div>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag font-semibold text-amber-400">React 18/19</span>
-                <span className="skill-tag">Next.js App Router</span>
-                <span className="skill-tag">TypeScript</span>
-                <span className="skill-tag">Tailwind CSS</span>
-                <span className="skill-tag">Web Portals (myetana.com)</span>
-                <span className="skill-tag">Developer Dashboards</span>
-                <span className="skill-tag">REST & GraphQL Clients</span>
-              </div>
-            </div>
-
-            {/* 5. Native Hardware Bridges & Real-Time Media */}
-            <div className="skill-category glass-card animate-on-scroll reveal-card">
-              <div className="skill-category-header">
-                <div className="skill-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
-                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-                  </svg>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 block">System Integration</span>
-                  <h3 className="text-white">Hardware Bridges & Media</h3>
-                </div>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag font-semibold text-blue-400">iOS AlarmKit & EventKit</span>
-                <span className="skill-tag">Android AlarmManager</span>
-                <span className="skill-tag">Agora WebRTC</span>
-                <span className="skill-tag">Mux RTMP Simulcast</span>
-                <span className="skill-tag">Socket.IO Duplex</span>
-                <span className="skill-tag">MethodChannels Interop</span>
-              </div>
-            </div>
-
-            {/* 6. Geolocation & Fleet Telemetry */}
-            <div className="skill-category glass-card animate-on-scroll reveal-card">
-              <div className="skill-category-header">
-                <div className="skill-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-teal-400 block">Spatial Computing</span>
-                  <h3 className="text-white">Geolocation & Radar</h3>
-                </div>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag font-semibold text-teal-400">Google Maps API</span>
-                <span className="skill-tag">Geofencing Radar</span>
-                <span className="skill-tag">Live Proximity Dispatch</span>
-                <span className="skill-tag">Sub-Meter Telemetry</span>
-                <span className="skill-tag">Offline Sync Buffering</span>
-              </div>
-            </div>
-
-            <div className="skill-category glass-card animate-on-scroll reveal-card">
-              <div className="skill-category-header">
-                <div className="skill-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                  </svg>
-                </div>
-                <h3>Mobile Release & DevOps</h3>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag">iOS Xcode Deploy</span>
-                <span className="skill-tag">Android Keystore</span>
-                <span className="skill-tag">App Store Connect</span>
-                <span className="skill-tag">Google Play Console</span>
-                <span className="skill-tag">TestFlight</span>
-                <span className="skill-tag">Git VCS</span>
-              </div>
-            </div>
-          </div>
+          <SkillsInteractiveGrid />
         </div>
       </section>
 
@@ -467,7 +296,7 @@ export default function Home() {
           </h2>
           <div className="hire-content">
             <div className="hire-grid">
-              <div className="hire-card glass-card animate-on-scroll reveal-scale">
+              <div className="hire-card glass-card animate-on-scroll orbit-triad-card-1">
                 <div className="hire-icon-wrapper">
                   <div className="hire-orbit hire-orbit--1"></div>
                   <div className="hire-orbit hire-orbit--2"></div>
@@ -482,7 +311,7 @@ export default function Home() {
                 <h3>3+ Years Experience</h3>
                 <p>Real-world Flutter development experience across diverse industry sectors</p>
               </div>
-              <div className="hire-card glass-card animate-on-scroll reveal-scale">
+              <div className="hire-card glass-card animate-on-scroll orbit-triad-card-2">
                 <div className="hire-icon-wrapper">
                   <div className="hire-orbit hire-orbit--1"></div>
                   <div className="hire-orbit hire-orbit--2"></div>
@@ -496,7 +325,7 @@ export default function Home() {
                 <h3>Proven Track Record</h3>
                 <p>Delivering high-quality apps published on App Store & Play Store</p>
               </div>
-              <div className="hire-card glass-card animate-on-scroll reveal-scale">
+              <div className="hire-card glass-card animate-on-scroll orbit-triad-card-3">
                 <div className="hire-icon-wrapper">
                   <div className="hire-orbit hire-orbit--1"></div>
                   <div className="hire-orbit hire-orbit--2"></div>
@@ -517,7 +346,7 @@ export default function Home() {
       </section>
 
       {/* ======= CTA Banner ======= */}
-      <section className="cta-banner animate-on-scroll reveal-cockpit">
+      <section className="cta-banner animate-on-scroll cta-warp-banner">
         <div className="cta-banner-bg" />
         <div className="cta-banner-borders" />
         <div className="cta-banner-content">
@@ -558,7 +387,7 @@ export default function Home() {
               I'd love to hear from you!
             </p>
             <div className="contact-links">
-              <a href="mailto:subhabratadash1@gmail.com" className="contact-card glass-card animate-on-scroll reveal-scale">
+              <a href="mailto:subhabratadash1@gmail.com" className="contact-card glass-card animate-on-scroll channel-lock-card">
                 <div className="contact-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -568,7 +397,7 @@ export default function Home() {
                 <span className="contact-label">Email</span>
                 <span className="contact-value">subhabratadash1@gmail.com</span>
               </a>
-              <a href="https://linkedin.com/in/subhabratadash" target="_blank" rel="noopener" className="contact-card glass-card animate-on-scroll reveal-scale">
+              <a href="https://linkedin.com/in/subhabratadash" target="_blank" rel="noopener" className="contact-card glass-card animate-on-scroll channel-lock-card">
                 <div className="contact-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -579,7 +408,7 @@ export default function Home() {
                 <span className="contact-label">LinkedIn</span>
                 <span className="contact-value">Connect with me</span>
               </a>
-              <a href="https://github.com/subhabratadash20" target="_blank" rel="noopener" className="contact-card glass-card contact-card--github animate-on-scroll reveal-scale">
+              <a href="https://github.com/subhabratadash20" target="_blank" rel="noopener" className="contact-card glass-card contact-card--github animate-on-scroll channel-lock-card">
                 <div className="contact-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -588,7 +417,7 @@ export default function Home() {
                 <span className="contact-label">GitHub</span>
                 <span className="contact-value">View my code</span>
               </a>
-              <a href="https://x.com/subhabrata91463" target="_blank" rel="noopener" className="contact-card glass-card contact-card--twitter animate-on-scroll reveal-scale">
+              <a href="https://x.com/subhabrata91463" target="_blank" rel="noopener" className="contact-card glass-card contact-card--twitter animate-on-scroll channel-lock-card">
                 <div className="contact-icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.737-8.835L1.254 2.25H8.08l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -597,7 +426,7 @@ export default function Home() {
                 <span className="contact-label">Twitter / X</span>
                 <span className="contact-value">Follow me</span>
               </a>
-              <a href="#" className="contact-card glass-card animate-on-scroll reveal-scale">
+              <a href="#" className="contact-card glass-card animate-on-scroll channel-lock-card">
                 <div className="contact-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -608,7 +437,7 @@ export default function Home() {
                 <span className="contact-value">Kolkata, India</span>
               </a>
             </div>
-            <a href="mailto:subhabratadash1@gmail.com" className="btn btn-primary btn-large animate-on-scroll reveal-scale">
+            <a href="mailto:subhabratadash1@gmail.com" className="btn btn-primary btn-large animate-on-scroll say-hello-magnetic">
               <span>Say Hello</span>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M22 2L11 13"></path>

@@ -269,10 +269,11 @@ export default function ProjectShowcase() {
 
       {/* Projects Grid */}
       <div className="projects-grid">
-        {filteredProjects.map((project: Project) => (
+        {filteredProjects.map((project: Project, index: number) => (
           <article
             key={project.slug}
-            className="project-card glass-card animate-on-scroll reveal-card"
+            className="project-card glass-card animate-on-scroll project-vault-card"
+            style={{ transitionDelay: `${(index % 6) * 100}ms` }}
             data-tilt="true"
             data-slug={project.slug}
           >
