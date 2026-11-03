@@ -291,18 +291,42 @@ export default function Home() {
               <div className="skill-category-header">
                 <div className="skill-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                  </svg>
+                </div>
+                <h3>Mobile Architecture</h3>
+              </div>
+              <div className="skill-tags">
+                <span className="skill-tag">Flutter</span>
+                <span className="skill-tag">Dart</span>
+                <span className="skill-tag">Riverpod 3</span>
+                <span className="skill-tag">GetX</span>
+                <span className="skill-tag">GoRouter</span>
+                <span className="skill-tag">AutoRoute</span>
+                <span className="skill-tag">Bloc</span>
+                <span className="skill-tag">Agora WebRTC</span>
+              </div>
+            </div>
+
+            <div className="skill-category glass-card animate-on-scroll">
+              <div className="skill-category-header">
+                <div className="skill-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
                     <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
                     <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
                   </svg>
                 </div>
-                <h3>Backend & Database</h3>
+                <h3>Databases & Realtime</h3>
               </div>
               <div className="skill-tags">
-                <span className="skill-tag">Firebase</span>
-                <span className="skill-tag">Hive</span>
-                <span className="skill-tag">NoSQL</span>
-                <span className="skill-tag">REST APIs</span>
+                <span className="skill-tag">PostgreSQL</span>
+                <span className="skill-tag">GraphQL</span>
+                <span className="skill-tag">Firebase Data Connect</span>
+                <span className="skill-tag">Cloud Firestore</span>
+                <span className="skill-tag">Redis Caching</span>
+                <span className="skill-tag">Hive DB</span>
                 <span className="skill-tag">Supabase</span>
               </div>
             </div>
@@ -316,13 +340,16 @@ export default function Home() {
                     <circle cx="16.5" cy="14.5" r="1.5"></circle>
                   </svg>
                 </div>
-                <h3>AI & Cloud Services</h3>
+                <h3>AI, Systems & Payments</h3>
               </div>
               <div className="skill-tags">
-                <span className="skill-tag">OpenAI</span>
-                <span className="skill-tag">Gemini</span>
+                <span className="skill-tag">Multi-Agent AI</span>
+                <span className="skill-tag">OpenAI SDK</span>
+                <span className="skill-tag">Gemini 3.8 Flash</span>
                 <span className="skill-tag">Claude</span>
-                <span className="skill-tag">Google Cloud</span>
+                <span className="skill-tag">Idempotent APIs</span>
+                <span className="skill-tag">Stripe Connect</span>
+                <span className="skill-tag">Paystack</span>
               </div>
             </div>
 
@@ -334,12 +361,14 @@ export default function Home() {
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                 </div>
-                <h3>Geolocation & Mapping</h3>
+                <h3>Geolocation & Realtime Streaming</h3>
               </div>
               <div className="skill-tags">
-                <span className="skill-tag">Google Maps</span>
-                <span className="skill-tag">Geofencing</span>
-                <span className="skill-tag">Location Services</span>
+                <span className="skill-tag">Google Maps API</span>
+                <span className="skill-tag">Geofencing Radar</span>
+                <span className="skill-tag">Socket.IO</span>
+                <span className="skill-tag">Live Proximity Dispatch</span>
+                <span className="skill-tag">Location Telemetry</span>
               </div>
             </div>
 
@@ -351,15 +380,15 @@ export default function Home() {
                     <polyline points="8,6 2,12 8,18"></polyline>
                   </svg>
                 </div>
-                <h3>Other Technologies</h3>
+                <h3>Backend & Cloud Infra</h3>
               </div>
               <div className="skill-tags">
+                <span className="skill-tag">Node.js 22 LTS</span>
+                <span className="skill-tag">Docker</span>
+                <span className="skill-tag">Google Cloud</span>
+                <span className="skill-tag">Cloud Functions</span>
                 <span className="skill-tag">Python</span>
-                <span className="skill-tag">Java</span>
-                <span className="skill-tag">C</span>
-                <span className="skill-tag">CI/CD</span>
-                <span className="skill-tag">Git</span>
-                <span className="skill-tag">Agile</span>
+                <span className="skill-tag">CI/CD Pipelines</span>
               </div>
             </div>
 
@@ -371,14 +400,15 @@ export default function Home() {
                     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                   </svg>
                 </div>
-                <h3>Mobile & DevOps</h3>
+                <h3>Mobile Release & DevOps</h3>
               </div>
               <div className="skill-tags">
-                <span className="skill-tag">iOS Builds</span>
-                <span className="skill-tag">Android Builds</span>
-                <span className="skill-tag">App Store</span>
-                <span className="skill-tag">Play Store</span>
+                <span className="skill-tag">iOS Xcode Deploy</span>
+                <span className="skill-tag">Android Keystore</span>
+                <span className="skill-tag">App Store Connect</span>
+                <span className="skill-tag">Google Play Console</span>
                 <span className="skill-tag">TestFlight</span>
+                <span className="skill-tag">Git VCS</span>
               </div>
             </div>
           </div>
