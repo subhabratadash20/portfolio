@@ -117,7 +117,8 @@ export const projects: Project[] = [
         metrics: "Smart Compatibility Scoring",
         links: {
             appStore: "#",
-            playStore: "#"
+            playStore: "#",
+            demo: "https://plugg.social"
         },
         overview: "Developed an intelligent social networking application that uses AI to match users based on interests, preferences, and lifestyle. The platform enables meaningful connections through smart matchmaking and real-time communication features.",
         features: [
