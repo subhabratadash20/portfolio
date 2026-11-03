@@ -129,10 +129,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       // Available container width clamped to responsive viewport margins
       const maxGridWidth = Math.min(winW - (isMobile ? 32 : 80), 1280);
       const colWidth = maxGridWidth / cols;
-      const rowHeight = isMobile ? 74 : 88;
+      const rowHeight = isMobile ? 96 : 120;
       const totalWidth = (cols - 1) * colWidth;
-      // Position grid higher up in the viewport
-      const gridStartY = isMobile ? 60 : 70;
+      // Position grid cleanly centered under the photo with spacious rows
+      const gridStartY = isMobile ? 50 : 55;
 
       // Update positions of each skill node
       SKILL_NODES.forEach((node, i) => {
