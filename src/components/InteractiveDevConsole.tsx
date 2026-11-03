@@ -18,20 +18,26 @@ export default function InteractiveDevConsole() {
     if (!cmd) return;
 
     let response = "";
-    if (cmd === "help") {
-      response = "Available commands: 'apps' (list live apps), 'skills' (core stack), 'contact' (reach out), 'clear'";
-    } else if (cmd === "apps") {
-      response = "PRODUCTION RELEASES: BluFix AI (Smart Dispatch), Rent Roll Pulse (FinTech Valuation), Etana Oroko (RTC Social), Konnectax (Tax Compliance SaaS), Plugg (AI Matchmaking).";
-    } else if (cmd === "skills") {
-      response = "PRIMARY: Flutter, Dart, Riverpod, Node.js 22, PostgreSQL, Firebase Data Connect, WebRTC, Gemini AI.";
-    } else if (cmd === "contact") {
-      response = "DIRECT: subhabratadas2002@gmail.com | LinkedIn: /in/subhabratadash | GitHub: /subhabratadash20";
-    } else if (cmd === "clear") {
-      setHistory([]);
-      setInputCmd("");
-      return;
-    } else {
-      response = `Command not recognized: '${cmd}'. Type 'help' for options.`;
+    switch (cmd) {
+      case "help":
+        response = "Available commands: 'apps' (list live apps), 'skills' (core stack), 'contact' (reach out), 'clear'";
+        break;
+      case "apps":
+        response = "PRODUCTION RELEASES: BluFix AI (Smart Dispatch), Rent Roll Pulse (FinTech Valuation), Etana Oroko (RTC Social), Konnectax (Tax Compliance SaaS), Plugg (AI Matchmaking).";
+        break;
+      case "skills":
+        response = "PRIMARY: Flutter, Dart, Riverpod, Node.js 22, PostgreSQL, Firebase Data Connect, WebRTC, Gemini AI.";
+        break;
+      case "contact":
+        response = "DIRECT: subhabratadas2002@gmail.com | LinkedIn: /in/subhabratadash | GitHub: /subhabratadash20";
+        break;
+      case "clear":
+        setHistory([]);
+        setInputCmd("");
+        return;
+      default:
+        response = `Command not recognized: '${cmd}'. Type 'help' for options.`;
+        break;
     }
 
     setHistory((prev) => [...prev, { cmd: inputCmd, text: response }]);
