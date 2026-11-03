@@ -369,7 +369,8 @@ button {
 
 .hero-content {
   text-align: center;
-  max-width: 800px;
+  max-width: 1400px;
+  width: 100%;
 }
 
 .hero-badge {

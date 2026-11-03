@@ -66,15 +66,17 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
 
   useEffect(() => {
     const handleScroll = () => {
-      // Calculate true window scroll distance from top
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-      // When scrollY is 0-50px: Progress is 0 (Pure rotating 3D sphere)
-      // When scrollY is 50px-350px: Smoothly interpolates from Sphere -> Grid
-      // When scrollY >= 350px: Progress is 1 (Full structured grid)
-      const start = 40;
-      const end = 340;
-      const progress = Math.min(Math.max((scrollY - start) / (end - start), 0), 1);
+      // The sphere is centered in the viewport.
+      // As the user scrolls, container top moves from ~300px down to negative.
+      // Progress 0 starts when container is centered (rect.top ≈ windowHeight * 0.45).
+      // Progress 1 reaches full grid when user scrolls container up (rect.top ≈ windowHeight * 0.05).
+      const start = windowHeight * 0.42;
+      const end = windowHeight * 0.05;
+      const progress = Math.min(Math.max((start - rect.top) / (start - end), 0), 1);
 
       scrollProgressRef.current = progress;
     };
@@ -105,10 +107,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         scrollIndicator.style.pointerEvents = p > 0.15 ? "none" : "auto";
       }
 
-      // Animate profile photo (subtle scale and elevation)
+      // Animate profile photo (elevation and graceful fade as grid occupies view)
       if (centerPhotoRef.current) {
-        const photoScale = 1 - p * 0.18;
-        const photoY = p * -30;
+        const photoScale = 1 - p * 0.15;
+        const photoY = p * -40;
         centerPhotoRef.current.style.transform = `translate(-50%, calc(-50% + ${photoY}px)) scale(${photoScale})`;
         centerPhotoRef.current.style.boxShadow = `0 0 ${40 + p * 30}px rgba(0, 217, 255, ${0.25 + p * 0.2})`;
       }
@@ -124,9 +126,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       // Available container width clamped to responsive viewport margins
       const maxGridWidth = Math.min(winW - (isMobile ? 32 : 80), 1280);
       const colWidth = maxGridWidth / cols;
-      const rowHeight = isMobile ? 85 : 105;
+      const rowHeight = isMobile ? 80 : 96;
       const totalWidth = (cols - 1) * colWidth;
-      const gridStartY = isMobile ? 150 : 160;
+      // Center the grid vertically below the profile image so it is fully inside the viewport
+      const gridStartY = isMobile ? 130 : 140;
 
       // Update positions of each skill node
       SKILL_NODES.forEach((node, i) => {
