@@ -13,40 +13,53 @@ type SkillNodeDef = {
   ry: number;
   rz: number;
   radius: number;
+  layer: 1 | 2 | 3 | 4;
 };
 
-const SKILL_NODES: SkillNodeDef[] = [
-  // Outer Orbit Nodes
-  { key: "flutter", label: "Flutter", icon: "/icons/flutter.svg", speed: 0.7, rx: 75, ry: 0, rz: 0, radius: 240 },
-  { key: "dart", label: "Dart", icon: "/icons/dart.svg", speed: 0.8, reverse: true, rx: 70, ry: 30, rz: 15, radius: 250 },
-  { key: "postgresql", label: "PostgreSQL", icon: "/icons/postgresql.svg", speed: 0.65, rx: 65, ry: 50, rz: 0, radius: 245 },
-  { key: "graphql", label: "GraphQL", icon: "/icons/graphql.svg", speed: 0.72, reverse: true, rx: 75, ry: 75, rz: 10, radius: 235 },
-  { key: "firebase", label: "Firebase Data Connect", icon: "/icons/firebase.svg", speed: 0.6, rx: 60, ry: 100, rz: 20, radius: 240 },
-  { key: "google-cloud", label: "Google Cloud", icon: "/icons/google-cloud.svg", speed: 0.75, reverse: true, rx: 75, ry: 125, rz: 10, radius: 255 },
-  { key: "openai", label: "OpenAI", icon: "/icons/openai.svg", speed: 0.62, rx: 70, ry: 150, rz: 15, radius: 238 },
-  { key: "gemini", label: "Gemini AI", icon: "/icons/gemini.svg", speed: 0.7, reverse: true, rx: 65, ry: 175, rz: 5, radius: 242 },
-  { key: "redis", label: "Redis Caching", icon: "/icons/redis.svg", speed: 0.78, rx: 75, ry: 200, rz: 20, radius: 248 },
-  { key: "nodejs", label: "Node.js 22 LTS", icon: "/icons/nodejs.svg", speed: 0.65, reverse: true, rx: 70, ry: 225, rz: 15, radius: 235 },
-  { key: "docker", label: "Docker", icon: "/icons/docker.svg", speed: 0.68, rx: 60, ry: 250, rz: 10, radius: 250 },
-  { key: "stripe", label: "Stripe & Paystack", icon: "/icons/stripe.svg", speed: 0.74, reverse: true, rx: 75, ry: 275, rz: 25, radius: 240 },
-  { key: "webrtc", label: "Agora WebRTC", icon: "/icons/webrtc.svg", speed: 0.62, rx: 65, ry: 300, rz: 15, radius: 245 },
-  { key: "socketio", label: "Socket.IO", icon: "/icons/socketio.svg", speed: 0.8, reverse: true, rx: 70, ry: 325, rz: 10, radius: 238 },
+// Sonic Lamb 4-Layer Exploded Architecture Mapping
+const ARCH_LAYERS = [
+  { id: 1, label: "LAYER 01 // MOBILE CLIENT SHELL (FLUTTER 3.11)", color: "#00D9FF", border: "rgba(0, 217, 255, 0.6)", glow: "rgba(0, 217, 255, 0.35)" },
+  { id: 2, label: "LAYER 02 // AGENTIC AI CORE (PYTHON / LANGGRAPH)", color: "#A855F7", border: "rgba(168, 85, 247, 0.6)", glow: "rgba(168, 85, 247, 0.35)" },
+  { id: 3, label: "LAYER 03 // DISTRIBUTED DATA BUS (NODE.JS 22 / POSTGRESQL)", color: "#10B981", border: "rgba(16, 185, 129, 0.6)", glow: "rgba(16, 185, 129, 0.35)" },
+  { id: 4, label: "LAYER 04 // BARE-METAL & BRIDGES (WEBRTC / GEOFENCING)", color: "#F59E0B", border: "rgba(245, 158, 11, 0.6)", glow: "rgba(245, 158, 11, 0.35)" },
+];
 
-  // Inner Orbit Nodes
-  { key: "riverpod", label: "Riverpod 3", icon: "/icons/riverpod.svg", speed: 0.85, rx: 80, ry: 15, rz: 30, radius: 175 },
-  { key: "getx", label: "GetX State", icon: "/icons/getx.svg", speed: 0.9, reverse: true, rx: 70, ry: 45, rz: 45, radius: 180 },
-  { key: "gorouter", label: "GoRouter / AutoRoute", icon: "/icons/gorouter.svg", speed: 0.82, rx: 75, ry: 75, rz: 15, radius: 170 },
-  { key: "idempotency", label: "Idempotent APIs", icon: "/icons/idempotency.svg", speed: 0.78, reverse: true, rx: 65, ry: 105, rz: 60, radius: 185 },
-  { key: "hive", label: "Hive DB", icon: "/icons/hive.svg", speed: 0.86, rx: 80, ry: 135, rz: 25, radius: 172 },
-  { key: "nosql", label: "Firestore / NoSQL", icon: "/icons/nosql.svg", speed: 0.74, reverse: true, rx: 70, ry: 165, rz: 40, radius: 178 },
-  { key: "provider", label: "Provider", icon: "/icons/provider.svg", speed: 0.88, rx: 75, ry: 195, rz: 10, radius: 168 },
-  { key: "claude", label: "Claude AI", icon: "/icons/claude.svg", speed: 0.7, reverse: true, rx: 65, ry: 225, rz: 55, radius: 182 },
-  { key: "geofencing", label: "Geofencing Radar", icon: "/icons/geofencing.svg", speed: 0.82, rx: 80, ry: 255, rz: 20, radius: 170 },
-  { key: "cicd", label: "CI/CD Pipelines", icon: "/icons/cicd.svg", speed: 0.92, reverse: true, rx: 70, ry: 285, rz: 35, radius: 176 },
-  { key: "git", label: "Git VCS", icon: "/icons/git.svg", speed: 0.76, rx: 75, ry: 315, rz: 15, radius: 172 },
-  { key: "python", label: "Python", icon: "/icons/python.svg", speed: 0.84, reverse: true, rx: 65, ry: 345, rz: 50, radius: 180 },
-  { key: "google-maps", label: "Google Maps API", icon: "/icons/google-maps.svg", speed: 0.78, rx: 80, ry: 20, rz: 25, radius: 168 },
-  { key: "rest", label: "RESTful APIs", icon: "/icons/rest.svg", speed: 0.86, reverse: true, rx: 70, ry: 50, rz: 30, radius: 174 },
+const SKILL_NODES: SkillNodeDef[] = [
+  // Layer 1: Mobile Client Shell (Flutter 3.11, Dart Isolates, Reactive State)
+  { key: "flutter", label: "Flutter 3.11", icon: "/icons/flutter.svg", speed: 0.7, rx: 75, ry: 0, rz: 0, radius: 240, layer: 1 },
+  { key: "dart", label: "Dart 3 Isolates", icon: "/icons/dart.svg", speed: 0.8, reverse: true, rx: 70, ry: 30, rz: 15, radius: 250, layer: 1 },
+  { key: "riverpod", label: "Riverpod 3", icon: "/icons/riverpod.svg", speed: 0.85, rx: 80, ry: 15, rz: 30, radius: 175, layer: 1 },
+  { key: "getx", label: "GetX State", icon: "/icons/getx.svg", speed: 0.9, reverse: true, rx: 70, ry: 45, rz: 45, radius: 180, layer: 1 },
+  { key: "gorouter", label: "GoRouter Declarative", icon: "/icons/gorouter.svg", speed: 0.82, rx: 75, ry: 75, rz: 15, radius: 170, layer: 1 },
+  { key: "provider", label: "Provider Architecture", icon: "/icons/provider.svg", speed: 0.88, rx: 75, ry: 195, rz: 10, radius: 168, layer: 1 },
+  { key: "hive", label: "Hive Local DB", icon: "/icons/hive.svg", speed: 0.86, rx: 80, ry: 135, rz: 25, radius: 172, layer: 1 },
+
+  // Layer 2: Agentic Orchestration Core (Python FastAPI, OpenAI, Gemini 3.8, Claude)
+  { key: "python", label: "Python FastAPI", icon: "/icons/python.svg", speed: 0.84, reverse: true, rx: 65, ry: 345, rz: 50, radius: 180, layer: 2 },
+  { key: "gemini", label: "Gemini 3.8 Flash", icon: "/icons/gemini.svg", speed: 0.7, reverse: true, rx: 65, ry: 175, rz: 5, radius: 242, layer: 2 },
+  { key: "openai", label: "OpenAI GPT-4o", icon: "/icons/openai.svg", speed: 0.62, rx: 70, ry: 150, rz: 15, radius: 238, layer: 2 },
+  { key: "claude", label: "Claude 3.5 Sonnet", icon: "/icons/claude.svg", speed: 0.7, reverse: true, rx: 65, ry: 225, rz: 55, radius: 182, layer: 2 },
+
+  // Layer 3: Distributed Data Bus (Node.js 22 LTS, PostgreSQL ACID, Redis, Firebase)
+  { key: "nodejs", label: "Node.js 22 LTS", icon: "/icons/nodejs.svg", speed: 0.65, reverse: true, rx: 70, ry: 225, rz: 15, radius: 235, layer: 3 },
+  { key: "postgresql", label: "PostgreSQL ACID", icon: "/icons/postgresql.svg", speed: 0.65, rx: 65, ry: 50, rz: 0, radius: 245, layer: 3 },
+  { key: "firebase", label: "Firebase Data Connect", icon: "/icons/firebase.svg", speed: 0.6, rx: 60, ry: 100, rz: 20, radius: 240, layer: 3 },
+  { key: "redis", label: "Redis Locks", icon: "/icons/redis.svg", speed: 0.78, rx: 75, ry: 200, rz: 20, radius: 248, layer: 3 },
+  { key: "docker", label: "Docker Containers", icon: "/icons/docker.svg", speed: 0.68, rx: 60, ry: 250, rz: 10, radius: 250, layer: 3 },
+  { key: "nosql", label: "Cloud Firestore", icon: "/icons/nosql.svg", speed: 0.74, reverse: true, rx: 70, ry: 165, rz: 40, radius: 178, layer: 3 },
+  { key: "idempotency", label: "Idempotent APIs", icon: "/icons/idempotency.svg", speed: 0.78, reverse: true, rx: 65, ry: 105, rz: 60, radius: 185, layer: 3 },
+
+  // Layer 4: Bare-Metal & Device Bridges (iOS DND Bypass, Agora RTC, Geofencing, Stripe)
+  { key: "webrtc", label: "Agora WebRTC", icon: "/icons/webrtc.svg", speed: 0.62, rx: 65, ry: 300, rz: 15, radius: 245, layer: 4 },
+  { key: "geofencing", label: "Geofencing Radar", icon: "/icons/geofencing.svg", speed: 0.82, rx: 80, ry: 255, rz: 20, radius: 170, layer: 4 },
+  { key: "stripe", label: "Stripe Connect", icon: "/icons/stripe.svg", speed: 0.74, reverse: true, rx: 75, ry: 275, rz: 25, radius: 240, layer: 4 },
+  { key: "google-maps", label: "Google Maps Radar", icon: "/icons/google-maps.svg", speed: 0.78, rx: 80, ry: 20, rz: 25, radius: 168, layer: 4 },
+  { key: "socketio", label: "Socket.IO Realtime", icon: "/icons/socketio.svg", speed: 0.8, reverse: true, rx: 70, ry: 325, rz: 10, radius: 238, layer: 4 },
+  { key: "cicd", label: "CI/CD Pipelines", icon: "/icons/cicd.svg", speed: 0.92, reverse: true, rx: 70, ry: 285, rz: 35, radius: 176, layer: 4 },
+  { key: "git", label: "Git VCS", icon: "/icons/git.svg", speed: 0.76, rx: 75, ry: 315, rz: 15, radius: 172, layer: 4 },
+  { key: "rest", label: "REST Endpoints", icon: "/icons/rest.svg", speed: 0.86, reverse: true, rx: 70, ry: 50, rz: 30, radius: 174, layer: 4 },
+  { key: "graphql", label: "GraphQL Gateway", icon: "/icons/graphql.svg", speed: 0.72, reverse: true, rx: 75, ry: 75, rz: 10, radius: 235, layer: 4 },
+  { key: "google-cloud", label: "Google Cloud Engine", icon: "/icons/google-cloud.svg", speed: 0.75, reverse: true, rx: 75, ry: 125, rz: 10, radius: 255, layer: 4 },
 ];
 
 interface OrbitalSkillSphereProps {
@@ -58,13 +71,27 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
   const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
   const ringsRef = useRef<HTMLDivElement | null>(null);
   const centerPhotoRef = useRef<HTMLDivElement | null>(null);
+  const layerBadgeRef = useRef<HTMLDivElement | null>(null);
 
-  // Scroll progress (0 = sphere, 1 = structured grid)
+  // Scroll progress (0 = sphere, 1 = exploded structured grid)
   const scrollProgressRef = useRef(0);
   const timeRef = useRef(0);
   const animFrameRef = useRef<number | null>(null);
+  const [currentLayer, setCurrentLayer] = useState(ARCH_LAYERS[0]);
+  const nodeSubElementsRef = useRef<{ label: HTMLElement | null; icon: HTMLElement | null }[]>([]);
 
   useEffect(() => {
+    let isVisible = true;
+
+    // Cache sub-elements to eliminate querySelector thrashing in 60 FPS animation loop
+    nodeSubElementsRef.current = SKILL_NODES.map((_, i) => {
+      const el = nodeRefs.current[i];
+      return {
+        label: el ? (el.querySelector(".skill-node-label") as HTMLElement) : null,
+        icon: el ? (el.querySelector(".logo-icon") as HTMLElement) : null,
+      };
+    });
+
     const handleScroll = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
@@ -75,27 +102,44 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       const sphereScreenY = rect.top + sphereCenterY;
       const screenCenter = windowHeight * 0.5;
 
-      // Starts morphing once the sphere is centered in the viewport, completing smoothly as user scrolls down
-      const start = screenCenter + 30;
-      const end = screenCenter - 160;
+      // Generous 450-550px scroll range for continuous 4-layer scrubbing
+      const start = screenCenter + (isMobile ? 120 : 160);
+      const end = screenCenter - (isMobile ? 260 : 340);
 
       const progress = Math.min(Math.max((start - sphereScreenY) / (start - end), 0), 1);
-
       scrollProgressRef.current = progress;
+
+      // Update active architectural exploded layer
+      const layerIdx = Math.min(3, Math.floor(progress * 4));
+      setCurrentLayer(ARCH_LAYERS[layerIdx]);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
     handleScroll();
 
     let lastTime = performance.now();
 
     const loop = (currentTime: number) => {
+      if (!isVisible) {
+        animFrameRef.current = null;
+        return;
+      }
+
       const dt = (currentTime - lastTime) / 1000;
       lastTime = currentTime;
       timeRef.current += dt;
 
       const p = scrollProgressRef.current; // 0 to 1
       const isMobile = window.innerWidth < 768;
+
+      // Direct DOM animation for layer badge ref
+      if (layerBadgeRef.current) {
+        const badgeOpacity = Math.min(1, Math.max(0, (p - 0.04) * 6));
+        const badgeTranslateY = Math.max(-10, -10 + p * 10);
+        layerBadgeRef.current.style.opacity = `${badgeOpacity}`;
+        layerBadgeRef.current.style.transform = `translateX(-50%) translateY(${badgeTranslateY}px)`;
+      }
 
       // Fade out orbital rings as user scrolls
       if (ringsRef.current) {
@@ -111,10 +155,9 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       }
 
       // Animate profile photo: Zoom effect smoothly in sync with scroll progress p (1.0 -> 1.35)
-      // Elevated upward (-190px desktop, -140px mobile) to ensure zero overlap with grid cards below
       if (centerPhotoRef.current) {
-        const photoZoom = 1 + p * 0.35; // smooth zoom-in up to 135%
-        const photoY = p * (isMobile ? -140 : -190); // elevated high above row 0
+        const photoZoom = 1 + p * 0.35;
+        const photoY = p * (isMobile ? -140 : -190);
         centerPhotoRef.current.style.transform = `translate(-50%, calc(-50% + ${photoY}px)) scale(${photoZoom})`;
         centerPhotoRef.current.style.boxShadow = `0 0 ${40 + p * 50}px rgba(0, 217, 255, ${0.25 + p * 0.35}), 0 0 ${80 + p * 60}px rgba(124, 58, 237, ${0.2 + p * 0.3})`;
         centerPhotoRef.current.style.zIndex = "2";
@@ -128,15 +171,13 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       else if (winW < 1200) cols = 6;
       else cols = 7;
 
-      // Available container width clamped to responsive viewport margins
       const maxGridWidth = Math.min(winW - (isMobile ? 32 : 80), 1280);
       const colWidth = maxGridWidth / cols;
-      const rowHeight = isMobile ? 115 : 148; // Increased row gap for breathing space
+      const rowHeight = isMobile ? 115 : 148;
       const totalWidth = (cols - 1) * colWidth;
-      // Position grid safely below the zoomed profile photo with zero overlap and ample breathing space
       const gridStartY = isMobile ? 120 : 160;
 
-      // Update positions of each skill node
+      // Update positions of each skill node with exploded anatomy
       SKILL_NODES.forEach((node, i) => {
         const el = nodeRefs.current[i];
         if (!el) return;
@@ -145,17 +186,21 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         const direction = node.reverse ? -1 : 1;
         const angle = timeRef.current * node.speed * direction + (i * (Math.PI * 2)) / SKILL_NODES.length;
 
-        // Base circular coordinate
-        const bx = Math.cos(angle) * node.radius;
-        const by = Math.sin(angle) * node.radius;
+        // Exploded layer radial & Z displacement (Sonic Lamb anatomy separation)
+        // Cohesive base orbit at p = 0; layers progressively peel apart as p increases
+        const layerDisplacement = (node.layer - 1) * 36 * p;
+        const layerZDisplacement = (node.layer - 1) * 45 * p;
+        const effectiveRadius = node.radius + layerDisplacement;
 
-        // 3D Euler angles rotation
+        const bx = Math.cos(angle) * effectiveRadius;
+        const by = Math.sin(angle) * effectiveRadius;
+
         const radX = (node.rx * Math.PI) / 180;
         const radY = (node.ry * Math.PI) / 180;
 
         const orbitX = bx * Math.cos(radY) - by * Math.sin(radY) * Math.sin(radX);
         const orbitY = by * Math.cos(radX);
-        const orbitZ = bx * Math.sin(radY) + by * Math.cos(radY) * Math.sin(radX);
+        const orbitZ = bx * Math.sin(radY) + by * Math.cos(radY) * Math.sin(radX) + layerZDisplacement;
 
         // 2. Structured grid position math
         const col = i % cols;
@@ -164,44 +209,39 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         const gridY = gridStartY + row * rowHeight;
 
         // 3. Smooth blend between 3D Orbit and Clean Grid
-        // Ease function for snapping into grid
         const ease = p * p * (3 - 2 * p); // smoothstep
         let currentX = (1 - ease) * orbitX + ease * gridX;
         let currentY = (1 - ease) * orbitY + ease * gridY;
         const currentZ = (1 - ease) * orbitZ;
 
-        // Dynamic collision avoidance with profile photo during zoom transition
+        // Dynamic collision avoidance with profile photo
         if (ease > 0.15 && Math.abs(currentX) < 160) {
           const profileBottom = (isMobile ? -140 : -190) * p + 140 * (1 + p * 0.35) * 0.5;
-          const minSafeY = profileBottom + 30; // 30px clear buffer below photo
+          const minSafeY = profileBottom + 30;
           if (currentY < minSafeY) {
             currentY = (1 - ease) * currentY + ease * minSafeY;
           }
         }
 
-        // Scale node up in grid mode for high prominence and readability
         const nodeScale = (1 - ease) * (0.85 + (orbitZ / 300) * 0.25) + ease * 1.15;
-
         el.style.transform = `translate3d(${currentX}px, ${currentY}px, ${currentZ}px) scale(${nodeScale})`;
 
-        // Manage label visibility & card glow
-        const labelEl = el.querySelector(".skill-node-label") as HTMLElement;
-        if (labelEl) {
-          labelEl.style.opacity = `${Math.min(1, ease * 1.5)}`;
-          labelEl.style.transform = `translateY(${ease * 6}px)`;
+        // Manage label visibility & layer-specific color glow using cached sub-element refs
+        const subEls = nodeSubElementsRef.current[i];
+        if (subEls?.label) {
+          subEls.label.style.opacity = `${Math.min(1, ease * 1.5)}`;
+          subEls.label.style.transform = `translateY(${ease * 6}px)`;
         }
 
-        const borderEl = el.querySelector(".logo-icon") as HTMLElement;
-        if (borderEl) {
-          borderEl.style.borderRadius = `${Math.max(14, 50 - ease * 36)}px`;
-          borderEl.style.background = ease > 0.4
+        if (subEls?.icon) {
+          const layerConfig = ARCH_LAYERS[node.layer - 1];
+          subEls.icon.style.borderRadius = `${Math.max(14, 50 - ease * 36)}px`;
+          subEls.icon.style.background = ease > 0.4
             ? "rgba(18, 18, 28, 0.92)"
             : "radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(124, 58, 237, 0.3))";
-          borderEl.style.borderColor = ease > 0.4
-            ? "rgba(0, 217, 255, 0.6)"
-            : "rgba(0, 217, 255, 0.4)";
-          borderEl.style.boxShadow = ease > 0.4
-            ? "0 0 20px rgba(0, 217, 255, 0.35), 0 10px 25px rgba(0, 0, 0, 0.7)"
+          subEls.icon.style.borderColor = ease > 0.4 ? layerConfig.border : "rgba(0, 217, 255, 0.4)";
+          subEls.icon.style.boxShadow = ease > 0.4
+            ? `0 0 20px ${layerConfig.glow}, 0 10px 25px rgba(0, 0, 0, 0.7)`
             : "0 0 12px rgba(0, 217, 255, 0.5), 0 0 25px rgba(124, 58, 237, 0.3)";
         }
       });
@@ -209,16 +249,44 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       animFrameRef.current = requestAnimationFrame(loop);
     };
 
+    // Phase 4: IntersectionObserver to pause 60 FPS animation loop when off-screen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !animFrameRef.current) {
+            lastTime = performance.now();
+            animFrameRef.current = requestAnimationFrame(loop);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
     animFrameRef.current = requestAnimationFrame(loop);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      observer.disconnect();
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, []);
 
   return (
     <div className="orbital-sphere-wrapper animate-on-scroll animated" ref={containerRef}>
+      {/* Dynamic Sonic Lamb Exploded Architecture Badge */}
+      <div
+        className={`orbital-layer-indicator layer-${currentLayer.id}`}
+        ref={layerBadgeRef}
+      >
+        <span className="orbital-layer-badge">{currentLayer.label}</span>
+      </div>
+
       {/* Central profile photo core */}
       <div className="pipeline-center sun-core" ref={centerPhotoRef}>
         <Image
@@ -246,7 +314,7 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         ))}
       </div>
 
-      {/* Nodes Layer: Continuous morph from Sphere to Structured Grid */}
+      {/* Nodes Layer: Continuous exploded morph from Sphere to Structured Grid */}
       <div className="orbital-nodes-stage">
         {SKILL_NODES.map((node, idx) => (
           <div

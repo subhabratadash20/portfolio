@@ -1,0 +1,701 @@
+/* =========================================
+   Hero Pipeline & 3D Exploded Architecture Sphere
+   ========================================= */
+/* =========================================
+   Hero Pipeline
+   ========================================= */
+.pipeline-wrapper {
+  position: relative;
+  width: min(1000px, 100%);
+  height: 620px;
+  margin: var(--space-2xl) auto var(--space-3xl);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.pipeline-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  transform: translate(-50%, -50%);
+  padding: 8px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  box-shadow: 0 0 40px rgba(0, 217, 255, 0.25);
+  z-index: 3;
+}
+
+.sun-core {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(124, 58, 237, 0.35) 45%, rgba(10, 10, 15, 0.95) 100%);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  box-shadow:
+      0 0 30px rgba(0, 217, 255, 0.18),
+      0 0 80px rgba(124, 58, 237, 0.15);
+}
+
+.sun-core::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 217, 255, 0.25);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.sun-core::after {
+  content: "";
+  position: absolute;
+  inset: -34px;
+  border-radius: 50%;
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+  z-index: -2;
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.pipeline-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pipeline-base {
+  stroke: rgba(0, 217, 255, 0.18);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+  filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.12));
+}
+
+.pipeline-flow {
+  stroke: url(#pipeGradient);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 6 14;
+  animation: pipelineFlow 4.5s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.25));
+}
+
+.pipeline-base--inner {
+  opacity: 0.5;
+  stroke-width: 2.5;
+}
+
+.pipeline-flow--outer {
+  animation-duration: 4.5s;
+}
+
+.pipeline-flow--inner {
+  animation-duration: 6.5s;
+  opacity: 0.75;
+}
+
+@keyframes pipelineFlow {
+  to {
+      stroke-dashoffset: -90;
+  }
+}
+
+/* Individual orbit for each skill icon */
+.orbital-rings {
+  display: none; /* Replaced by individual node orbits */
+}
+
+/* Container for all orbiting nodes */
+.pipeline-orbits {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  z-index: 2;
+}
+
+/* Each node has its own orbital plane with visible ring */
+.pipeline-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--orbit-size, 460px);
+  height: var(--orbit-size, 460px);
+  margin-left: calc(var(--orbit-size, 460px) / -2);
+  margin-top: calc(var(--orbit-size, 460px) / -2);
+  transform-style: preserve-3d;
+  /* Each node gets unique 3D rotation via inline style */
+  transform: rotateX(var(--rx, 70deg)) rotateY(var(--ry, 0deg)) rotateZ(var(--rz, 0deg));
+}
+
+/* Visible orbit ring for each node */
+.pipeline-node::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* The actual icon container that travels on the orbit */
+.pipeline-node-traveler {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  animation: orbitTravel var(--spin-duration, 30s) linear infinite;
+}
+
+.pipeline-node.orbit-reverse .pipeline-node-traveler {
+  animation-direction: reverse;
+}
+
+.pipeline-node-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  position: relative;
+  cursor: pointer;
+  color: inherit;
+  transform-style: preserve-3d;
+  /* Counter-rotate to keep icon upright */
+  animation: keepUpright var(--spin-duration, 30s) linear infinite;
+}
+
+.pipeline-node.orbit-reverse .pipeline-node-inner {
+  animation-direction: reverse;
+}
+
+/* Keep icon facing the viewer */
+.pipeline-node-inner::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.logo-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(124, 58, 237, 0.3));
+  border-radius: 50%;
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  box-shadow: 
+      0 0 12px rgba(0, 217, 255, 0.5),
+      0 0 25px rgba(124, 58, 237, 0.3);
+  transition: all 0.3s ease;
+  backface-visibility: visible;
+}
+
+.logo-icon:hover {
+  box-shadow: 
+      0 0 20px rgba(0, 217, 255, 0.8),
+      0 0 40px rgba(124, 58, 237, 0.5);
+  transform: scale(1.2);
+}
+
+.logo-icon img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* Make Riverpod logo white to match other icons */
+.logo-icon img[alt="Riverpod"] {
+  filter: brightness(0) invert(1);
+}
+
+@keyframes orbitTravel {
+  from {
+      transform: rotate(0deg) translateX(calc(var(--orbit-size, 460px) / 2));
+  }
+  to {
+      transform: rotate(360deg) translateX(calc(var(--orbit-size, 460px) / 2));
+  }
+}
+
+@keyframes keepUpright {
+  from {
+      transform: rotateZ(0deg) rotateX(calc(-1 * var(--rx, 70deg))) rotateY(calc(-1 * var(--ry, 0deg)));
+  }
+  to {
+      transform: rotateZ(-360deg) rotateX(calc(-1 * var(--rx, 70deg))) rotateY(calc(-1 * var(--ry, 0deg)));
+  }
+}
+
+.pipeline-node-inner::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%) translateY(6px);
+  background: rgba(10, 10, 15, 0.95);
+  border: 1px solid rgba(0, 217, 255, 0.25);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease, transform 150ms ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  z-index: 5;
+}
+
+.pipeline-node-inner:hover::after,
+.pipeline-node-inner:focus-visible::after,
+.pipeline-node-inner:active::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.pipeline-node-inner:focus-visible {
+  outline: 2px solid rgba(0, 217, 255, 0.45);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1024px) {
+  .pipeline-wrapper {
+      height: 500px;
+  }
+
+  .pipeline-node {
+      --orbit-size: 360px !important;
+  }
+
+  .pipeline-center {
+      width: 180px;
+      height: 180px;
+  }
+
+  .logo-icon {
+      width: 40px;
+      height: 40px;
+  }
+
+  .logo-icon img {
+      width: 22px;
+      height: 22px;
+  }
+}
+
+@media (max-width: 900px) {
+  .pipeline-wrapper {
+      height: 450px;
+  }
+
+  .pipeline-node {
+      --orbit-size: 320px !important;
+  }
+
+  .pipeline-center {
+      width: 160px;
+      height: 160px;
+  }
+
+  .logo-icon {
+      width: 36px;
+      height: 36px;
+  }
+
+  .logo-icon img {
+      width: 20px;
+      height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pipeline-wrapper {
+      height: auto;
+      margin: var(--space-xl) auto var(--space-2xl);
+      padding: 0 var(--space-md);
+      perspective: none;
+  }
+
+  .pipeline-center {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      margin: 0 auto var(--space-xl);
+      width: 160px;
+      height: 160px;
+  }
+
+  .sun-core::before {
+      inset: -12px;
+  }
+
+  .sun-core::after {
+      inset: -24px;
+  }
+
+  /* Grid layout for mobile */
+  .pipeline-orbits {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+      height: auto;
+      width: 100%;
+      transform: none;
+  }
+
+  .pipeline-node {
+      position: static;
+      width: auto !important;
+      height: auto !important;
+      margin: 0 !important;
+      transform: none !important;
+  }
+
+  /* Hide orbit rings on mobile */
+  .pipeline-node::before {
+      display: none;
+  }
+
+  .pipeline-node-traveler {
+      position: static;
+      animation: none !important;
+  }
+
+  .pipeline-node-inner {
+      width: 100%;
+      transform: none !important;
+      animation: none !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm);
+      min-height: 60px;
+  }
+
+  .logo-icon {
+      width: 36px;
+      height: 36px;
+  }
+
+  .logo-icon img {
+      width: 20px;
+      height: 20px;
+  }
+
+  /* Show labels on mobile */
+  .pipeline-node-inner::after {
+      position: static;
+      transform: none;
+      opacity: 1;
+      font-size: 0.55rem;
+      padding: 4px 6px;
+      margin-top: 6px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .pipeline-orbits {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+  }
+
+  .pipeline-center {
+      width: 140px;
+      height: 140px;
+  }
+
+  .logo-icon {
+      width: 32px;
+      height: 32px;
+  }
+
+  .logo-icon img {
+      width: 18px;
+      height: 18px;
+  }
+
+  .pipeline-node-inner::after {
+      font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pipeline-wrapper {
+      padding: 0;
+  }
+
+  .pipeline-orbits {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xs);
+  }
+
+  .pipeline-center {
+      width: 120px;
+      height: 120px;
+      margin-bottom: var(--space-lg);
+  }
+
+  .sun-core::before {
+      inset: -8px;
+  }
+
+  .sun-core::after {
+      inset: -16px;
+  }
+
+  .pipeline-node-inner {
+      min-height: 50px;
+      padding: var(--space-xs);
+  }
+
+  .logo-icon {
+      width: 28px;
+      height: 28px;
+  }
+
+  .logo-icon img {
+      width: 16px;
+      height: 16px;
+  }
+
+  .pipeline-node-inner::after {
+      font-size: 0.45rem;
+      padding: 2px 4px;
+      margin-top: 4px;
+  }
+}
+
+@media (max-width: 360px) {
+  .pipeline-orbit {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+  }
+
+  .pipeline-center {
+      width: 100px;
+      height: 100px;
+  }
+
+  .logo-icon {
+      width: 24px;
+      height: 24px;
+  }
+
+  .logo-icon img {
+      width: 14px;
+      height: 14px;
+  }
+
+  .pipeline-node-inner::after {
+      font-size: 0.4rem;
+      letter-spacing: 0;
+  }
+}
+
+
+
+/* =========================================
+   Scroll-Reactive Orbital Sphere & Grid Styles
+   ========================================= */
+.orbital-sphere-wrapper {
+  position: relative;
+  width: min(1360px, 96vw);
+  height: 920px;
+  margin: 0 auto var(--space-lg);
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.orbital-sphere-wrapper .pipeline-center,
+.orbital-rings-overlay,
+.orbital-nodes-stage {
+  top: 280px;
+}
+
+.orbital-rings-overlay {
+  position: absolute;
+  left: 50%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.2s ease-out;
+}
+
+.orbital-ring-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 217, 255, 0.22);
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.orbital-nodes-stage {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  z-index: 4;
+}
+
+.orbital-node-entity {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: auto;
+}
+
+.orbital-card-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.orbital-card-shell:hover {
+  transform: translate(-50%, -50%) scale(1.18);
+  z-index: 10;
+}
+
+.skill-node-label {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(14, 14, 22, 0.95);
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  padding: 4px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 217, 255, 0.2);
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 900px) {
+  .orbital-sphere-wrapper {
+    height: 1180px;
+  }
+  .orbital-sphere-wrapper .pipeline-center,
+  .orbital-rings-overlay,
+  .orbital-nodes-stage {
+    top: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .orbital-sphere-wrapper {
+    height: 1360px;
+  }
+  .orbital-sphere-wrapper .pipeline-center,
+  .orbital-rings-overlay,
+  .orbital-nodes-stage {
+    top: 220px;
+  }
+  .skill-node-label {
+    font-size: 0.68rem;
+    padding: 2px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .orbital-sphere-wrapper {
+    height: 1420px;
+  }
+  .orbital-sphere-wrapper .pipeline-center,
+  .orbital-rings-overlay,
+  .orbital-nodes-stage {
+    top: 200px;
+  }
+}
+
+
+
+
+/* Sonic Lamb Exploded 4-Layer Architecture Scrubbing */
+.orbital-layer-indicator {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(14, 14, 24, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  z-index: 20;
+  transition: all 0.35s var(--ease-soothing);
+  pointer-events: none;
+}
+
+.orbital-layer-indicator.layer-1 {
+  border-color: rgba(0, 217, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
+  color: #00D9FF;
+}
+
+.orbital-layer-indicator.layer-2 {
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+  color: #A855F7;
+}
+
+.orbital-layer-indicator.layer-3 {
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+  color: #10B981;
+}
+
+.orbital-layer-indicator.layer-4 {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+  color: #F59E0B;
+}
+
+.orbital-layer-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

@@ -1,0 +1,357 @@
+/* =========================================
+   Sonic Lamb Soothing Motion & Animation Tokens
+   ========================================= */
+
+/* Legacy Animations & Scroll Reveals */
+/* =========================================
+   Legacy Styles: animations.css
+   ========================================= */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(30px);
+  }
+
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+      transform: translateY(0);
+  }
+
+  50% {
+      transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+
+  50% {
+      opacity: 0.5;
+      transform: scale(1.2);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+  }
+
+  50% {
+      box-shadow: 0 0 40px rgba(0, 217, 255, 0.6);
+  }
+}
+
+@keyframes scroll {
+  0%,
+  100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+      opacity: 0.5;
+      transform: translateX(-50%) translateY(10px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  50% {
+      opacity: 1;
+  }
+
+  51%,
+  100% {
+      opacity: 0;
+  }
+}
+
+@keyframes fillBar {
+  from {
+      width: 0;
+  }
+}
+
+/* =========================================
+   Scroll Animation Classes (Cyberpunk Suite)
+   ========================================= */
+
+/* Base Scroll Reveal (Smooth Upward Glide) */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Variant: Pop & Scale (Stats counter cards, Why Hire orbit cards, CTA buttons) */
+.animate-on-scroll.reveal-scale {
+  transform: translateY(22px) scale(0.92);
+}
+
+.animate-on-scroll.reveal-scale.animated {
+  transform: translateY(0) scale(1);
+}
+
+/* Variant: Slide from Left (Timeline items, section intros) */
+.animate-on-scroll.reveal-left {
+  transform: translateX(-35px);
+}
+
+.animate-on-scroll.reveal-left.animated {
+  transform: translateX(0);
+}
+
+/* Variant: Slide from Right */
+.animate-on-scroll.reveal-right {
+  transform: translateX(35px);
+}
+
+.animate-on-scroll.reveal-right.animated {
+  transform: translateX(0);
+}
+
+/* Variant: 3D Holographic Card Reveal (Projects & Skills) */
+.animate-on-scroll.reveal-card {
+  transform: translateY(32px) perspective(1000px) rotateX(6deg) scale(0.97);
+  filter: brightness(0.85);
+}
+
+.animate-on-scroll.reveal-card.animated {
+  transform: translateY(0) perspective(1000px) rotateX(0deg) scale(1);
+  filter: brightness(1);
+}
+
+/* Variant: High-Tech Cockpit & Architecture Boot Sequence */
+.animate-on-scroll.reveal-cockpit {
+  transform: translateY(30px) scale(0.98);
+  filter: brightness(0.85);
+  position: relative;
+}
+
+.animate-on-scroll.reveal-cockpit.animated {
+  transform: translateY(0) scale(1);
+  filter: brightness(1);
+  box-shadow: 0 0 35px rgba(0, 217, 255, 0.16), 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* CRT Aperture Power-Up specifically for the developer cockpit */
+.cockpit-wrapper.animate-on-scroll.reveal-cockpit {
+  transform: scaleY(0.04) scaleX(0.7);
+  opacity: 0;
+  filter: brightness(2.5);
+  transition: none;
+}
+
+.cockpit-wrapper.animate-on-scroll.reveal-cockpit.animated {
+  animation: crtApertureBoot 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 0 45px rgba(0, 217, 255, 0.22), 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes crtApertureBoot {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.04) scaleX(0.7);
+    filter: brightness(2.5);
+  }
+  35% {
+    opacity: 0.95;
+    transform: scaleY(0.06) scaleX(1);
+    filter: brightness(2);
+    box-shadow: 0 0 60px rgba(0, 217, 255, 0.75);
+  }
+  68% {
+    opacity: 1;
+    transform: scaleY(1.025) scaleX(1);
+    filter: brightness(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(1);
+  }
+}
+
+
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+  }
+
+  .animate-on-scroll,
+  .stat-card.animate-on-scroll.stat-card-launch,
+  .timeline-item.animate-on-scroll.timeline-branch-left,
+  .timeline-item.animate-on-scroll.timeline-branch-right,
+  .project-card.animate-on-scroll.project-vault-card,
+  .hire-card.animate-on-scroll.orbit-triad-card-1,
+  .hire-card.animate-on-scroll.orbit-triad-card-2,
+  .hire-card.animate-on-scroll.orbit-triad-card-3,
+  .contact-card.animate-on-scroll.channel-lock-card,
+  .say-hello-magnetic.animate-on-scroll,
+  .skill-thematic-card,
+  .skill-thematic-card.skill-fly-in-left,
+  .skill-thematic-card.skill-fly-in-right,
+  .skill-thematic-card.skill-fly-in-center,
+  .cockpit-wrapper.animate-on-scroll.reveal-cockpit {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      filter: none !important;
+  }
+}
+
+
+
+/* Mobile Performance Optimizations */
+/* =========================================
+   Mobile Performance Optimizations
+   ========================================= */
+@media (max-width: 768px) {
+  /* Clamped travel distances on mobile to avoid overflow */
+  .stat-card.animate-on-scroll.stat-card-launch {
+    transform: translate(25px, 25px) scale(0.9);
+  }
+  .timeline-item.animate-on-scroll.timeline-branch-left,
+  .timeline-item.animate-on-scroll.timeline-branch-right {
+    transform: translateY(14px);
+  }
+  .hire-card.animate-on-scroll.orbit-triad-card-1 {
+    transform: translate(-30px, -15px) rotate(-2deg);
+  }
+  .hire-card.animate-on-scroll.orbit-triad-card-2 {
+    transform: translateY(30px) scale(0.92);
+  }
+  .hire-card.animate-on-scroll.orbit-triad-card-3 {
+    transform: translate(30px, -15px) rotate(2deg);
+  }
+  .contact-card.animate-on-scroll.channel-lock-card {
+    transform: translate(-15px, 15px) scale(0.96);
+  }
+  .cockpit-wrapper.animate-on-scroll.reveal-cockpit {
+    transform: scale(0.95);
+    filter: none;
+  }
+  .cockpit-wrapper.animate-on-scroll.reveal-cockpit.animated {
+    animation: none;
+    transform: scale(1);
+  }
+
+  @keyframes skillFlyInLeft {
+    0% { opacity: 0; transform: translateX(-45px) scale(0.9); filter: none; }
+    50% { opacity: 1; transform: translateX(0) scale(1.02); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes skillFlyInRight {
+    0% { opacity: 0; transform: translateX(45px) scale(0.9); filter: none; }
+    50% { opacity: 1; transform: translateX(0) scale(1.02); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes skillFlyInCenter {
+    0% { opacity: 0; transform: translateY(35px) scale(0.9); filter: none; }
+    50% { opacity: 1; transform: translateY(0) scale(1.02); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  /* Reduce backdrop-filter usage (very expensive on mobile) */
+  .glass-card,
+  .nav,
+  .nav-menu {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Simplify box-shadows on mobile */
+  .glass-card:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Reduce animation complexity */
+  .pipeline-node-inner {
+      animation: none;
+  }
+
+  .logo-icon {
+      animation: none;
+      filter: none;
+  }
+
+  /* Disable glow effects on mobile for performance */
+  .sun-core {
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
+  }
+
+  .sun-core::before,
+  .sun-core::after {
+      box-shadow: none;
+  }
+
+  /* Simplify scroll animations */
+  .animate-on-scroll {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  /* GPU acceleration hints for animated elements */
+  .pipeline-node,
+  .animate-on-scroll,
+  .nav {
+      will-change: transform;
+      transform: translateZ(0);
+  }
+}
+
+/* Touch device specific optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable all hover-triggered animations */
+  .glass-card:hover,
+  .btn:hover,
+  .skill-tag:hover,
+  .project-link:hover,
+  .nav-link:hover {
+      transform: none;
+  }
+
+  /* Reduce particle canvas opacity on touch devices */
+  #particle-canvas {
+      opacity: 0.6;
+  }
+
+  /* Simplify transitions */
+  * {
+      transition-duration: 0.2s !important;
+  }
+}
+
+

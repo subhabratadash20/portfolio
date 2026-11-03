@@ -1,0 +1,292 @@
+/* =========================================
+   Navigation & Telemetry Dial Styles
+   ========================================= */
+/* =========================================
+   Navigation
+   ========================================= */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.nav.hidden {
+  transform: translateY(-100%);
+}
+
+.nav-container {
+  max-width: var(--container-max);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.logo-bracket {
+  color: var(--color-accent);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.nav-link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) 0;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: width var(--transition-base);
+}
+
+.nav-link:hover {
+  color: var(--color-text-primary);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link--cta {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--gradient-primary);
+  border-radius: var(--border-radius-md);
+  color: white;
+}
+
+.nav-link--cta::after {
+  display: none;
+}
+
+.nav-link--cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-sm);
+  z-index: 1001;
+}
+
+.nav-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--color-text-primary);
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+/* Mobile nav backdrop overlay */
+.nav-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.nav-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .nav-backdrop {
+      display: block;
+  }
+}
+
+
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  /* Navigation Mobile */
+  .nav-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100vh;
+      height: 100dvh;
+      background: rgba(18, 18, 26, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-2xl);
+      gap: var(--space-xl);
+      transition: right var(--transition-base);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+  }
+
+  .nav-menu.active {
+      right: 0;
+  }
+
+  .nav-link {
+      font-size: var(--text-lg);
+      padding: var(--space-md) 0;
+  }
+
+  .nav-toggle {
+      display: flex;
+  }
+
+  .nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+  }
+
+  .nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+
+}
+
+@media (max-width: 360px) {
+  .nav-container {
+    padding: 0 var(--space-md);
+  }
+  .nav-logo {
+    font-size: var(--text-lg);
+  }
+}
+
+/* 4-Mode Engineering Telemetry Dial (Sonic Lamb Paradigm) */
+.telemetry-dial-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 12px;
+  background: rgba(14, 14, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s var(--ease-soothing);
+}
+
+@media (max-width: 1024px) {
+  .telemetry-dial-container {
+    display: none;
+  }
+}
+
+.telemetry-rotary-dial {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #2a2a3e, #0e0e16);
+  border: 1.5px solid rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  transition: transform 0.5s var(--ease-spring);
+  cursor: pointer;
+}
+
+.telemetry-dial-notch {
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  width: 3px;
+  height: 8px;
+  background: #00D9FF;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px #00D9FF;
+}
+
+.telemetry-dial-modes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.telemetry-mode-pill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-soothing);
+}
+
+.telemetry-mode-pill:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.telemetry-mode-pill.active-mode-1 {
+  color: #00D9FF;
+  background: rgba(0, 217, 255, 0.12);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.3);
+}
+
+.telemetry-mode-pill.active-mode-2 {
+  color: #A855F7;
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+}
+
+.telemetry-mode-pill.active-mode-3 {
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.telemetry-mode-pill.active-mode-4 {
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+}

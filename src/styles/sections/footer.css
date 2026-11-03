@@ -1,0 +1,108 @@
+/* =========================================
+   Footer Section Styles
+   ========================================= */
+.footer {
+  padding: var(--space-2xl) 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-text {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-copyright {
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 768px) {
+  .about-content {
+      grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .contact-links {
+      grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projects-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .hire-grid {
+      grid-template-columns: 1fr;
+  }
+}
+
+
+
+/* =========================================
+   Enhancement: Footer Social Icons & Back to Top
+   ========================================= */
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--color-text-tertiary);
+  background: rgba(255, 255, 255, 0.03);
+  transition: all var(--transition-base);
+}
+
+.footer-social-link:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 217, 255, 0.2);
+}
+
+.back-to-top-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  margin-bottom: var(--space-xl);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+
+.back-to-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(124, 58, 237, 0.5);
+}
+
+
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  /* Footer Mobile */
+  .footer {
+      padding: var(--space-xl) 0;
+  }
+
+  .footer-text {
+      font-size: var(--text-sm);
+  }
+}

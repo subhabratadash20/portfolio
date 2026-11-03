@@ -1,0 +1,83 @@
+/* =========================================
+   Realtime Resume Modal & ATS Print Styles
+   ========================================= */
+/* =========================================
+   Print Styles for ATS Resume Preview
+   ========================================= */
+@media print {
+  /* Safely hide top-level UI containers without scanning every DOM node */
+  nav,
+  header,
+  footer,
+  #hero,
+  #about,
+  #experience,
+  #skills,
+  #projects,
+  #architecture,
+  #cockpit,
+  #contact,
+  .portfolio-agent-launcher,
+  .portfolio-agent-modal,
+  .hero-social-links,
+  .dev-cockpit-section,
+  .orbital-sphere-wrapper,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  .printable-resume {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .printable-resume h1,
+  .printable-resume h2,
+  .printable-resume h3,
+  .printable-resume h4,
+  .printable-resume strong {
+    color: #000000 !important;
+  }
+
+  .printable-resume p,
+  .printable-resume span,
+  .printable-resume li {
+    color: #374151 !important;
+  }
+
+  .printable-resume a {
+    color: #0284c7 !important;
+    text-decoration: underline !important;
+  }
+
+  .printable-resume .bg-white\/\[0\.03\] {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+
+  .signature-box {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .signature-img {
+    mix-blend-mode: multiply !important;
+    filter: contrast(1.15) !important;
+  }
+}
+

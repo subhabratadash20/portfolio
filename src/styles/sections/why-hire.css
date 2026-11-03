@@ -1,0 +1,282 @@
+/* =========================================
+   Why Hire Me Triad Styles
+   ========================================= */
+.hire-content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hire-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.hire-card {
+  padding: var(--space-2xl);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(26, 26, 46, 0.8) 0%, rgba(18, 18, 26, 0.9) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  transition: all var(--transition-base);
+}
+
+/* Futuristic glow border effect */
+.hire-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(0, 217, 255, 0.5), rgba(124, 58, 237, 0.5));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+/* Animated corner accents */
+.hire-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border-top: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+  opacity: 0.5;
+  transition: all var(--transition-base);
+}
+
+.hire-card:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  transform: translateY(-8px);
+  box-shadow: 
+      0 20px 40px rgba(124, 58, 237, 0.2),
+      0 0 30px rgba(0, 217, 255, 0.1);
+}
+
+.hire-card:hover::before {
+  opacity: 1;
+}
+
+.hire-card:hover::after {
+  width: 50px;
+  height: 50px;
+  opacity: 1;
+}
+
+.hire-icon-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hire-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  border-radius: 50%;
+  color: white;
+  position: relative;
+  z-index: 3;
+  box-shadow: 
+      0 0 20px rgba(124, 58, 237, 0.5),
+      0 0 40px rgba(0, 217, 255, 0.3);
+}
+
+/* Orbital rings - React-style atom */
+.hire-orbit {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid rgba(0, 217, 255, 0.3);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+}
+
+.hire-orbit--1 {
+  transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg);
+  animation: orbitRotate1 8s linear infinite;
+}
+
+.hire-orbit--2 {
+  transform: translate(-50%, -50%) rotateX(70deg) rotateZ(60deg);
+  animation: orbitRotate2 10s linear infinite;
+}
+
+.hire-orbit--3 {
+  transform: translate(-50%, -50%) rotateX(70deg) rotateZ(120deg);
+  animation: orbitRotate3 12s linear infinite;
+}
+
+/* Traveling particles on orbits */
+.hire-orbit::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 
+      0 0 10px var(--color-accent),
+      0 0 20px var(--color-accent);
+  animation: particleGlow 2s ease-in-out infinite;
+}
+
+.hire-orbit--2::before {
+  background: var(--color-primary-light);
+  box-shadow: 
+      0 0 10px var(--color-primary-light),
+      0 0 20px var(--color-primary);
+  animation-delay: 0.5s;
+}
+
+.hire-orbit--3::before {
+  background: #fff;
+  box-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(0, 217, 255, 0.5);
+  animation-delay: 1s;
+}
+
+@keyframes orbitRotate1 {
+  from { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(0deg); }
+  to { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(360deg); }
+}
+
+@keyframes orbitRotate2 {
+  from { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(60deg); }
+  to { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(420deg); }
+}
+
+@keyframes orbitRotate3 {
+  from { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(120deg); }
+  to { transform: translate(-50%, -50%) rotateX(70deg) rotateZ(480deg); }
+}
+
+@keyframes particleGlow {
+  0%, 100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+  }
+  50% {
+      opacity: 0.6;
+      transform: translateX(-50%) scale(0.8);
+  }
+}
+
+.hire-card h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hire-card p {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+/* Reduce animations on mobile for performance */
+@media (max-width: 768px) {
+  .hire-icon-wrapper {
+      width: 80px;
+      height: 80px;
+  }
+
+  .hire-icon {
+      width: 48px;
+      height: 48px;
+  }
+
+  .hire-orbit {
+      animation: none;
+      border-color: rgba(0, 217, 255, 0.15);
+  }
+  
+  .hire-orbit::before {
+      display: none;
+  }
+  
+  .hire-card::after {
+      display: none;
+  }
+
+  .hire-card::before {
+      display: none;
+  }
+}
+
+
+
+/* --- 05. Why Hire Me: Planetary Orbit Gravity Capture Triad --- */
+.hire-card.animate-on-scroll.orbit-triad-card-1 {
+  opacity: 0;
+  transform: translate(-65px, -35px) rotate(-4deg);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  will-change: transform, opacity;
+}
+
+.hire-card.animate-on-scroll.orbit-triad-card-2 {
+  opacity: 0;
+  transform: translateY(55px) scale(0.88);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  transition-delay: 130ms;
+  will-change: transform, opacity;
+}
+
+.hire-card.animate-on-scroll.orbit-triad-card-3 {
+  opacity: 0;
+  transform: translate(65px, -35px) rotate(4deg);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  transition-delay: 260ms;
+  will-change: transform, opacity;
+}
+
+.hire-card.animate-on-scroll.orbit-triad-card-1.animated,
+.hire-card.animate-on-scroll.orbit-triad-card-2.animated,
+.hire-card.animate-on-scroll.orbit-triad-card-3.animated {
+  opacity: 1;
+  transform: translate(0, 0) rotate(0deg) scale(1);
+}
+
+
+
+/* Responsive Why Hire */
+@media (max-width: 768px) {
+  /* Hire Grid Mobile */
+  .hire-grid {
+      gap: var(--space-md);
+  }
+
+  .hire-card {
+      padding: var(--space-lg);
+  }
+
+
+}

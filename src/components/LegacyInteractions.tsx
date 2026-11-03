@@ -305,7 +305,8 @@ const initTiltEffect = () => {
             const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
             if (isTouchDevice) return;
 
-            const tiltElements = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
+            // Consolidate project card tilt exclusively in ProjectShowcase to avoid duplicate RAF loops
+            const tiltElements = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]:not(.project-card)"));
             if (!tiltElements.length) return;
  
              tiltElements.forEach((el) => {
@@ -352,7 +353,7 @@ const initTiltEffect = () => {
  
                  const handleMouseEnter = () => {
                      isHovering = true;
-                     target.yTrans = -10;
+                     target.yTrans = -5;
                      el.style.transition = "none";
                      startAnimation();
                  };
@@ -367,8 +368,10 @@ const initTiltEffect = () => {
                      const centerX = rect.width / 2;
                      const centerY = rect.height / 2;
  
-                     target.x = (y - centerY) / 10;
-                     target.y = (centerX - x) / 10;
+                     const rawX = (y - centerY) / 28;
+                     const rawY = (centerX - x) / 28;
+                     target.x = Math.max(-4, Math.min(4, rawX));
+                     target.y = Math.max(-4, Math.min(4, rawY));
                  };
  
                  const handleMouseLeave = () => {

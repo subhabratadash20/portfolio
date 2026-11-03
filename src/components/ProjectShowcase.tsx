@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, type ReactNode } from "react";
+import { useState, useMemo, useEffect, useRef, type ReactNode } from "react";
 import Link from "next/link";
 import { projects, type Project, type ProjectCategory } from "@/data/projects";
 
@@ -156,7 +156,29 @@ export default function ProjectShowcase() {
     return counts;
   }, []);
 
-  // Re-bind tilt effect when filtered projects change
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [pillStyle, setPillStyle] = useState<{ left: number; width: number; opacity: number }>({ left: 0, width: 0, opacity: 0 });
+
+  // Update sliding pill on filter change & window resize
+  useEffect(() => {
+    const updatePill = () => {
+      const activeIndex = filterTabs.findIndex((t) => t.value === selectedFilter);
+      const activeBtn = tabRefs.current[activeIndex];
+      if (activeBtn) {
+        setPillStyle({
+          left: activeBtn.offsetLeft,
+          width: activeBtn.offsetWidth,
+          opacity: 1,
+        });
+      }
+    };
+
+    updatePill();
+    window.addEventListener("resize", updatePill, { passive: true });
+    return () => window.removeEventListener("resize", updatePill);
+  }, [selectedFilter]);
+
+  // Re-bind tilt effect when filtered projects change with strictly clamped 4-deg tactile elevation
   useEffect(() => {
     const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     if (isTouchDevice) return;
@@ -185,9 +207,9 @@ export default function ProjectShowcase() {
         )}deg) rotateY(${rotation.y.toFixed(2)}deg) translateY(${translation.y.toFixed(2)}px)`;
 
         const isSettled =
-          Math.abs(target.x - rotation.x) < 0.05 &&
-          Math.abs(target.y - rotation.y) < 0.05 &&
-          Math.abs(target.yTrans - translation.y) < 0.05;
+          Math.abs(target.x - rotation.x) < 0.04 &&
+          Math.abs(target.y - rotation.y) < 0.04 &&
+          Math.abs(target.yTrans - translation.y) < 0.04;
 
         if (isHovering || !isSettled) {
           animationId = requestAnimationFrame(updateTilt);
@@ -208,7 +230,7 @@ export default function ProjectShowcase() {
 
       const handleMouseEnter = () => {
         isHovering = true;
-        target.yTrans = -10;
+        target.yTrans = -5; // Subtle tactile elevation
         el.style.transition = "none";
         startAnimation();
       };
@@ -220,8 +242,12 @@ export default function ProjectShowcase() {
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        target.x = (y - centerY) / 10;
-        target.y = (centerX - x) / 10;
+
+        // Sonic Lamb: Clamped to strictly max 4 degrees to eradicate jarring 15-deg backward snaps
+        const rawX = (y - centerY) / 28;
+        const rawY = (centerX - x) / 28;
+        target.x = Math.max(-4, Math.min(4, rawX));
+        target.y = Math.max(-4, Math.min(4, rawY));
       };
 
       const handleMouseLeave = () => {
@@ -248,17 +274,41 @@ export default function ProjectShowcase() {
 
   return (
     <div className="project-showcase-container">
-      {/* Category filter tabs */}
-      <div className="project-filter-bar animate-on-scroll">
-        {filterTabs.map((tab) => {
+      {/* Category filter tabs with smooth sliding pill indicator */}
+      <div className="project-filter-bar animate-on-scroll" style={{ position: "relative" }}>
+        {pillStyle.width > 0 && (
+          <div
+            className="filter-sliding-pill"
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              left: pillStyle.left,
+              width: pillStyle.width,
+              borderRadius: 9999,
+              background: "linear-gradient(135deg, rgba(124, 58, 237, 0.45) 0%, rgba(0, 217, 255, 0.25) 100%)",
+              border: "1px solid rgba(0, 217, 255, 0.6)",
+              boxShadow: "0 0 16px rgba(0, 217, 255, 0.35)",
+              transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              pointerEvents: "none",
+              zIndex: 0,
+              opacity: pillStyle.opacity,
+            }}
+          />
+        )}
+        {filterTabs.map((tab, idx) => {
           const isActive = selectedFilter === tab.value;
           return (
             <button
               key={tab.value}
+              ref={(btn) => {
+                tabRefs.current[idx] = btn;
+              }}
               type="button"
               className={`filter-btn ${isActive ? "active" : ""}`}
               onClick={() => setSelectedFilter(tab.value)}
               aria-pressed={isActive}
+              style={{ position: "relative", zIndex: 1 }}
             >
               <span>{tab.label}</span>
               <span className="filter-count">{categoryCounts[tab.value]}</span>
