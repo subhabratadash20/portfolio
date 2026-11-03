@@ -98,6 +98,13 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         ringsRef.current.style.transform = `scale(${1 - p * 0.15})`;
       }
 
+      // Smoothly fade out scroll indicator as user scrolls down into grid
+      const scrollIndicator = document.querySelector(".hero-scroll-indicator") as HTMLElement | null;
+      if (scrollIndicator) {
+        scrollIndicator.style.opacity = `${Math.max(0, 1 - p * 1.8)}`;
+        scrollIndicator.style.pointerEvents = p > 0.3 ? "none" : "auto";
+      }
+
       // Animate profile photo (subtle scale and elevation)
       if (centerPhotoRef.current) {
         const photoScale = 1 - p * 0.18;
@@ -107,11 +114,11 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       }
 
       // Grid geometry parameters
-      const cols = isMobile ? 3 : 7;
-      const colWidth = isMobile ? 95 : 120;
-      const rowHeight = isMobile ? 70 : 85;
+      const cols = isMobile ? 4 : 7;
+      const colWidth = isMobile ? 80 : 120;
+      const rowHeight = isMobile ? 65 : 85;
       const totalWidth = (cols - 1) * colWidth;
-      const gridStartY = isMobile ? 220 : 240;
+      const gridStartY = isMobile ? 190 : 200;
 
       // Update positions of each skill node
       SKILL_NODES.forEach((node, i) => {
