@@ -20,13 +20,13 @@ export default function Contact() {
                     </p>
 
                     <div className="grid md:grid-cols-3 gap-6 mb-16">
-                        <a href="mailto:subhabratadash2@gmail.com" className="glass-card p-8 rounded-2xl hover:border-accent/40 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center gap-4 group">
+                        <a href="mailto:subhabratadash1@gmail.com" className="glass-card p-8 rounded-2xl hover:border-accent/40 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center gap-4 group">
                             <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-text-secondary group-hover:text-accent group-hover:bg-accent/10 transition-colors">
                                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                             </div>
                             <div>
                                 <span className="block text-sm text-text-tertiary mb-1">Email</span>
-                                <span className="text-white group-hover:text-accent transition-colors">subhabratadash2@gmail.com</span>
+                                <span className="text-white group-hover:text-accent transition-colors">subhabratadash1@gmail.com</span>
                             </div>
                         </a>
 
@@ -52,7 +52,7 @@ export default function Contact() {
                     </div>
 
                     <a
-                        href="mailto:subhabratadash2@gmail.com"
+                        href="mailto:subhabratadash1@gmail.com"
                         className="inline-flex items-center gap-3 px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold shadow-lg hover:shadow-primary/50 hover:-translate-y-1 transition-all duration-300"
                     >
                         <span>Say Hello</span>

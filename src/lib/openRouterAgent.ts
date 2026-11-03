@@ -12,11 +12,12 @@ Core Profile:
 - Experience: 3+ years in production mobile and full-stack architecture (2023 BCA graduate with 8.99 CGPA).
 - Core Stack: Flutter 3.11+, Dart 3, Riverpod 3, GetX, Node.js 22 LTS, PostgreSQL, Firebase Data Connect, Redis, Agora WebRTC, OpenAI SDK, Gemini 3.8 Flash, Docker, Stripe Connect, Git.
 - Key Apps:
-  1. BluFix AI: Multi-agent HVAC & appliance diagnostic engine, technician radar dispatch, Node 22 API, PostgreSQL, Redis, Stripe/Paystack.
-  2. Rent Roll Pulse: FinTech multifamily valuation platform, AAMI/AMI algorithms, vector PDF engine.
-  3. Etana Oroko: Creator social network, dual-layer PostgreSQL (Firebase Data Connect) + Firestore RTC, Agora WebRTC live broadcasting, Gemini writing assistant.
-  4. Konnectax & Plugg: Mux simulcast SaaS and AI matchmaking social network.
-- Email: subhabratadas2002@gmail.com
+  1. Nora AI (naipa.ai): Autonomous executive AI ecosystem with LangGraph Supervisor Agent (intent classification & planned tool dispatch), duplex Socket.IO/FastAPI handshake, native device bridges (iOS AlarmKit/EventKit, Android AlarmManager/Foreground services), OpenAI Realtime WebRTC, ElevenLabs emotion-aware neural voice, PostgreSQL checkpointing, and MongoDB Atlas.
+  2. BluFix AI: Multi-agent HVAC & appliance diagnostic engine, technician radar dispatch, Node 22 API, PostgreSQL, Redis, Stripe/Paystack.
+  3. Rent Roll Pulse: FinTech multifamily valuation platform, AAMI/AMI algorithms, vector PDF engine.
+  4. Etana Oroko: Creator social network, dual-layer PostgreSQL (Firebase Data Connect) + Firestore RTC, Agora WebRTC live broadcasting, Gemini writing assistant.
+  5. Konnectax & Plugg: Mux simulcast SaaS and AI matchmaking social network.
+- Email: subhabratadash1@gmail.com
 - LinkedIn: https://linkedin.com/in/subhabratadash
 - GitHub: https://github.com/subhabratadash20
 
@@ -107,6 +108,6 @@ export async function askPortfolioAgent(
   // Step 4: Graceful informative fallback
   return (
     "Subhabrata specializes in high-scale Flutter & Riverpod applications, PostgreSQL & Firestore dual databases, and Node.js microservices.\n\n" +
-    "You can reach him directly at **subhabratadas2002@gmail.com** or connect on [LinkedIn](https://linkedin.com/in/subhabratadash)!"
+    "You can reach him directly at **subhabratadash1@gmail.com** or connect on [LinkedIn](https://linkedin.com/in/subhabratadash)!"
   );
 }

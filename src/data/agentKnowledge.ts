@@ -45,7 +45,47 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "• **Tech Stack**: Flutter, GetX reactive controllers, Firebase Firestore, Cloud Functions, and Stripe subscription tiering.",
   },
 
-  // 4. Konnectax & Plugg
+  // 4. Nora AI Autonomous Ecosystem
+  {
+    category: "project",
+    keywords: [
+      "nora",
+      "naipa",
+      "supervisor",
+      "device bridge",
+      "device bridges",
+      "handshake",
+      "langgraph",
+      "alarmkit",
+      "agentic",
+      "fastapi",
+      "multi-agent",
+      "subagents",
+    ],
+    title: "Nora AI: Multi-Agent Autonomous Ecosystem & Native Device Bridges",
+    answer:
+      "**Nora AI (`naipa.ai`)** is an autonomous executive assistant ecosystem architected by Subhabrata Das, combining multi-agent backend graph orchestration with deep native mobile OS automation.\n\n" +
+      "**1. LangGraph Multi-Agent Topology & Supervisor Agent:**\n" +
+      "• **Supervisor Intent Router (`graph_routing.py`)**: Classifies user prompts into structured `IntentTaskLiteral` classifications (`alarm.*`, `event.*`, `repeat.*`, `note.*`, `fitness.*`, `search.*`, `route.*`, `image.*`, `organizer.*`) and dynamically plans tool palettes (`PlannedToolLiteral`), minimizing token bloat and latency.\n" +
+      "• **Specialist Sub-Agents**:\n" +
+      "  - *Organizer Agent*: Manages calendar events, alarms, recurring notifications, and notes.\n" +
+      "  - *Creative & Vision Agent*: Multimodal visual analysis (`analyze_image`), visual prompt editing (`image_edit_tool`), and reverse-search.\n" +
+      "  - *Web Intelligence & Navigation*: Tavily real-time web search snapshots and Google Maps multi-modal route planning (`plan_route`).\n" +
+      "  - *Fitness & Biometrics Agent*: Contextual workout logging and health goal analytics.\n\n" +
+      "**2. Frontend-Backend Handshake & Real-Time Duplex:**\n" +
+      "• **Duplex Socket.IO & FastAPI Protocol**: Sub-second token-by-token streaming, tool dispatch status events, and typing indicators.\n" +
+      "• **Authentication Bridge**: Firebase Auth social credentials mapped to backend JWTs with automatic refresh (`api_client_v2.dart`) and multi-device FCM synchronization.\n" +
+      "• **Low-Latency Speech & Audio Pipeline**: Real-time voice calls streaming duplex audio directly via WebRTC into OpenAI Realtime API; neural text-to-speech with ElevenLabs emotion-conditioned audio (`elevenlabs_emotion_service_v2.dart`) and OpenAI TTS.\n\n" +
+      "**3. Native Mobile Device Bridges:**\n" +
+      "• **iOS AlarmKit & EventKit**: Deep integration for critical system alarms (bypassing DND) and bidirectional Apple Calendar synchronization (`ios_alarmkit_service.dart`).\n" +
+      "• **Android AlarmManager & Foreground Services**: Exact hardware alarms, full-screen notification wake-lock intents (`alarm_intents_v2.dart`), and action handlers (Snooze, Complete, Reschedule).\n\n" +
+      "**4. Hybrid Persistence & Checkpoint Architecture:**\n" +
+      "• **PostgreSQL (Neon)**: Persistent LangGraph conversation checkpoints and state history via `AsyncPostgresSaver` & `AsyncPostgresStore`.\n" +
+      "• **MongoDB Atlas**: User profiles, relational notes, alarms, and fitness logs via Beanie ODM.\n" +
+      "• **Redis & AWS S3**: High-speed cache for session state and secure S3 media bucket storage.",
+  },
+
+  // 5. Konnectax & Plugg
   {
     category: "project",
     keywords: ["konnectax", "plugg", "simulcast", "mux", "dating", "matchmaking", "tax"],
@@ -87,7 +127,7 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
     title: "Contact & Availability",
     answer:
       "Subhabrata Das is open to high-impact Senior Mobile & AI Systems Engineering roles.\n\n" +
-      "• **Email**: subhabratadas2002@gmail.com\n" +
+      "• **Email**: subhabratadash1@gmail.com\n" +
       "• **LinkedIn**: [linkedin.com/in/subhabratadash](https://linkedin.com/in/subhabratadash)\n" +
       "• **GitHub**: [github.com/subhabratadash20](https://github.com/subhabratadash20)\n" +
       "• **Location**: Kolkata, India (Available for Remote / Hybrid opportunities worldwide).",

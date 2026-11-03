@@ -19,7 +19,7 @@ export default function Footer() {
                     {/* Add Social Icons Here if needed, using text for now */}
                     <a href="https://github.com/subhabratadash20" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent transition-colors">GitHub</a>
                     <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-accent transition-colors">LinkedIn</a>
-                    <a href="mailto:subhabratadash007@gmail.com" className="text-text-secondary hover:text-accent transition-colors">Email</a>
+                    <a href="mailto:subhabratadash1@gmail.com" className="text-text-secondary hover:text-accent transition-colors">Email</a>
                 </div>
 
                 <p className="text-text-tertiary text-xs">

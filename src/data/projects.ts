@@ -200,105 +200,87 @@ export const projects: Project[] = [
         slug: "nora-ai",
         emoji: "🤖",
         title: "NORA AI",
-        subtitle: "AI-Powered Personal Assistant",
-        description: "Built an intelligent personal assistant that helps users manage daily life through natural voice and text conversations.",
-        tags: ["Flutter", "OpenAI", "ElevenLabs", "Socket.IO", "Firebase"],
+        subtitle: "Autonomous Agentic Assistant & Native Device Bridges",
+        description: "Built an intelligent multi-agent executive companion orchestrating LangGraph supervisor routing, real-time duplex streaming, and native mobile OS hardware bridges.",
+        tags: ["Flutter", "LangGraph", "FastAPI", "Python", "ElevenLabs", "Socket.IO", "iOS AlarmKit", "Android AlarmManager"],
         category: "AI & Systems",
         isLive: true,
-        metrics: "Dual TTS Engine + Background AlarmKit",
+        metrics: "LangGraph Supervisor + Native AlarmKit & EventKit Bridges",
         links: {
             appStore: "#",
             playStore: "#",
             demo: "https://naipa.ai"
         },
-        overview: "Built an intelligent AI-powered personal assistant application that helps users manage their daily life through natural voice and text conversations. Nora acts as a smart companion, handling reminders, notes, events, and providing personalized assistance while learning user preferences over time.",
+        overview: "Architected an enterprise-grade AI executive companion combining a Python FastAPI / LangGraph multi-agent backend with a rich cross-platform Flutter mobile client. Nora handles multi-turn planning, real-time audio WebRTC calls, multimodal image edits, and executes deep device hardware triggers like system alarms and calendar synchronization.",
         features: [
             {
-                title: "Conversational AI Assistant",
-                icon: "🤖",
+                title: "LangGraph Supervisor Agent & Tool Routing",
+                icon: "🧠",
                 items: [
-                    "Real-time AI chat system with natural language understanding",
-                    "Context-aware responses that understand user intent",
-                    "Message feedback system for continuous AI improvement"
+                    "Supervisor intent router classifying user prompts into structured tasks (alarm, event, repeat, note, fitness, search, route)",
+                    "Dynamic tool palette planning that delivers only relevant tool schemas to LLM context to minimize latency and token bloat",
+                    "Persistent conversation checkpoints and state history saved in Neon PostgreSQL via AsyncPostgresSaver"
                 ]
             },
             {
-                title: "Voice-First Experience",
-                icon: "🎙️",
+                title: "Frontend-Backend Handshake & Real-Time Duplex",
+                icon: "⚡",
                 items: [
-                    "Advanced speech-to-text for hands-free voice commands",
-                    "Dual TTS engines (OpenAI TTS & ElevenLabs) with emotional voice synthesis",
-                    "Real-time audio feedback and waveform visualization"
+                    "High-throughput Socket.IO + FastAPI handshake for sub-second token-by-token streaming and typing status",
+                    "Dual-layer auth bridge mapping Firebase credentials to backend JWT tokens with automatic token refresh",
+                    "Real-time audio WebRTC call duplexing directly into OpenAI Realtime API"
                 ]
             },
             {
-                title: "Smart Alarm & Reminder System",
+                title: "Native Mobile Hardware Device Bridges",
                 icon: "⏰",
                 items: [
-                    "Intelligent alarm scheduling with platform-native integration",
-                    "iOS AlarmKit & Android AlarmManager support",
-                    "Background task handling for reliable alarm triggers"
+                    "iOS AlarmKit bridge for critical system alarms (bypassing Do Not Disturb) and EventKit calendar sync",
+                    "Android AlarmManager & Foreground Service execution with full-screen wake-lock intents",
+                    "Interactive push notification action handlers for immediate Snooze, Complete, or Reschedule actions"
                 ]
             },
             {
-                title: "Calendar & Event Management",
-                icon: "📅",
+                title: "Voice-First & Neural Speech Engine",
+                icon: "🎙️",
                 items: [
-                    "Native device calendar sync for seamless event management",
-                    "Event creation through natural conversation",
-                    "Smart date/time parsing from natural language inputs"
+                    "On-device native speech-to-text for privacy-first, zero-latency transcription",
+                    "Dual neural TTS engine combining OpenAI TTS and ElevenLabs emotion-aware neural voice synthesis",
+                    "Real-time audio feedback with reactive waveform visualization and speech interrupt detection"
                 ]
             },
             {
-                title: "Notes & Memory System",
-                icon: "📝",
-                items: [
-                    "Note-taking with categories for organized storage",
-                    "Quick note capture through voice or text",
-                    "Search and retrieval for easy access"
-                ]
-            },
-            {
-                title: "Fitness & Wellness Tracking",
-                icon: "💪",
-                items: [
-                    "Fitness tracking module for health monitoring",
-                    "Personalized fitness recommendations",
-                    "Goal-based tracking and progress insights"
-                ]
-            },
-            {
-                title: "Real-Time Notifications",
-                icon: "🔔",
-                items: [
-                    "Firebase Cloud Messaging for instant alerts",
-                    "Foreground/background notification handling",
-                    "Deep linking for seamless navigation"
-                ]
-            },
-            {
-                title: "Personalization & Accessibility",
+                title: "Multimodal Vision & Web Grounding",
                 icon: "🌐",
                 items: [
-                    "Dynamic theming with Dark/Light mode switching",
-                    "Multi-language support with real-time switching",
-                    "Responsive UI with smooth animations"
+                    "Multimodal visual analysis and visual prompt editing using generative image tools",
+                    "Tavily real-time web search grounding for live web inquiries and product discovery",
+                    "Interactive Google Maps route planning with multi-modal transit calculations"
+                ]
+            },
+            {
+                title: "Biometrics & Organizer Memory",
+                icon: "📊",
+                items: [
+                    "Context-aware workout logging and wellness telemetry tracking",
+                    "Categorized notes and reminder organizer with fast search and retrieval",
+                    "MongoDB Atlas (Beanie ODM) and Redis caching for sub-millisecond data retrieval"
                 ]
             }
         ],
         techStack: [
-            { category: "Frontend", value: "Flutter, Dart, GetX" },
-            { category: "Real-Time", value: "Socket.IO" },
-            { category: "AI/Voice", value: "OpenAI TTS, ElevenLabs, STT" },
-            { category: "Backend", value: "Firebase (Auth, FCM, Functions)" },
-            { category: "Native", value: "iOS AlarmKit, Android AlarmManager" },
-            { category: "Architecture", value: "Clean Architecture, Feature-First" }
+            { category: "Frontend", value: "Flutter 3.11+, Dart 3, GetX" },
+            { category: "Agentic Backend", value: "Python FastAPI, LangGraph Multi-Agent, Celery, Redis" },
+            { category: "Real-Time / Audio", value: "Socket.IO duplex streams, WebRTC audio calls" },
+            { category: "Native Device Bridges", value: "iOS AlarmKit, Apple EventKit, Android AlarmManager" },
+            { category: "Databases & Checkpoints", value: "PostgreSQL (Neon), MongoDB Atlas, Redis, AWS S3" },
+            { category: "AI & Neural Voice", value: "OpenAI Realtime API, ElevenLabs Emotion TTS, Tavily Search" }
         ],
         architecture: [
-            { title: "Clean Architecture", description: "Separated domain, data, and presentation layers for maintainability and testability" },
-            { title: "Feature-First Structure", description: "Organized codebase by features (Chat, Alarms, Notes, Events) for scalable development" },
-            { title: "Reactive State Management", description: "GetX for efficient state management and dependency injection" },
-            { title: "Offline-First Approach", description: "Local caching for core features to ensure app usability without connectivity" }
+            { title: "Supervisor Agent Routing", description: "LangGraph-driven intent classifier routing turns into planned tool palettes (IntentTaskLiteral & PlannedToolLiteral)" },
+            { title: "Full-Duplex Socket.IO Handshake", description: "Real-time token-by-token streaming, typing telemetry, and JWT session refresh (api_client_v2.dart)" },
+            { title: "Native Hardware Device Bridges", description: "Direct OS hardware triggers via iOS AlarmKit (bypassing DND) and Android AlarmManager full-screen wake-lock intents" },
+            { title: "Dual-Database Checkpointing", description: "PostgreSQL (Neon) for persistent LangGraph thread state checkpoints, alongside MongoDB Atlas for profile and organizer models" }
         ]
     },
     {

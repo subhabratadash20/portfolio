@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Terminal, ShieldCheck, Cpu, Database, Flame, Sparkles, Copy, Check, Play, Eraser } from "lucide-react";
+import { Terminal, ShieldCheck, Cpu, Database, Flame, Sparkles, Copy, Check, Play, Eraser, Bot, Send, User } from "lucide-react";
+import { askPortfolioAgent, ChatMessage } from "@/lib/openRouterAgent";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 type LogEntry = {
   id: string;
@@ -11,15 +13,39 @@ type LogEntry = {
   isStreaming?: boolean;
 };
 
-const SUGGESTED_COMMANDS = ["apps", "skills", "telemetry", "contact", "clear"];
+interface EmbeddedChatMessage extends ChatMessage {
+  isStreaming?: boolean;
+}
+
+const SUGGESTED_COMMANDS = ["apps", "skills", "nora", "telemetry", "contact", "clear"];
+
+const COPILOT_SUGGESTIONS = [
+  "Explain Nora AI's supervisor agent & device bridges",
+  "Explain BluFix AI's multi-agent diagnostic pipeline",
+  "How does Etana's PostgreSQL + Firestore architecture work?",
+  "What Flutter state management libraries do you use?",
+];
 
 export default function InteractiveDevConsole() {
-  const [activeTab, setActiveTab] = useState<"terminal" | "telemetry" | "stack">("terminal");
+  const [activeTab, setActiveTab] = useState<"terminal" | "copilot" | "telemetry" | "stack">("terminal");
   const [inputCmd, setInputCmd] = useState("");
   const [copied, setCopied] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
   const logsContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // Embedded Copilot State
+  const [copilotInput, setCopilotInput] = useState("");
+  const [copilotLoading, setCopilotLoading] = useState(false);
+  const [copilotMessages, setCopilotMessages] = useState<EmbeddedChatMessage[]>([
+    {
+      role: "assistant",
+      content:
+        "👋 Welcome to the **Senior Architecture Copilot**! I can answer deep architectural questions about Subhabrata's production systems, such as **Nora AI** (LangGraph supervisor agent, native device bridges, FastAPI/Socket.IO handshake), **BluFix AI**, **Etana Oroko**, and his **Flutter 3.11 / Node 22** stack.",
+    },
+  ]);
+  const copilotEndRef = useRef<HTMLDivElement | null>(null);
+  const copilotStreamTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const [history, setHistory] = useState<LogEntry[]>([
     {
@@ -29,7 +55,7 @@ export default function InteractiveDevConsole() {
     },
     {
       id: "init-2",
-      text: "Interactive terminal active. Type or click suggestions below to inspect systems.",
+      text: "Interactive terminal active. Type or click suggestions below to inspect systems (supports natural AI queries).",
       type: "system",
     },
   ]);
@@ -40,6 +66,12 @@ export default function InteractiveDevConsole() {
       logsContainerRef.current.scrollTop = logsContainerRef.current.scrollHeight;
     }
   }, [history]);
+
+  useEffect(() => {
+    if (activeTab === "copilot" && copilotEndRef.current) {
+      copilotEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [copilotMessages, activeTab, copilotLoading]);
 
   // Stream output with realistic character-by-character typewriter animation
   const streamResponse = (userCmd: string, responseText: string) => {
@@ -53,7 +85,7 @@ export default function InteractiveDevConsole() {
     ]);
 
     let charIdx = 0;
-    const speed = Math.max(8, Math.min(22, 1200 / responseText.length)); // dynamic typing speed
+    const speed = Math.max(8, Math.min(20, 1200 / responseText.length)); // dynamic typing speed
 
     const interval = setInterval(() => {
       charIdx++;
@@ -94,30 +126,30 @@ export default function InteractiveDevConsole() {
     }, 450);
   };
 
-  const executeCommand = (rawCmd: string) => {
-    const cmd = rawCmd.trim().toLowerCase();
+  const executeCommand = async (rawCmd: string) => {
+    const cmd = rawCmd.trim();
     if (!cmd || isTyping) return;
 
     setInputCmd("");
 
-    if (cmd === "clear") {
+    if (cmd.toLowerCase() === "clear") {
       handleClear();
       return;
     }
 
     let response = "";
-    switch (cmd) {
+    switch (cmd.toLowerCase()) {
       case "help":
         response =
-          "AVAILABLE COMMANDS:\n• 'apps'      : Production releases (BluFix AI, Rent Roll Pulse, Etana Oroko, Konnectax, Plugg)\n• 'skills'    : Complete mobile, backend & database tech stack\n• 'telemetry' : Real-time SLA, P95 latency and GPU target benchmarks\n• 'contact'   : Direct senior architect communication endpoints\n• 'clear'     : Wipe terminal buffer with clear animation";
+          "AVAILABLE COMMANDS:\n• 'apps'      : Production releases (Nora AI, BluFix AI, Rent Roll Pulse, Etana Oroko, Konnectax)\n• 'skills'    : Complete mobile, backend & database tech stack\n• 'nora'      : Deep architectural overview of Nora AI agentic ecosystem\n• 'telemetry' : Real-time SLA, P95 latency and GPU target benchmarks\n• 'contact'   : Direct senior architect communication endpoints\n• 'clear'     : Wipe terminal buffer with clear animation\n• Or type any custom question to consult the AI Copilot directly!";
         break;
       case "apps":
         response =
-          "PRODUCTION SYSTEMS DEPLOYED:\n[1] BluFix AI         -> Multi-Agent Diagnostic Dispatch & Technician Radar (Node 22 / Postgres / Flutter)\n[2] Rent Roll Pulse   -> FinTech Real Estate Valuation & Automated AMI PDF Engine\n[3] Etana Oroko       -> Dual-Identity Social RTC & Agora WebRTC Live Broadcasts\n[4] Konnectax         -> Tax Compliance SaaS (Live on iOS App Store & Google Play)\n[5] Plugg             -> AI-Powered Realtime Matchmaking & Compatibility Graph";
+          "PRODUCTION SYSTEMS DEPLOYED:\n[1] Nora AI           -> Autonomous Multi-Agent Executive Assistant (LangGraph / FastAPI / Socket.IO / Device Bridges)\n[2] BluFix AI         -> Multi-Agent Diagnostic Dispatch & Technician Radar (Node 22 / Postgres / Flutter)\n[3] Rent Roll Pulse   -> FinTech Real Estate Valuation & Automated AMI PDF Engine\n[4] Etana Oroko       -> Dual-Identity Social RTC & Agora WebRTC Live Broadcasts\n[5] Konnectax         -> Tax Compliance SaaS (Live on iOS App Store & Google Play)\n[6] Plugg             -> AI-Powered Realtime Matchmaking & Compatibility Graph";
         break;
       case "skills":
         response =
-          "TECHNICAL PROFICIENCIES:\n• Mobile Architecture : Flutter, Dart, Riverpod 3, GetX, GoRouter, AutoRoute, Bloc\n• Databases & Realtime: PostgreSQL, GraphQL (Firebase Data Connect), Firestore, Redis, Hive DB\n• AI & Infra          : Multi-Agent LLMs, Gemini 3.8 Flash, Node.js 22 LTS, Docker, WebRTC, Idempotent APIs";
+          "TECHNICAL PROFICIENCIES:\n• Mobile Architecture : Flutter, Dart 3, Riverpod 3, GetX, GoRouter, AutoRoute, Bloc\n• Databases & Realtime: PostgreSQL, GraphQL (Firebase Data Connect), Firestore, Redis, Hive DB\n• AI & Infra          : Multi-Agent LLMs, LangGraph, Gemini 3.8 Flash, Node.js 22 LTS, Docker, WebRTC, Idempotent APIs";
         break;
       case "telemetry":
         response =
@@ -125,11 +157,33 @@ export default function InteractiveDevConsole() {
         break;
       case "contact":
         response =
-          "DIRECT CONTACT ENDPOINTS:\n• Email    : subhabratadas2002@gmail.com\n• LinkedIn : https://linkedin.com/in/subhabratadash\n• GitHub   : https://github.com/subhabratadash20\n• Status   : Open to Senior Mobile & AI Systems Engineering Opportunities";
+          "DIRECT CONTACT ENDPOINTS:\n• Email    : subhabratadash1@gmail.com\n• LinkedIn : https://linkedin.com/in/subhabratadash\n• GitHub   : https://github.com/subhabratadash20\n• Status   : Open to Senior Mobile & AI Systems Engineering Opportunities";
         break;
       default:
-        response = `Command '${cmd}' not recognized. Type 'help' or click one of the suggested commands.`;
-        break;
+        // Automatically query AI Copilot for any natural language input!
+        setIsTyping(true);
+        setHistory((prev) => [
+          ...prev,
+          {
+            id: `temp-${Date.now()}`,
+            cmd: rawCmd,
+            text: "Routing to AI Copilot Engine...",
+            type: "system",
+          },
+        ]);
+
+        try {
+          response = await askPortfolioAgent(cmd, []);
+          setHistory((prev) => prev.filter((item) => !item.id.startsWith("temp-")));
+          streamResponse(rawCmd, response);
+        } catch {
+          setHistory((prev) => prev.filter((item) => !item.id.startsWith("temp-")));
+          streamResponse(
+            rawCmd,
+            "Encountered temporary connection delay. You can reach Subhabrata directly at subhabratadash1@gmail.com."
+          );
+        }
+        return;
     }
 
     streamResponse(rawCmd, response);
@@ -141,9 +195,75 @@ export default function InteractiveDevConsole() {
   };
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("subhabratadas2002@gmail.com");
+    navigator.clipboard.writeText("subhabratadash1@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Embedded Copilot send handler
+  const handleCopilotSend = async (queryText?: string) => {
+    const text = (queryText || copilotInput).trim();
+    if (!text || copilotLoading) return;
+
+    setCopilotInput("");
+    const newHistory: EmbeddedChatMessage[] = [
+      ...copilotMessages.map((m) => ({ role: m.role, content: m.content })),
+      { role: "user", content: text },
+    ];
+    setCopilotMessages(newHistory);
+    setCopilotLoading(true);
+
+    try {
+      const reply = await askPortfolioAgent(text, newHistory);
+      setCopilotLoading(false);
+
+      if (copilotStreamTimerRef.current) clearInterval(copilotStreamTimerRef.current);
+
+      setCopilotMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "", isStreaming: true },
+      ]);
+
+      let charIdx = 0;
+      const step = Math.max(1, Math.floor(reply.length / 90));
+      copilotStreamTimerRef.current = setInterval(() => {
+        charIdx += step;
+        if (charIdx >= reply.length) {
+          if (copilotStreamTimerRef.current) clearInterval(copilotStreamTimerRef.current);
+          setCopilotMessages((prev) => {
+            const updated = [...prev];
+            updated[updated.length - 1] = {
+              role: "assistant",
+              content: reply,
+              isStreaming: false,
+            };
+            return updated;
+          });
+        } else {
+          const chunk = reply.slice(0, charIdx);
+          setCopilotMessages((prev) => {
+            const updated = [...prev];
+            updated[updated.length - 1] = {
+              role: "assistant",
+              content: chunk,
+              isStreaming: true,
+            };
+            return updated;
+          });
+        }
+      }, 16);
+    } catch {
+      setCopilotLoading(false);
+      setCopilotMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content:
+            "I encountered a temporary connection issue. You can reach Subhabrata directly at **subhabratadash1@gmail.com**!",
+          isStreaming: false,
+        },
+      ]);
+    }
   };
 
   return (
@@ -158,7 +278,7 @@ export default function InteractiveDevConsole() {
             Senior Architecture & <span className="text-gradient">Live Telemetry</span>
           </h2>
           <p className="cockpit-sub">
-            Directly probe production architecture metrics, test the developer CLI emulator with streaming output, or explore backend systems.
+            Directly probe production architecture metrics, consult the embedded AI Copilot, test the developer CLI emulator, or explore backend systems.
           </p>
         </div>
 
@@ -178,6 +298,14 @@ export default function InteractiveDevConsole() {
               >
                 <Terminal size={14} />
                 <span>CLI Terminal</span>
+              </button>
+              <button
+                type="button"
+                className={`console-tab-btn ${activeTab === "copilot" ? "active" : ""}`}
+                onClick={() => setActiveTab("copilot")}
+              >
+                <Bot size={14} color="#00D9FF" />
+                <span>AI Architecture Copilot</span>
               </button>
               <button
                 type="button"
@@ -250,7 +378,7 @@ export default function InteractiveDevConsole() {
                   type="text"
                   value={inputCmd}
                   onChange={(e) => setInputCmd(e.target.value)}
-                  placeholder="Type a command (try 'apps', 'skills', 'telemetry', 'clear')..."
+                  placeholder="Type a command or ask any question (e.g. 'nora', 'supervisor', 'apps')..."
                   className="terminal-input"
                   disabled={isTyping || isClearing}
                 />
@@ -265,7 +393,86 @@ export default function InteractiveDevConsole() {
             </div>
           )}
 
-          {/* Tab 2: Telemetry & Metrics */}
+          {/* Tab 2: Embedded AI Architecture Copilot Cockpit */}
+          {activeTab === "copilot" && (
+            <div className="embedded-copilot-container">
+              {/* Prompt Chips */}
+              <div className="agent-chips-tray">
+                {COPILOT_SUGGESTIONS.map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    className="agent-chip"
+                    onClick={() => handleCopilotSend(suggestion)}
+                    disabled={copilotLoading}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+
+              {/* Messages Body */}
+              <div className="embedded-copilot-messages">
+                {copilotMessages.map((m, idx) => (
+                  <div
+                    key={idx}
+                    className={`agent-message-wrapper ${m.role === "user" ? "user-side" : "bot-side"}`}
+                  >
+                    <div className="agent-message-avatar">
+                      {m.role === "user" ? <User size={13} /> : <Bot size={13} color="#00D9FF" />}
+                    </div>
+                    <div className="agent-message-bubble">
+                      <div className="agent-markdown-content">
+                        <MarkdownRenderer content={m.content} isStreaming={m.isStreaming} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {copilotLoading && (
+                  <div className="agent-message-wrapper bot-side">
+                    <div className="agent-message-avatar">
+                      <Bot size={13} color="#00D9FF" />
+                    </div>
+                    <div className="agent-message-bubble typing-bubble">
+                      <span className="dot-bounce" />
+                      <span className="dot-bounce" />
+                      <span className="dot-bounce" />
+                    </div>
+                  </div>
+                )}
+                <div ref={copilotEndRef} />
+              </div>
+
+              {/* Input Form */}
+              <form
+                className="agent-modal-footer"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleCopilotSend();
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Ask about Nora AI, LangGraph supervisor, device bridges, or WebRTC..."
+                  value={copilotInput}
+                  onChange={(e) => setCopilotInput(e.target.value)}
+                  className="agent-input-field"
+                  disabled={copilotLoading}
+                />
+                <button
+                  type="submit"
+                  className="agent-send-btn"
+                  disabled={!copilotInput.trim() || copilotLoading}
+                  aria-label="Send query"
+                >
+                  <Send size={15} />
+                </button>
+              </form>
+            </div>
+          )}
+
+          {/* Tab 3: Telemetry & Metrics */}
           {activeTab === "telemetry" && (
             <div className="telemetry-grid">
               <div className="metric-box">
@@ -311,15 +518,22 @@ export default function InteractiveDevConsole() {
             </div>
           )}
 
-          {/* Tab 3: Microservices Grid */}
+          {/* Tab 4: Microservices Grid */}
           {activeTab === "stack" && (
             <div className="stack-grid">
               <div className="stack-card">
                 <div className="stack-head">
-                  <span className="stack-name">Multi-Agent AI Pipeline</span>
+                  <span className="stack-name">Nora AI Multi-Agent & Bridges</span>
                   <span className="badge-status">Active</span>
                 </div>
-                <p>Node.js 22 LTS, Redis Cache & Rate-limiter, OpenAI & Gemini 3.8 Flash orchestration engine.</p>
+                <p>LangGraph supervisor agent, iOS AlarmKit & Android AlarmManager bridges, FastAPI duplex Socket.IO streaming.</p>
+              </div>
+              <div className="stack-card">
+                <div className="stack-head">
+                  <span className="stack-name">BluFix Multi-Agent Pipeline</span>
+                  <span className="badge-status">Active</span>
+                </div>
+                <p>Node.js 22 LTS, Redis Cache & Rate-limiter, OpenAI & Gemini 3.8 Flash fault prediction and technician radar.</p>
               </div>
               <div className="stack-card">
                 <div className="stack-head">
@@ -334,13 +548,6 @@ export default function InteractiveDevConsole() {
                   <span className="badge-status">Active</span>
                 </div>
                 <p>Agora RTC SDK integration with token rotation, video grid negotiation, and background push wakeups.</p>
-              </div>
-              <div className="stack-card">
-                <div className="stack-head">
-                  <span className="stack-name">Automated Financial Engine</span>
-                  <span className="badge-status">Active</span>
-                </div>
-                <p>AAMI real estate algorithms, dynamic PDF vector report generation, and idempotent Stripe payouts.</p>
               </div>
             </div>
           )}
