@@ -4437,36 +4437,43 @@ button {
    Print Styles for ATS Resume Preview
    ========================================= */
 @media print {
-  /* Hide all website elements */
-  body * {
-    visibility: hidden;
-  }
-  .portfolio-agent-launcher,
-  .portfolio-agent-modal,
+  /* Safely hide top-level UI containers without scanning every DOM node */
+  nav,
   header,
   footer,
-  nav,
+  #hero,
+  #about,
+  #experience,
+  #skills,
+  #projects,
+  #architecture,
+  #cockpit,
+  #contact,
+  .portfolio-agent-launcher,
+  .portfolio-agent-modal,
+  .hero-social-links,
+  .dev-cockpit-section,
+  .orbital-sphere-wrapper,
   .no-print {
     display: none !important;
   }
 
-  /* Make printable resume visible and full page */
-  .printable-resume,
-  .printable-resume * {
-    visibility: visible !important;
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
   }
 
   .printable-resume {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
+    position: static !important;
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 !important;
     background: #ffffff !important;
     color: #111827 !important;
-    font-size: 10.5pt !important;
+    font-size: 10pt !important;
     line-height: 1.4 !important;
+    box-shadow: none !important;
+    border: none !important;
   }
 
   .printable-resume h1,
@@ -4484,13 +4491,13 @@ button {
   }
 
   .printable-resume a {
-    color: #2563eb !important;
+    color: #0284c7 !important;
     text-decoration: underline !important;
   }
 
   .printable-resume .bg-white\/\[0\.03\] {
-    background: #f9fafb !important;
-    border: 1px solid #e5e7eb !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
   }
 
   .signature-box {

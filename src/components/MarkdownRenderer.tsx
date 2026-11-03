@@ -106,22 +106,33 @@ export default function MarkdownRenderer({ content, isStreaming, onAction }: Mar
             </div>
             <div>
               <div className="font-bold text-white text-xs sm:text-sm">Subhabrata Das — Official ATS Resume</div>
-              <div className="text-[11px] text-gray-400">3+ Years Experience • All 10 Production Systems • Instant PDF</div>
+              <div className="text-[11px] text-gray-400">3+ Years Experience • All 10 Production Systems • Verified Signature</div>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              if (onAction) {
-                onAction("DOWNLOAD_CV");
-              } else {
-                window.dispatchEvent(new CustomEvent("open-cv-modal"));
-              }
-            }}
-            className="w-full sm:w-auto px-3.5 py-2 rounded-lg bg-[#00D9FF] text-black font-bold text-xs hover:bg-[#00D9FF]/90 transition shadow-md shadow-[#00D9FF]/25 flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
-          >
-            <span>📥 View & Print PDF</span>
-          </button>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <a
+              href="/Subhabrata_Das_Resume.pdf"
+              download="Subhabrata_Das_Resume.pdf"
+              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-lg bg-[#00D9FF] text-black font-bold text-xs hover:bg-[#00D9FF]/90 transition shadow-md shadow-[#00D9FF]/25 flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+              title="Download signed ATS PDF file directly"
+            >
+              <span>📥 Download PDF</span>
+            </a>
+            <button
+              type="button"
+              onClick={() => {
+                if (onAction) {
+                  onAction("DOWNLOAD_CV");
+                } else {
+                  window.dispatchEvent(new CustomEvent("open-cv-modal"));
+                }
+              }}
+              className="px-3 py-2 rounded-lg bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition flex items-center justify-center gap-1 cursor-pointer shrink-0"
+              title="Preview ATS Resume in interactive modal"
+            >
+              <span>👁️ Preview</span>
+            </button>
+          </div>
         </div>
       );
       continue;

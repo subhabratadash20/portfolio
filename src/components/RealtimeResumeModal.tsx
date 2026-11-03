@@ -160,14 +160,29 @@ Signature: Subhabrata Das`;
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <button
-              onClick={handlePrint}
-              type="button"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#00D9FF] text-black font-semibold text-xs hover:bg-[#00D9FF]/90 transition cursor-pointer"
-              title="Print or Save as PDF"
+            <a
+              href="/Subhabrata_Das_Resume.pdf"
+              download="Subhabrata_Das_Resume.pdf"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#00D9FF] text-black font-semibold text-xs hover:bg-[#00D9FF]/90 transition cursor-pointer shadow-md shadow-[#00D9FF]/25"
+              title="Download signed ATS PDF directly"
             >
-              <Printer size={14} />
-              <span className="hidden sm:inline">Print / Save PDF</span>
+              <Download size={14} />
+              <span>Download PDF</span>
+            </a>
+            <button
+              onClick={() => {
+                try {
+                  window.print();
+                } catch (e) {
+                  console.error("Print error:", e);
+                }
+              }}
+              type="button"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition cursor-pointer"
+              title="Print document"
+            >
+              <Printer size={13} />
+              <span>Print</span>
             </button>
             <button
               onClick={handleCopy}
@@ -496,14 +511,14 @@ Signature: Subhabrata Das`;
         {/* Footer info bar */}
         <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-t border-white/10 bg-[#121320] text-xs text-gray-400 no-print shrink-0">
           <span className="truncate">Official ATS Document • Generated: {currentDate || "Today"}</span>
-          <button
-            onClick={handlePrint}
-            type="button"
+          <a
+            href="/Subhabrata_Das_Resume.pdf"
+            download="Subhabrata_Das_Resume.pdf"
             className="text-[#00D9FF] hover:underline flex items-center gap-1 font-semibold cursor-pointer shrink-0 ml-2"
           >
             <Download size={13} />
-            Download Printable PDF
-          </button>
+            Download Signed PDF (595 KB)
+          </a>
         </div>
       </div>
     </div>
