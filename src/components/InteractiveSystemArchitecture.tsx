@@ -63,7 +63,7 @@ export default function InteractiveSystemArchitecture() {
   return (
     <section className="section architecture-interactive-section" id="architecture">
       <div className="container">
-        <div className="arch-header">
+        <div className="arch-header animate-on-scroll">
           <div className="cockpit-pill">
             <Zap size={13} className="text-accent" />
             <span>INTERACTIVE SYSTEM DESIGN EXPLORER</span>
@@ -77,7 +77,7 @@ export default function InteractiveSystemArchitecture() {
         </div>
 
         {/* Top selector buttons */}
-        <div className="arch-nav-tabs">
+        <div className="arch-nav-tabs animate-on-scroll">
           {flows.map((flow) => {
             const isSelected = flow.id === selectedFlowId;
             return (
@@ -100,7 +100,7 @@ export default function InteractiveSystemArchitecture() {
         </div>
 
         {/* Diagram Interactive Viewer */}
-        <div className="arch-board glass-card">
+        <div className="arch-board glass-card animate-on-scroll reveal-cockpit">
           <div className="arch-board-head">
             <div>
               <h3 className="arch-board-title">{activeFlow.name}</h3>
@@ -123,7 +123,8 @@ export default function InteractiveSystemArchitecture() {
               return (
                 <div
                   key={layer.name}
-                  className={`arch-layer-card ${isHighlight ? "active-layer" : ""}`}
+                  className={`arch-layer-card animate-on-scroll ${isHighlight ? "active-layer" : ""}`}
+                  style={{ transitionDelay: `${index * 110}ms` }}
                   onClick={() => setActiveStep(index)}
                 >
                   <div className="arch-layer-step-badge">

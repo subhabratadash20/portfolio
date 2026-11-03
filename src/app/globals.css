@@ -1568,17 +1568,141 @@ button {
   }
 }
 
-/* Scroll Animation Classes */
+/* =========================================
+   Scroll Animation Classes (Cyberpunk Suite)
+   ========================================= */
+
+/* Base Scroll Reveal (Smooth Upward Glide) */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .animate-on-scroll.animated {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Variant: Pop & Scale (Stats counter cards, Why Hire orbit cards, CTA buttons) */
+.animate-on-scroll.reveal-scale {
+  transform: translateY(22px) scale(0.92);
+}
+
+.animate-on-scroll.reveal-scale.animated {
+  transform: translateY(0) scale(1);
+}
+
+/* Variant: Slide from Left (Timeline items, section intros) */
+.animate-on-scroll.reveal-left {
+  transform: translateX(-35px);
+}
+
+.animate-on-scroll.reveal-left.animated {
+  transform: translateX(0);
+}
+
+/* Variant: Slide from Right */
+.animate-on-scroll.reveal-right {
+  transform: translateX(35px);
+}
+
+.animate-on-scroll.reveal-right.animated {
+  transform: translateX(0);
+}
+
+/* Variant: 3D Holographic Card Reveal (Projects & Skills) */
+.animate-on-scroll.reveal-card {
+  transform: translateY(32px) perspective(1000px) rotateX(6deg) scale(0.97);
+  filter: brightness(0.85);
+}
+
+.animate-on-scroll.reveal-card.animated {
+  transform: translateY(0) perspective(1000px) rotateX(0deg) scale(1);
+  filter: brightness(1);
+}
+
+/* Variant: High-Tech Cockpit & Architecture Boot Sequence */
+.animate-on-scroll.reveal-cockpit {
+  transform: translateY(30px) scale(0.98);
+  filter: brightness(0.85);
+  position: relative;
+}
+
+.animate-on-scroll.reveal-cockpit.animated {
+  transform: translateY(0) scale(1);
+  filter: brightness(1);
+  box-shadow: 0 0 35px rgba(0, 217, 255, 0.16), 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.animate-on-scroll.reveal-cockpit.animated::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00D9FF, #7C3AED, transparent);
+  animation: cockpitScanSweep 1.8s ease-out 1 forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes cockpitScanSweep {
+  0% { transform: scaleX(0); opacity: 0; }
+  50% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0.3; }
+}
+
+/* Timeline Beacon Pulse on Reveal */
+.timeline-item.animate-on-scroll .timeline-marker {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-item.animate-on-scroll.animated .timeline-marker {
+  animation: timelineBeaconPulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes timelineBeaconPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 217, 255, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(0, 217, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 217, 255, 0);
+  }
+}
+
+/* Section Title Number Glow Expand */
+.section-title.animate-on-scroll .section-number {
+  display: inline-block;
+  transition: transform 0.6s ease, text-shadow 0.6s ease;
+  transform: scale(0.9);
+}
+
+.section-title.animate-on-scroll.animated .section-number {
+  transform: scale(1);
+  text-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+}
+
+/* Stagger Delays for Grids (up to 12 items) */
+.animate-on-scroll:nth-child(1) { transition-delay: 0ms; }
+.animate-on-scroll:nth-child(2) { transition-delay: 80ms; }
+.animate-on-scroll:nth-child(3) { transition-delay: 160ms; }
+.animate-on-scroll:nth-child(4) { transition-delay: 240ms; }
+.animate-on-scroll:nth-child(5) { transition-delay: 320ms; }
+.animate-on-scroll:nth-child(6) { transition-delay: 400ms; }
+.animate-on-scroll:nth-child(7) { transition-delay: 480ms; }
+.animate-on-scroll:nth-child(8) { transition-delay: 560ms; }
+.animate-on-scroll:nth-child(9) { transition-delay: 640ms; }
+.animate-on-scroll:nth-child(10) { transition-delay: 720ms; }
+.animate-on-scroll:nth-child(11) { transition-delay: 800ms; }
+.animate-on-scroll:nth-child(12) { transition-delay: 880ms; }
 
 .animate-on-scroll.animated:hover {
   transition: all 0.3s ease;
@@ -1593,22 +1717,6 @@ button {
 
 .project-card.animate-on-scroll.animated:hover {
   transform: none;
-}
-
-.animate-on-scroll:nth-child(1) {
-  transition-delay: 0ms;
-}
-
-.animate-on-scroll:nth-child(2) {
-  transition-delay: 100ms;
-}
-
-.animate-on-scroll:nth-child(3) {
-  transition-delay: 200ms;
-}
-
-.animate-on-scroll:nth-child(4) {
-  transition-delay: 300ms;
 }
 
 @media (prefers-reduced-motion: reduce) {

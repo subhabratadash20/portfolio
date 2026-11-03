@@ -125,12 +125,10 @@ const navToggle = document.getElementById("navToggle");
              });
          };
  
-const initScrollAnimations = () => {
-            const animatedElements = document.querySelectorAll<HTMLElement>(".animate-on-scroll");
-            if (!animatedElements.length) return;
-
+        const initScrollAnimations = () => {
             // Detect mobile for adjusted thresholds
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            const observedSet = new WeakSet<HTMLElement>();
 
             const observer = new IntersectionObserver(
                 (entries) => {
@@ -146,26 +144,38 @@ const initScrollAnimations = () => {
                     });
                 },
                 {
-                    threshold: isMobile ? 0.05 : 0.1,
-                    rootMargin: isMobile ? "0px 0px -20px 0px" : "0px 0px -50px 0px",
+                    threshold: isMobile ? 0.05 : 0.08,
+                    rootMargin: isMobile ? "0px 0px -20px 0px" : "0px 0px -40px 0px",
                 }
             );
 
-            animatedElements.forEach((el) => observer.observe(el));
-
-            // Initial check for elements already in view
-            requestAnimationFrame(() => {
-                animatedElements.forEach((el) => {
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        el.classList.add("animated");
-                        observer.unobserve(el);
+            const scanAndObserve = () => {
+                const elements = document.querySelectorAll<HTMLElement>(".animate-on-scroll:not(.animated)");
+                elements.forEach((el) => {
+                    if (!observedSet.has(el)) {
+                        observedSet.add(el);
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) {
+                            el.classList.add("animated");
+                        } else {
+                            observer.observe(el);
+                        }
                     }
                 });
+            };
+
+            scanAndObserve();
+
+            // Observe dynamic elements (e.g. filtered projects or newly mounted cards)
+            const mutObserver = new MutationObserver(() => {
+                scanAndObserve();
             });
+
+            mutObserver.observe(document.body, { childList: true, subtree: true });
 
             cleanups.push(() => {
                 observer.disconnect();
+                mutObserver.disconnect();
             });
         };
  

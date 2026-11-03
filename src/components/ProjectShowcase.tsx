@@ -249,7 +249,7 @@ export default function ProjectShowcase() {
   return (
     <div className="project-showcase-container">
       {/* Category filter tabs */}
-      <div className="project-filter-bar animate-on-scroll animated">
+      <div className="project-filter-bar animate-on-scroll">
         {filterTabs.map((tab) => {
           const isActive = selectedFilter === tab.value;
           return (
@@ -272,7 +272,7 @@ export default function ProjectShowcase() {
         {filteredProjects.map((project: Project) => (
           <article
             key={project.slug}
-            className="project-card glass-card animate-on-scroll animated"
+            className="project-card glass-card animate-on-scroll reveal-card"
             data-tilt="true"
             data-slug={project.slug}
           >

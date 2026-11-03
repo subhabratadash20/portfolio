@@ -343,7 +343,7 @@ export default function InteractiveDevConsole() {
   return (
     <section className="section dev-cockpit-section" id="cockpit">
       <div className="container">
-        <div className="cockpit-header">
+        <div className="cockpit-header animate-on-scroll">
           <div className="cockpit-pill">
             <span className="live-pulse" />
             <span>INTERACTIVE DEVELOPER CONSOLE</span>
@@ -356,7 +356,7 @@ export default function InteractiveDevConsole() {
           </p>
         </div>
 
-        <div className="cockpit-wrapper glass-card">
+        <div className="cockpit-wrapper glass-card animate-on-scroll reveal-cockpit">
           {/* Console Top Bar */}
           <div className="console-topbar">
             <div className="console-dots">
