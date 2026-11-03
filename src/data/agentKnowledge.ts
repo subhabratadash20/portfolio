@@ -2,7 +2,7 @@ export interface KnowledgeTopic {
   keywords: string[];
   title: string;
   answer: string;
-  category: "architecture" | "project" | "skills" | "contact" | "general" | "resume";
+  category: "architecture" | "project" | "skills" | "contact" | "general" | "resume" | "experience" | "education";
 }
 
 export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
@@ -13,55 +13,122 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
     title: "Subhabrata Das — Realtime ATS Resume & CV",
     answer:
       "# SUBHABRATA DAS\n" +
-      "**Senior Flutter Developer & AI-Powered Systems Architect**\n" +
-      "📍 Kolkata, India (Available for Remote / Hybrid Worldwide)\n" +
-      "📧 [subhabratadash1@gmail.com](mailto:subhabratadash1@gmail.com) • [LinkedIn](https://linkedin.com/in/subhabratadash) • [GitHub](https://github.com/subhabratadash20)\n\n" +
-      "### Executive Summary\n" +
-      "Senior Mobile & AI Systems Architect with **3+ years** of verified production experience architecting high-throughput Flutter applications, LangGraph multi-agent orchestration frameworks, and real-time distributed backends. Pioneer of native hardware bridge protocols (iOS AlarmKit, Android AlarmManager) and dual-identity database infrastructures (Firebase Data Connect PostgreSQL + Cloud Firestore RTC). Published author of multiple commercial apps across Google Play Store and Apple App Store.\n\n" +
-      "### Core Competencies\n" +
-      "• **Mobile Architecture**: Flutter 3.11+, Dart 3 (Sealed Classes, Pattern Matching), Riverpod 3.3, GetX, AutoRoute, GoRouter.\n" +
-      "• **AI & Multi-Agent**: LangGraph Supervisor Agent, Tool Palette Routing, OpenAI SDK, Gemini 3.8 Flash, Tavily Search, FastAPI.\n" +
-      "• **Backend & Cloud**: Node.js 22 LTS, Express 5, TypeScript 5.9, Docker, Google Cloud Run, Cloudflare Workers, Cloud Functions.\n" +
-      "• **Databases & Checkpoints**: PostgreSQL (Neon, Cloud SQL), Firebase Data Connect (GraphQL), Cloud Firestore, Redis, MongoDB Atlas.\n" +
-      "• **Hardware Bridges & RTC**: iOS AlarmKit & EventKit, Android AlarmManager, Agora WebRTC, Socket.IO, Mux RTMP.\n" +
-      "• **Payments**: Stripe Connect (Idempotent Split Payouts), Paystack, RevenueCat, Moyasar, OAuth 2.0.\n\n" +
-      "### Key Production Architectures (10 Apps)\n" +
-      "1. **Nora AI (`naipa.ai`)**: Autonomous Executive Assistant with LangGraph Supervisor, dynamic tool pruning, duplex Socket.IO, iOS AlarmKit & Android AlarmManager hardware bridges.\n" +
-      "2. **BluFix AI (`ai.blufix`)**: Two-stage multimodal acoustic & vision failure analyzer, automated repair cost estimator, and real-time Provider Radar GPS dispatch.\n" +
-      "3. **Etana Oroko (`myetana.com`)**: Dual-identity PostgreSQL + Firestore RTC, Gemini 3.8 Flash content moderation, vector recommendation engine, and Agora WebRTC.\n" +
-      "4. **Rent Roll Pulse (`com.rentroll.app`)**: Commercial real estate valuation engine with AAMI/AMI recalculations and vector PDF financial reports.\n" +
-      "5. **Konnectax (`com.konnectax.app`)**: Simultaneous 3-platform RTMP simulcasting (YouTube, Facebook, TikTok) via Mux with unified comments.\n" +
-      "6. **Plugg (`plugg.social`)**: AI lifestyle compatibility matchmaking and Socket.IO rich media chat.\n" +
-      "7. **Flinki**: Sports matchmaking, tournament RSVP tracking, P2P equipment marketplace, and in-app video player.\n" +
-      "8. **Stylaa**: Dual customer/merchant salon scheduling ecosystem and AI style suggestions.\n" +
+      "**Flutter Developer | AI-Powered Application Specialist**\n" +
+      "📍 Kolkata, India | 📞 [+91 6294321171](tel:+916294321171) | 📧 [subhabratadash1@gmail.com](mailto:subhabratadash1@gmail.com)\n" +
+      "[LinkedIn](https://linkedin.com/in/subhabratadash) • [GitHub](https://github.com/subhabratadash20) • [Portfolio](https://subhabratadash20.github.io)\n\n" +
+      "### Professional Summary\n" +
+      "Results-driven Flutter Developer and AI-Powered Application Specialist with over **3 years** of professional experience in mobile application engineering and distributed backend systems. Specialized in architecting high-performance cross-platform applications, integrating advanced AI models (OpenAI GPT, Gemini 3.8 Flash, Claude, LangGraph), establishing autonomous agentic workflows, and implementing complex geolocation/geofencing systems. Proven track record delivering scalable apps using Flutter, Dart 3, Node.js 22 LTS, PostgreSQL, and Firebase following Clean Architecture principles.\n\n" +
+      "### Professional Experience\n" +
+      "**Software Developer | Weavers-web Solutions Pvt. Ltd.** (January 2023 – Present | Kolkata, India)\n" +
+      "• Engineered and maintained production-grade cross-platform mobile applications for diverse industry sectors.\n" +
+      "• Integrated AI features utilizing OpenAI, Gemini, and LangGraph platforms to deliver intelligent, user-aware capabilities.\n" +
+      "• Implemented real-time asset tracking and geofencing capabilities for logistics and on-demand dispatch applications.\n" +
+      "• Applied Multi-Threading concepts, isolate concurrency, and state management optimizations, reducing overall application load times by 30%.\n\n" +
+      "### Technical Competencies\n" +
+      "• **Mobile Development**: Flutter, Dart 3 (Sealed Classes, Records, Pattern Matching), Riverpod 3.3, GetX, Provider, Bloc, Clean Architecture, AutoRoute, GoRouter.\n" +
+      "• **AI & Agentic Frameworks**: LangGraph Supervisor Agent, Planned Tool Palettes, OpenAI GPT & Realtime WebRTC, Gemini 3.8 Flash, Claude, FastAPI, Prompt Engineering.\n" +
+      "• **Backend & Databases**: Node.js 22 LTS, FastAPI, PostgreSQL (Neon / Cloud SQL), Firebase Data Connect (GraphQL), Cloud Firestore, Redis, MongoDB Atlas, Hive (Local-First).\n" +
+      "• **Geolocation & Hardware Bridges**: Google Maps API, Geofencing Radar, Real-Time Asset Tracking, iOS AlarmKit & EventKit (DND Bypass), Android AlarmManager Foreground Services.\n" +
+      "• **Media & Streaming**: Agora WebRTC, Socket.IO Duplex, Mux RTMP Simulcast, Stripe Connect (Idempotent Split Payouts), Paystack, RevenueCat.\n" +
+      "• **Languages & Tools**: Dart, Python, Java, C, PHP, TypeScript, SQL. Cursor, Antigravity, Windsurf, Claude Code, Git, GitHub, CI/CD, Postman.\n\n" +
+      "### Production Applications & Architecture\n" +
+      "1. **Nora AI (`naipa.ai`)**: Architect & Lead Developer — Autonomous AI executive companion with LangGraph supervisor routing, iOS AlarmKit / Android AlarmManager bridges, and duplex Socket.IO.\n" +
+      "2. **BluFix AI (`ai.blufix`)**: Two-stage multimodal acoustic & vision failure analyzer, automated repair cost estimator, and live GPS Provider Radar dispatch.\n" +
+      "3. **Etana Oroko (`myetana.com`)**: Dual-identity PostgreSQL + Firestore RTC, Gemini 3.8 Flash moderation, vector recommendation engine, and Agora WebRTC.\n" +
+      "4. **Rent Roll Pulse (`com.rentroll.app`)**: Commercial real estate valuation engine calculating AAMI/AMI metrics with on-device vector PDF financial reports.\n" +
+      "5. **Konnectax (`com.konnectax.app`)**: Simultaneous 3-platform RTMP live streaming (YouTube, Facebook, TikTok via Mux) with unified comments overlay.\n" +
+      "6. **Plugg AI (`plugg.social`)**: Lead Mobile Developer — AI compatibility matchmaking, Socket.IO rich media chat, and RevenueCat in-app subscriptions.\n" +
+      "7. **Stylaa**: Dual customer/merchant salon scheduling ecosystem and AI style suggestions.\n" +
+      "8. **Flinki**: Sports matchmaking, tournament RSVP tracking, P2P equipment marketplace, and in-app video player.\n" +
       "9. **Groundmetrx**: Sub-meter GPS fleet tracking with automated polygon geofencing entry/exit alerts.\n" +
-      "10. **DIY Marketplace**: Bilingual Arabic/English RTL commerce platform with Moyasar payments.\n\n" +
-      "### Education\n" +
-      "• **Bachelor of Computer Applications (BCA)** — 2020 to 2023 | **CGPA: 8.99 / 10.0**\n\n" +
+      "10. **Additional Shipped Apps**: DIY Marketplace (bilingual Arabic RTL commerce with Moyasar), Family Bond, TradeMaza, MOTQAN / Time Piece Gentleman.\n\n" +
+      "### Education & Credentials\n" +
+      "• **M.C.A. (Master of Computer Applications)** — Swami Vivekananda University (SVU) | 2026 | Completed\n" +
+      "• **B.C.A. (Bachelor of Computer Applications)** — Contai College of Learning & Management Science (MAKAUT) | 2023 | **8.99 CGPA**\n" +
+      "• **Higher Secondary (10+2 Science)** — Kishorenagar Sachindra Sikhyasadan (WBCHSE) | 2020 | **81.0%**\n" +
+      "• **Secondary Examination (10th)** — Kishorenagar Sachindra Sikhyasadan (WBBSE) | 2018 | **86.0%**\n\n" +
+      "### Personal Details\n" +
+      "• **Languages Known**: Bengali (Native/Fluent), English (Read, Write, Speak), Hindi (Read, Speak)\n" +
+      "• **Date of Birth**: October 23, 2002 | **Father's Name**: Rajat Kanti Das\n\n" +
       "[[ACTION:DOWNLOAD_CV]]",
   },
 
-  // 1. All 10 Production Applications Catalog
+  // 1. Professional Experience & Company
+  {
+    category: "experience",
+    keywords: ["weavers-web", "weavers web", "company", "experience", "work history", "employer", "current role", "job history"],
+    title: "Professional Experience: Weavers-web Solutions Pvt. Ltd.",
+    answer:
+      "**Software Developer | Weavers-web Solutions Pvt. Ltd.**\n" +
+      "📅 **January 2023 – Present** | 📍 **Kolkata, India**\n\n" +
+      "**Key Engineering Achievements:**\n" +
+      "• **Cross-Platform Engineering**: Engineered and maintained production-grade cross-platform mobile applications in Flutter & Dart for international clients.\n" +
+      "• **Generative AI Integration**: Integrated advanced AI models (OpenAI GPT, Gemini, Claude, LangGraph) to deliver user-aware capabilities and agentic workflows.\n" +
+      "• **Asset Tracking & Geofencing**: Implemented sub-meter GPS telemetry and automated polygon geofencing alerts for logistics-focused and on-demand dispatch applications.\n" +
+      "• **Performance & Concurrency**: Applied Multi-Threading isolates and state management optimizations (Riverpod / GetX), reducing application load times by 30% and maintaining 60 FPS GPU frame stability.\n" +
+      "• **Full-Lifecycle Collaboration**: Collaborated with UI/UX designers and backend architects to deliver sub-second API latencies and resilient Clean Architecture standards.",
+  },
+
+  // 2. Education & Academic Background
+  {
+    category: "education",
+    keywords: ["education", "college", "university", "degree", "mca", "bca", "cgpa", "school", "svu", "makaut", "qualification"],
+    title: "Education & Academic Credentials",
+    answer:
+      "Subhabrata Das holds a strong academic foundation in Computer Applications and Science:\n\n" +
+      "1. **M.C.A. (Master of Computer Applications)**\n" +
+      "   • *Institution*: Swami Vivekananda University (SVU)\n" +
+      "   • *Year*: 2026 | Completed\n\n" +
+      "2. **B.C.A. (Bachelor of Computer Applications)**\n" +
+      "   • *Institution*: Contai College of Learning & Management Science (MAKAUT)\n" +
+      "   • *Year*: 2023 | **8.99 CGPA** (High Honors)\n\n" +
+      "3. **Higher Secondary (10+2 Science)**\n" +
+      "   • *Institution*: Kishorenagar Sachindra Sikhyasadan (WBCHSE)\n" +
+      "   • *Year*: 2020 | **81.0%**\n\n" +
+      "4. **Secondary Examination (10th)**\n" +
+      "   • *Institution*: Kishorenagar Sachindra Sikhyasadan (WBBSE)\n" +
+      "   • *Year*: 2018 | **86.0%**",
+  },
+
+  // 3. Personal Details & Languages
+  {
+    category: "general",
+    keywords: ["personal", "languages", "language", "bengali", "hindi", "english", "dob", "birth", "father", "nationality"],
+    title: "Personal Information & Languages",
+    answer:
+      "**Personal Profile of Subhabrata Das:**\n\n" +
+      "• **Date of Birth**: October 23, 2002\n" +
+      "• **Father's Name**: Rajat Kanti Das\n" +
+      "• **Nationality & Gender**: Indian | Male\n" +
+      "• **Languages Known**:\n" +
+      "  - **Bengali**: Native / Fluent\n" +
+      "  - **English**: Professional Working Proficiency (Read, Write, Speak)\n" +
+      "  - **Hindi**: Conversational (Read, Speak)\n" +
+      "• **Location**: Kolkata, India (Available for Remote / Hybrid worldwide)",
+  },
+
+  // 4. All Production Applications Catalog
   {
     category: "project",
     keywords: ["all apps", "apps", "projects", "what apps", "list apps", "how many apps", "portfolio", "built apps", "ten apps", "10 apps"],
-    title: "Subhabrata's 10 Production Applications",
+    title: "Subhabrata's 10 Production Applications & Additional Projects",
     answer:
-      "Subhabrata Das has architected and delivered **10 comprehensive production systems** spanning AI, Mobile, FinTech, and Real-Time Streaming:\n\n" +
+      "Subhabrata Das has architected and delivered **10 core production systems** alongside several commercial platforms:\n\n" +
       "1. **Nora AI (`naipa.ai`)**: Autonomous AI executive companion with LangGraph supervisor routing, iOS AlarmKit / Android AlarmManager bridges, and duplex Socket.IO.\n" +
       "2. **BluFix AI (`ai.blufix`)**: On-demand smart home diagnostics with multimodal photo/audio fault analyzer and live GPS Provider Radar dispatch.\n" +
       "3. **Etana Oroko (`myetana.com`)**: Creator social network uniting Firebase Data Connect (PostgreSQL) with Firestore RTC, Gemini 3.8 Flash moderation, and Agora WebRTC.\n" +
       "4. **Rent Roll Pulse (`com.rentroll.app`)**: Real estate FinTech valuation engine calculating AAMI/AMI metrics with on-device vector PDF financial reports.\n" +
       "5. **Konnectax (`com.konnectax.app`)**: Multi-platform RTMP live streaming SaaS broadcasting simultaneously to YouTube, Facebook, and TikTok via Mux.\n" +
-      "6. **Plugg (`plugg.social`)**: AI compatibility matchmaking network with Socket.IO rich chat, geolocation discovery, and RevenueCat subscriptions.\n" +
+      "6. **Plugg AI (`plugg.social`)**: AI compatibility matchmaking network with Socket.IO rich chat, geolocation discovery, and RevenueCat subscriptions.\n" +
       "7. **Flinki**: Sports community platform featuring athlete matchmaking, tournament RSVP scheduling, P2P gear marketplace, and in-app video.\n" +
       "8. **Stylaa**: Dual customer & merchant salon appointment booking system with real-time calendars and AI beauty recommendations.\n" +
       "9. **Groundmetrx**: Enterprise logistics fleet telemetry platform with sub-meter GPS and automated polygon geofencing boundary alerts.\n" +
       "10. **DIY Marketplace**: Bilingual Arabic/English RTL mobile marketplace connecting crafters with buyers via Moyasar payments.\n\n" +
+      "**Additional Commercial Projects**: Family Bond (private encrypted family app), TradeMaza (stock trading education platform), MOTQAN / Time Piece Gentleman (luxury watch retail e-commerce).\n\n" +
       "You can ask me to deep-dive into the architectural mechanics of any of these apps!",
   },
 
-  // 2. BluFix AI & Diagnostic Analyzer
+  // 5. BluFix AI & Diagnostic Analyzer
   {
     category: "project",
     keywords: ["blufix", "airfix", "diagnostic", "radar", "technician", "hvac", "dispatch", "analyzer", "acoustic", "fault analyzer", "spectrogram", "cost estimate"],
@@ -80,7 +147,7 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "• **Idempotent Payouts**: Full Stripe Connect integration executing idempotent split payouts to technician wallets and Paystack multi-currency checkout.",
   },
 
-  // 3. Etana Oroko: Recommendation Engine, Moderator & Writing Assistant
+  // 6. Etana Oroko: Recommendation Engine, Moderator & Writing Assistant
   {
     category: "project",
     keywords: [
@@ -112,7 +179,7 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "• **Low-Latency Agora WebRTC**: Integrated RTC Engine powering 1-on-1 calls, group voice rooms, and live interactive video broadcasts with dynamic token rotations.",
   },
 
-  // 4. Nora AI Autonomous Ecosystem & Device Bridges
+  // 7. Nora AI Autonomous Ecosystem & Device Bridges
   {
     category: "project",
     keywords: [
@@ -152,7 +219,7 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "• **Redis & AWS S3**: High-speed cache for session state and secure S3 media bucket storage.",
   },
 
-  // 5. Rent Roll Pulse: FinTech Valuation
+  // 8. Rent Roll Pulse: FinTech Valuation
   {
     category: "project",
     keywords: ["rent roll", "valuation", "fintech", "real estate", "aami", "ami", "pdf", "property", "audit"],
@@ -166,7 +233,7 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "• **Tech Stack**: Flutter, GetX reactive controllers, Firebase Firestore, Cloud Functions, and Stripe subscription tiering.",
   },
 
-  // 6. Konnectax: Multi-Platform RTMP Simulcasting
+  // 9. Konnectax: Multi-Platform RTMP Simulcasting
   {
     category: "project",
     keywords: ["konnectax", "simulcast", "mux", "rtmp", "streaming", "youtube", "facebook", "tiktok", "comments"],
@@ -180,84 +247,42 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "• **Tech Stack**: Flutter, GetX, Mux, `rtmp_broadcaster`, Supabase, and Picture-in-Picture (PiP) background streaming.",
   },
 
-  // 7. Plugg: AI Matchmaking
+  // 10. Plugg AI: AI Matchmaking
   {
     category: "project",
     keywords: ["plugg", "matchmaking", "compatibility", "dating", "lifestyle", "revenuecat", "giphy"],
-    title: "Plugg: AI Compatibility Matchmaking Platform",
+    title: "Plugg AI: AI Compatibility Matchmaking Platform",
     answer:
-      "**Plugg (`plugg.social`)** is an intelligent social networking app that uses AI to connect users based on lifestyle compatibility and shared interests.\n\n" +
+      "**Plugg AI (`plugg.social`)** is an intelligent social networking and dating app that uses AI to connect users based on lifestyle compatibility and shared interests.\n\n" +
       "**Key Architecture Highlights:**\n" +
+      "• **Clean Architecture & Hive**: Engineered with Get-it DI, Hive local-first caching, and GetX state management.\n" +
       "• **AI Matchmaking & Compatibility Scoring**: Analyzes user preferences and lifestyle indicators to suggest meaningful connections.\n" +
       "• **Socket.IO Rich Media Chat**: Instant messaging with delivery receipts, typing indicators, GIPHY integration, and voice/video notes.\n" +
       "• **Monetization & Location**: RevenueCat cross-platform in-app subscriptions, geolocation discovery with privacy controls, and Firebase Cloud Messaging.",
   },
 
-  // 8. Flinki: Sports Q-Commerce & Video
+  // 11. Additional Commercial Apps (Family Bond, TradeMaza, MOTQAN)
   {
     category: "project",
-    keywords: ["flinki", "sports", "athlete", "tournament", "rsvp", "equipment", "video player", "marketplace"],
-    title: "Flinki: Sports Social Network & P2P Equipment Hub",
+    keywords: ["family bond", "trademaza", "motqan", "time piece", "watch", "stock", "commercial apps"],
+    title: "Additional Commercial Applications",
     answer:
-      "**Flinki** is a sports community mobile application bringing together athletes, teams, and tournament organizers.\n\n" +
-      "**Key Architecture Highlights:**\n" +
-      "• **Sports Matchmaking & Club Directories**: Smart athlete discovery filtered by sport, skill level, and radius.\n" +
-      "• **Tournament Event Tracker & RSVP**: Event scheduling with live attendee rosters and automated calendar sync.\n" +
-      "• **P2P Sports Equipment Marketplace**: Buy and sell new and used sports gear with in-app chat.\n" +
-      "• **Rich Multimedia Chat & Video Player**: Real-time messaging with integrated high-performance video playback.",
-  },
-
-  // 9. Stylaa: Salon Booking & AI Suggestions
-  {
-    category: "project",
-    keywords: ["stylaa", "salon", "barber", "appointment", "booking", "beauty", "calendar"],
-    title: "Stylaa: Dual-Platform Salon Booking Ecosystem",
-    answer:
-      "**Stylaa** is a dual-platform booking system connecting clients with salons and independent stylists.\n\n" +
-      "**Key Architecture Highlights:**\n" +
-      "• **Dual Dedicated Apps**: Separate user-facing client app and merchant-facing business management app.\n" +
-      "• **Real-Time Calendar Scheduling**: Live stylist slot availability checking, instant reservations, and reminders.\n" +
-      "• **AI Style Recommendations**: Suggests hairstyles, treatments, and beauty services based on user booking history and profile preferences.\n" +
-      "• **Tech Stack**: Flutter, Node.js, MongoDB, and secure payment gateway integration.",
-  },
-
-  // 10. Groundmetrx: LiDAR & Fleet Geofencing
-  {
-    category: "project",
-    keywords: ["groundmetrx", "fleet", "logistics", "lidar", "geofencing", "gps", "tracking", "route"],
-    title: "Groundmetrx: Enterprise Logistics & LiDAR Fleet Tracking",
-    answer:
-      "**Groundmetrx** is an enterprise logistics and geospatial fleet telemetry platform.\n\n" +
-      "**Key Architecture Highlights:**\n" +
-      "• **Sub-Meter GPS Telemetry**: Real-time vehicle location tracking with live map updates and speed analytics.\n" +
-      "• **Automated Geofencing Radar**: Configurable polygon geofences with instantaneous entry/exit push alerts.\n" +
-      "• **Route Optimization**: Google Maps API pathfinding delivering optimal delivery sequences and traffic avoidance.\n" +
-      "• **LiDAR & Spatial Mapping**: Spatial asset visualization for field operations.",
-  },
-
-  // 11. DIY Marketplace: Bilingual Arabic RTL Commerce
-  {
-    category: "project",
-    keywords: ["diy", "marketplace", "handmade", "artisan", "arabic", "rtl", "moyasar", "crafter"],
-    title: "DIY Marketplace: Bilingual Arabic/English RTL Commerce",
-    answer:
-      "**DIY Marketplace** is a mobile commerce platform connecting artisans and crafters with buyers seeking handmade goods.\n\n" +
-      "**Key Architecture Highlights:**\n" +
-      "• **Dual Buyer/Seller Interface**: Switch seamlessly between shopper discovery and seller store analytics within one app.\n" +
-      "• **Full Bilingual Localization & RTL**: Comprehensive Arabic and English layouts with dynamic Right-to-Left (RTL) flipping without app restart.\n" +
-      "• **Moyasar Payment Integration**: Secure localized card checkout and seller payout management.\n" +
-      "• **In-App Messaging**: Real-time negotiation chat between buyers and sellers with Firebase Firestore.",
+      "Subhabrata has engineered several specialized commercial mobile platforms:\n\n" +
+      "• **Family Bond**: Private family connection application featuring end-to-end encrypted group messaging, real-time activity feeds, and AI recommendations.\n" +
+      "• **TradeMaza**: Educational stock trading platform featuring real-time market data feeds, interactive learning modules, and simulated portfolios.\n" +
+      "• **MOTQAN / Time Piece Gentleman**: E-commerce platform for high-end luxury watch retail with real-time inventory management and secure payment processing.",
   },
 
   // 12. State Management & Mobile Tech
   {
     category: "skills",
-    keywords: ["riverpod", "getx", "state management", "bloc", "flutter", "dart", "gorouter", "autoroute"],
+    keywords: ["riverpod", "getx", "state management", "bloc", "flutter", "dart", "gorouter", "autoroute", "clean architecture"],
     title: "Mobile Architecture & State Management",
     answer:
       "Subhabrata specializes in production-tested Flutter architectures:\n\n" +
-      "• **Riverpod 3**: Used for robust dependency injection, immutable providers, and testable domain logic in enterprise projects (BluFix, Etana Oroko).\n" +
-      "• **GetX**: Used for lightweight, reactive state and mathematical recalculations in financial valuation apps (Rent Roll Pulse, Flinki).\n" +
+      "• **Riverpod 3.3**: Used for robust dependency injection, immutable providers, and testable domain logic in enterprise projects (BluFix, Etana Oroko).\n" +
+      "• **GetX**: Used for lightweight, reactive state and mathematical recalculations in financial valuation apps (Rent Roll Pulse, Plugg, Flinki).\n" +
+      "• **Clean Architecture**: Domain-driven separation of layers (Presentation, Domain, Data) with Get-it service locators and Hive local-first persistence.\n" +
       "• **Routing**: Deep-linking architectures configured with `go_router` and `auto_route`.\n" +
       "• **Dart 3**: Pattern matching, sealed classes, records, and isolate multi-threading.",
   },
@@ -265,22 +290,24 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
   // 13. Databases & Cloud Infrastructure
   {
     category: "skills",
-    keywords: ["database", "postgresql", "postgres", "graphql", "redis", "docker", "node", "firebase", "nosql"],
+    keywords: ["database", "postgresql", "postgres", "graphql", "redis", "docker", "node", "firebase", "nosql", "hive", "mongodb"],
     title: "Databases, Cloud & Microservices",
     answer:
       "• **PostgreSQL & GraphQL**: Designed relational schemas and complex multi-table join pipelines with Firebase Data Connect and Neon.\n" +
       "• **Redis**: In-memory caching, rate-limiting, and geospatial index lookups.\n" +
       "• **Node.js 22 LTS & Docker**: Containerized microservices, idempotent webhook consumers, and REST APIs.\n" +
-      "• **Real-Time Layer**: Cloud Firestore listeners, Socket.IO duplex clusters, and Agora RTC surfaces.",
+      "• **Real-Time Layer**: Cloud Firestore listeners, Socket.IO duplex clusters, and Agora RTC surfaces.\n" +
+      "• **Local Storage**: Hive local-first caching, SharedPreferences, and Flutter Secure Storage.",
   },
 
   // 14. Contact & Hiring
   {
     category: "contact",
-    keywords: ["contact", "hire", "email", "job", "salary", "available", "location", "linkedin", "reach out"],
+    keywords: ["contact", "hire", "email", "phone", "mobile", "number", "job", "salary", "available", "location", "linkedin", "reach out", "call"],
     title: "Contact & Availability",
     answer:
       "Subhabrata Das is open to high-impact Senior Mobile & AI Systems Engineering roles.\n\n" +
+      "• **Phone**: [+91 6294321171](tel:+916294321171)\n" +
       "• **Email**: [subhabratadash1@gmail.com](mailto:subhabratadash1@gmail.com)\n" +
       "• **LinkedIn**: [linkedin.com/in/subhabratadash](https://linkedin.com/in/subhabratadash)\n" +
       "• **GitHub**: [github.com/subhabratadash20](https://github.com/subhabratadash20)\n" +
