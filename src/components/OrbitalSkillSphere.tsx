@@ -113,12 +113,20 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         centerPhotoRef.current.style.boxShadow = `0 0 ${40 + p * 30}px rgba(0, 217, 255, ${0.25 + p * 0.2})`;
       }
 
-      // Grid geometry parameters
-      const cols = isMobile ? 4 : 7;
-      const colWidth = isMobile ? 80 : 120;
-      const rowHeight = isMobile ? 65 : 85;
+      // Responsive grid geometry spanning the available screen width
+      const winW = window.innerWidth;
+      let cols = 7;
+      if (winW < 600) cols = 3;
+      else if (winW < 900) cols = 4;
+      else if (winW < 1200) cols = 6;
+      else cols = 7;
+
+      // Available container width clamped to responsive viewport margins
+      const maxGridWidth = Math.min(winW - (isMobile ? 32 : 80), 1280);
+      const colWidth = maxGridWidth / cols;
+      const rowHeight = isMobile ? 85 : 105;
       const totalWidth = (cols - 1) * colWidth;
-      const gridStartY = isMobile ? 160 : 170;
+      const gridStartY = isMobile ? 150 : 160;
 
       // Update positions of each skill node
       SKILL_NODES.forEach((node, i) => {
@@ -154,24 +162,30 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         const currentY = (1 - ease) * orbitY + ease * gridY;
         const currentZ = (1 - ease) * orbitZ;
 
-        // Scale node slightly up in grid mode for better legibility
-        const nodeScale = (1 - ease) * (0.85 + (orbitZ / 300) * 0.25) + ease * 1.05;
+        // Scale node up in grid mode for high prominence and readability
+        const nodeScale = (1 - ease) * (0.85 + (orbitZ / 300) * 0.25) + ease * 1.15;
 
         el.style.transform = `translate3d(${currentX}px, ${currentY}px, ${currentZ}px) scale(${nodeScale})`;
 
         // Manage label visibility & card glow
         const labelEl = el.querySelector(".skill-node-label") as HTMLElement;
         if (labelEl) {
-          labelEl.style.opacity = `${Math.min(1, ease * 1.4)}`;
-          labelEl.style.transform = `translateY(${ease * 4}px)`;
+          labelEl.style.opacity = `${Math.min(1, ease * 1.5)}`;
+          labelEl.style.transform = `translateY(${ease * 6}px)`;
         }
 
         const borderEl = el.querySelector(".logo-icon") as HTMLElement;
         if (borderEl) {
-          borderEl.style.borderRadius = `${Math.max(12, 50 - ease * 38)}px`;
-          borderEl.style.background = ease > 0.5
-            ? "rgba(18, 18, 26, 0.85)"
+          borderEl.style.borderRadius = `${Math.max(14, 50 - ease * 36)}px`;
+          borderEl.style.background = ease > 0.4
+            ? "rgba(18, 18, 28, 0.92)"
             : "radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(124, 58, 237, 0.3))";
+          borderEl.style.borderColor = ease > 0.4
+            ? "rgba(0, 217, 255, 0.6)"
+            : "rgba(0, 217, 255, 0.4)";
+          borderEl.style.boxShadow = ease > 0.4
+            ? "0 0 20px rgba(0, 217, 255, 0.35), 0 10px 25px rgba(0, 0, 0, 0.7)"
+            : "0 0 12px rgba(0, 217, 255, 0.5), 0 0 25px rgba(124, 58, 237, 0.3)";
         }
       });
 
