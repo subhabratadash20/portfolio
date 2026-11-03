@@ -24,13 +24,11 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "• Integrated AI features utilizing OpenAI, Gemini, and LangGraph platforms to deliver intelligent, user-aware capabilities.\n" +
       "• Implemented real-time asset tracking and geofencing capabilities for logistics and on-demand dispatch applications.\n" +
       "• Applied Multi-Threading concepts, isolate concurrency, and state management optimizations, reducing overall application load times by 30%.\n\n" +
-      "### Technical Competencies\n" +
-      "• **Mobile Development**: Flutter, Dart 3 (Sealed Classes, Records, Pattern Matching), Riverpod 3.3, GetX, Provider, Bloc, Clean Architecture, AutoRoute, GoRouter.\n" +
-      "• **AI & Agentic Frameworks**: LangGraph Supervisor Agent, Planned Tool Palettes, OpenAI GPT & Realtime WebRTC, Gemini 3.8 Flash, Claude, FastAPI, Prompt Engineering.\n" +
-      "• **Backend & Databases**: Node.js 22 LTS, FastAPI, PostgreSQL (Neon / Cloud SQL), Firebase Data Connect (GraphQL), Cloud Firestore, Redis, MongoDB Atlas, Hive (Local-First).\n" +
-      "• **Geolocation & Hardware Bridges**: Google Maps API, Geofencing Radar, Real-Time Asset Tracking, iOS AlarmKit & EventKit (DND Bypass), Android AlarmManager Foreground Services.\n" +
-      "• **Media & Streaming**: Agora WebRTC, Socket.IO Duplex, Mux RTMP Simulcast, Stripe Connect (Idempotent Split Payouts), Paystack, RevenueCat.\n" +
-      "• **Languages & Tools**: Dart, Python, Java, C, PHP, TypeScript, SQL. Cursor, Antigravity, Windsurf, Claude Code, Git, GitHub, CI/CD, Postman.\n\n" +
+      "### Technical Competencies (Engineering Hierarchy)\n" +
+      "• **#1 Priority — Advanced Flutter & Dart 3 Architecture**: Clean Architecture, DDD, Riverpod 3.3, BLoC / Cubit, GetX, Dart 3 (Sealed Classes, Records, Pattern Matching), Isolate Concurrency (compute()), Custom RenderObjects, 60-120 FPS GPU profiling, iOS AlarmKit & Android AlarmManager hardware bridges, Agora WebRTC, Mux RTMP, Sub-Meter GPS Geofencing, Hive Local-First DB.\n" +
+      "• **#2 Priority — Python & Agentic AI Frameworks**: FastAPI async microservices, LangGraph Supervisor Agents, Dynamic Tool Palette Pruning (PlannedToolLiteral), OpenAI GPT & Realtime WebRTC, Gemini 3.8 Flash, Claude, Celery & Redis Task Queues, MongoDB Atlas (Beanie ODM).\n" +
+      "• **#3 Priority — Node.js & Distributed Backend Microservices**: Node.js 22 LTS, PostgreSQL (Neon / Cloud SQL), Firebase Data Connect (managed GraphQL), Redis distributed concurrency locks, Idempotent Stripe Connect split payouts, Paystack checkout.\n" +
+      "• **#4 Priority — React & Modern Web Capabilities**: Solid full-stack proficiency in React, Next.js (App Router, Turbopack), TypeScript, Tailwind CSS to build production web portals (myetana.com), developer cockpits, and administrative dashboards.\n\n" +
       "### Production Applications & Architecture\n" +
       "1. **Nora AI (`naipa.ai`)**: Architect & Lead Developer — Autonomous AI executive companion with LangGraph supervisor routing, iOS AlarmKit / Android AlarmManager bridges, and duplex Socket.IO.\n" +
       "2. **BluFix AI (`ai.blufix`)**: Two-stage multimodal acoustic & vision failure analyzer, automated repair cost estimator, and live GPS Provider Radar dispatch.\n" +
@@ -312,7 +310,78 @@ export const AGENT_KNOWLEDGE_BASE: KnowledgeTopic[] = [
       "• **LinkedIn**: [linkedin.com/in/subhabratadash](https://linkedin.com/in/subhabratadash)\n" +
       "• **GitHub**: [github.com/subhabratadash20](https://github.com/subhabratadash20)\n" +
       "• **Location**: Kolkata, India (Available for Remote / Hybrid opportunities worldwide).\n\n" +
-      "Ask me to **Generate his Realtime CV** or preview his verified ATS resume anytime!",
+      "Ask me to **Generate his Realtime CV** or preview his verified ATS resume anytime!\n\n" +
+      "[[ACTION:CONTACT_MAILTO:Role Opportunity with Subhabrata Das|Hi Subhabrata,%0A%0AI reviewed your portfolio and would like to discuss a Senior Mobile / AI Systems Engineering role with you.%0A%0ABest regards,]]",
+  },
+
+  // 15. E-Commerce & Marketplace App Building
+  {
+    category: "project",
+    keywords: ["ecommerce", "e-commerce", "shopping", "build store", "online store", "shopify", "marketplace", "ecommers", "cart", "product"],
+    title: "E-Commerce & Marketplace Platform Architecture",
+    answer:
+      "**Yes, absolutely.** Subhabrata Das has extensive production experience architecting commercial e-commerce and multi-vendor marketplace applications using Flutter and modern scalable backends:\n\n" +
+      "• **DIY Marketplace**: Bilingual Arabic/English RTL mobile marketplace connecting crafters with buyers via Moyasar payments, multi-merchant product catalogs, and live order tracking.\n" +
+      "• **Flinki**: Sports marketplace and community platform with athlete peer-to-peer gear trading, in-app escrow, and direct messaging.\n" +
+      "• **BluFix AI**: On-demand service marketplace with real-time GPS technician dispatch and automated Stripe Connect split payouts.\n" +
+      "• **MOTQAN / Time Piece Gentleman**: High-end luxury watch retail platform with real-time inventory management and secure payment processing.\n\n" +
+      "**Recommended Production Architecture:**\n" +
+      "• **Frontend**: Advanced Flutter & Dart 3 with Riverpod 3.3 / BLoC for clean state, 60 FPS GPU rendering, and offline cart caching via Hive.\n" +
+      "• **Backend**: Node.js 22 LTS or Python FastAPI microservices with PostgreSQL for transactional ACID consistency and Redis for real-time inventory locking.\n" +
+      "• **Payment Gateways**: Idempotent Stripe Connect (split payouts), Paystack, or Moyasar with webhook security.\n\n" +
+      "### Client Intake: Let's Define Your Build Scope:\n" +
+      "1. **Target Platforms**: Do you need iOS, Android, and Web from a single unified Flutter codebase?\n" +
+      "2. **Payment Architecture**: Single merchant checkout or multi-vendor marketplace split payouts?\n" +
+      "3. **Integrations**: Real-time order tracking, AI recommendations, or in-app live chat?\n" +
+      "4. **Timeline**: What is your target MVP launch date?\n\n" +
+      "[[ACTION:CONTACT_PROJECT:E-Commerce & Marketplace Platform|Cross-platform Flutter (iOS/Android/Web), secure payment gateway (Stripe/Moyasar), inventory management, and multi-vendor order tracking]]",
+  },
+
+  // 16. Custom Mobile & Full-Stack System Architecture (App Building Inquiries)
+  {
+    category: "general",
+    keywords: ["build an app", "can you build", "develop an app", "custom app", "hire to build", "contract work", "freelance", "quote", "estimate", "need an app"],
+    title: "Custom Mobile & Full-Stack Application Delivery",
+    answer:
+      "**Yes, Subhabrata provides end-to-end architecture and full-lifecycle delivery** for cross-platform mobile apps and AI-powered systems:\n\n" +
+      "**Engineering Priority & Tech Stack:**\n" +
+      "• **#1 Priority — Advanced Flutter & Dart 3 Mastery**: Production Clean Architecture, Riverpod 3.3 / BLoC, Dart Isolates concurrency, 60-120 FPS performance, and native iOS AlarmKit / Android AlarmManager hardware bridges.\n" +
+      "• **#2 Priority — Python & Agentic AI**: FastAPI async microservices, LangGraph multi-agent supervisors, tool-palette pruning, and OpenAI/Gemini multimodal models.\n" +
+      "• **#3 Priority — Node.js 22 & PostgreSQL**: Scalable microservices, Redis distributed locks, and idempotent Stripe Connect split payouts.\n" +
+      "• **#4 Priority — React & Modern Web**: Full-stack web dashboards, admin portals, and creator platforms in Next.js & TypeScript.\n\n" +
+      "### Quick Project Intake:\n" +
+      "1. **What is the core product concept or industry?** (e.g. HealthTech, FinTech, Social RTC, On-Demand Dispatch, AI Assistant)\n" +
+      "2. **What target platforms do you require?** (iOS, Android, Web, or full cross-platform)\n" +
+      "3. **What is your target launch schedule and technical scope?**\n\n" +
+      "[[ACTION:CONTACT_PROJECT:Custom Mobile & Full-Stack System|Advanced Flutter cross-platform architecture, Python/Node.js microservices, and cloud database deployment]]",
+  },
+
+  // 17. Advanced Flutter Architecture Mastery
+  {
+    category: "skills",
+    keywords: ["advanced flutter", "flutter mastery", "isolates", "renderobject", "flutter performance", "fps", "dart 3", "flutter architecture", "native bridges"],
+    title: "Advanced Flutter & Dart 3 Architecture Mastery",
+    answer:
+      "Subhabrata Das architects enterprise Flutter applications engineered for sub-second load times and 60-120 FPS frame stability:\n\n" +
+      "• **Dart 3 Modern Paradigms**: Sealed classes for exhaustively type-safe state machines, pattern matching in switch expressions, records, and class modifiers.\n" +
+      "• **Concurrency & Isolates**: Multi-threaded isolate pools and `compute()` offloading for heavy vector PDF generation, acoustic spectrogram processing, and crypto decryption without frame drops.\n" +
+      "• **Render Pipeline & RenderObjects**: Custom `RenderObject` widgets for high-throughput vector chart painting, minimizing layer compositing costs.\n" +
+      "• **Enterprise State Management**: Riverpod 3.3 with code generation for immutable dependency graphs; BLoC / Cubit for predictable unidirectional streams; GetX for reactive micro-controllers.\n" +
+      "• **Native Hardware Bridges**: iOS AlarmKit & EventKit (DND bypass for high-priority alerts) and Android AlarmManager exact wake-lock foreground services.\n" +
+      "• **Profiling & DevTools**: Systematic CPU flame graph analysis, memory leak tracing, and shader compilation jank elimination.",
+  },
+
+  // 18. Guardrails & Off-Topic Query Defense
+  {
+    category: "general",
+    keywords: ["homework", "bubble sort", "quicksort", "write a poem", "solve math", "bedtime story", "quantum physics", "joke about", "write code for sorting"],
+    title: "Portfolio Copilot Scope & Guardrails",
+    answer:
+      "I am Subhabrata's dedicated **Portfolio Copilot & Systems Representative**.\n\n" +
+      "While I don't solve generic coding homework assignments, write algorithmic tutorials, or answer off-topic queries, I would love to share how Subhabrata architects enterprise Flutter apps, LangGraph AI systems, or full-stack platforms, or discuss how he can build this for your project!\n\n" +
+      "• **Direct Email**: [subhabratadash1@gmail.com](mailto:subhabratadash1@gmail.com)\n" +
+      "• **LinkedIn**: [linkedin.com/in/subhabratadash](https://linkedin.com/in/subhabratadash)\n\n" +
+      "[[ACTION:CONTACT_MAILTO:Project Inquiry with Subhabrata Das|Hi Subhabrata,%0A%0AI would like to discuss a project / engineering opportunity with you.%0A%0ABest regards,]]",
   },
 ];
 

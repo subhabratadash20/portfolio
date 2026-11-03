@@ -83,9 +83,7 @@ export default function Home() {
             <span className="cursor">|</span>
           </p>
           <p className="hero-description animate-on-scroll">
-            A highly motivated Flutter Developer with 3+ years of experience
-            creating cross-platform applications, seamless AI integration,
-            and robust backend solutions.
+            Enterprise <strong className="text-white">Flutter Developer & AI-Powered Systems Architect</strong> with 3+ years of professional experience. Specialized in high-performance Flutter & Dart 3 applications, Python & LangGraph agentic pipelines, scalable Node.js 22 microservices, and modern React web portals.
           </p>
           <div className="hero-cta animate-on-scroll">
             <a href="#projects" className="btn btn-primary">
@@ -266,72 +264,37 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title animate-on-scroll">
             <span className="section-number">03.</span>
-            Technical Proficiencies
+            Technical Proficiencies & Architecture Stack
           </h2>
           <div className="skills-grid">
-            <div className="skill-category glass-card animate-on-scroll">
+            {/* 1. Top Priority: Advanced Flutter & Dart 3 Architecture */}
+            <div className="skill-category glass-card animate-on-scroll border border-[#00D9FF]/30">
               <div className="skill-category-header">
-                <div className="skill-icon">
+                <div className="skill-icon text-[#00D9FF]">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
                     <line x1="12" y1="18" x2="12.01" y2="18"></line>
                   </svg>
                 </div>
-                <h3>Mobile Development</h3>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag">Flutter</span>
-                <span className="skill-tag">Dart</span>
-                <span className="skill-tag">GetX</span>
-                <span className="skill-tag">Provider</span>
-                <span className="skill-tag">Riverpod</span>
-              </div>
-            </div>
-
-            <div className="skill-category glass-card animate-on-scroll">
-              <div className="skill-category-header">
-                <div className="skill-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                  </svg>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#00D9FF] block">Primary Specialization</span>
+                  <h3 className="text-white">Advanced Flutter & Dart 3</h3>
                 </div>
-                <h3>Mobile Architecture</h3>
               </div>
               <div className="skill-tags">
-                <span className="skill-tag">Flutter</span>
-                <span className="skill-tag">Dart</span>
-                <span className="skill-tag">Riverpod 3</span>
-                <span className="skill-tag">GetX</span>
-                <span className="skill-tag">GoRouter</span>
-                <span className="skill-tag">AutoRoute</span>
-                <span className="skill-tag">Bloc</span>
-                <span className="skill-tag">Agora WebRTC</span>
+                <span className="skill-tag font-semibold text-[#00D9FF]">Flutter 3.11+</span>
+                <span className="skill-tag">Dart 3 Patterns</span>
+                <span className="skill-tag">Riverpod 3.3</span>
+                <span className="skill-tag">BLoC / Cubit</span>
+                <span className="skill-tag">Clean Architecture & DDD</span>
+                <span className="skill-tag">Dart Isolates (compute)</span>
+                <span className="skill-tag">Custom RenderObjects</span>
+                <span className="skill-tag">60-120 FPS GPU Profiling</span>
+                <span className="skill-tag">Hive Local-First DB</span>
               </div>
             </div>
 
-            <div className="skill-category glass-card animate-on-scroll">
-              <div className="skill-category-header">
-                <div className="skill-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                  </svg>
-                </div>
-                <h3>Databases & Realtime</h3>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag">PostgreSQL</span>
-                <span className="skill-tag">GraphQL</span>
-                <span className="skill-tag">Firebase Data Connect</span>
-                <span className="skill-tag">Cloud Firestore</span>
-                <span className="skill-tag">Redis Caching</span>
-                <span className="skill-tag">Hive DB</span>
-                <span className="skill-tag">Supabase</span>
-              </div>
-            </div>
-
+            {/* 2. Second Priority: Python & Agentic AI Frameworks */}
             <div className="skill-category glass-card animate-on-scroll">
               <div className="skill-category-header">
                 <div className="skill-icon ai-icon">
@@ -341,38 +304,24 @@ export default function Home() {
                     <circle cx="16.5" cy="14.5" r="1.5"></circle>
                   </svg>
                 </div>
-                <h3>AI, Systems & Payments</h3>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 block">Second Priority</span>
+                  <h3 className="text-white">Python & Agentic AI</h3>
+                </div>
               </div>
               <div className="skill-tags">
-                <span className="skill-tag">Multi-Agent AI</span>
-                <span className="skill-tag">OpenAI SDK</span>
+                <span className="skill-tag font-semibold text-purple-400">FastAPI</span>
+                <span className="skill-tag">LangGraph Supervisors</span>
+                <span className="skill-tag">Tool-Palette Pruning</span>
+                <span className="skill-tag">OpenAI Realtime WebRTC</span>
                 <span className="skill-tag">Gemini 3.8 Flash</span>
                 <span className="skill-tag">Claude</span>
-                <span className="skill-tag">Idempotent APIs</span>
-                <span className="skill-tag">Stripe Connect</span>
-                <span className="skill-tag">Paystack</span>
+                <span className="skill-tag">Celery & Redis Queues</span>
+                <span className="skill-tag">Beanie ODM (MongoDB)</span>
               </div>
             </div>
 
-            <div className="skill-category glass-card animate-on-scroll">
-              <div className="skill-category-header">
-                <div className="skill-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <h3>Geolocation & Realtime Streaming</h3>
-              </div>
-              <div className="skill-tags">
-                <span className="skill-tag">Google Maps API</span>
-                <span className="skill-tag">Geofencing Radar</span>
-                <span className="skill-tag">Socket.IO</span>
-                <span className="skill-tag">Live Proximity Dispatch</span>
-                <span className="skill-tag">Location Telemetry</span>
-              </div>
-            </div>
-
+            {/* 3. Third Priority: Node.js & Scalable Backend Microservices */}
             <div className="skill-category glass-card animate-on-scroll">
               <div className="skill-category-header">
                 <div className="skill-icon">
@@ -381,15 +330,92 @@ export default function Home() {
                     <polyline points="8,6 2,12 8,18"></polyline>
                   </svg>
                 </div>
-                <h3>Backend & Cloud Infra</h3>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block">Third Priority</span>
+                  <h3 className="text-white">Node.js 22 & Microservices</h3>
+                </div>
               </div>
               <div className="skill-tags">
-                <span className="skill-tag">Node.js 22 LTS</span>
-                <span className="skill-tag">Docker</span>
-                <span className="skill-tag">Google Cloud</span>
-                <span className="skill-tag">Cloud Functions</span>
-                <span className="skill-tag">Python</span>
-                <span className="skill-tag">CI/CD Pipelines</span>
+                <span className="skill-tag font-semibold text-emerald-400">Node.js 22 LTS</span>
+                <span className="skill-tag">PostgreSQL (Neon)</span>
+                <span className="skill-tag">Firebase Data Connect</span>
+                <span className="skill-tag">Cloud Firestore</span>
+                <span className="skill-tag">Redis Concurrency Locks</span>
+                <span className="skill-tag">Stripe Connect Payouts</span>
+                <span className="skill-tag">Idempotent Webhooks</span>
+              </div>
+            </div>
+
+            {/* 4. Fourth Priority: React & Modern Web */}
+            <div className="skill-category glass-card animate-on-scroll">
+              <div className="skill-category-header">
+                <div className="skill-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">Supporting Capability</span>
+                  <h3 className="text-white">React & Modern Web</h3>
+                </div>
+              </div>
+              <div className="skill-tags">
+                <span className="skill-tag font-semibold text-amber-400">React 18/19</span>
+                <span className="skill-tag">Next.js App Router</span>
+                <span className="skill-tag">TypeScript</span>
+                <span className="skill-tag">Tailwind CSS</span>
+                <span className="skill-tag">Web Portals (myetana.com)</span>
+                <span className="skill-tag">Developer Dashboards</span>
+                <span className="skill-tag">REST & GraphQL Clients</span>
+              </div>
+            </div>
+
+            {/* 5. Native Hardware Bridges & Real-Time Media */}
+            <div className="skill-category glass-card animate-on-scroll">
+              <div className="skill-category-header">
+                <div className="skill-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                  </svg>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 block">System Integration</span>
+                  <h3 className="text-white">Hardware Bridges & Media</h3>
+                </div>
+              </div>
+              <div className="skill-tags">
+                <span className="skill-tag font-semibold text-blue-400">iOS AlarmKit & EventKit</span>
+                <span className="skill-tag">Android AlarmManager</span>
+                <span className="skill-tag">Agora WebRTC</span>
+                <span className="skill-tag">Mux RTMP Simulcast</span>
+                <span className="skill-tag">Socket.IO Duplex</span>
+                <span className="skill-tag">MethodChannels Interop</span>
+              </div>
+            </div>
+
+            {/* 6. Geolocation & Fleet Telemetry */}
+            <div className="skill-category glass-card animate-on-scroll">
+              <div className="skill-category-header">
+                <div className="skill-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-teal-400 block">Spatial Computing</span>
+                  <h3 className="text-white">Geolocation & Radar</h3>
+                </div>
+              </div>
+              <div className="skill-tags">
+                <span className="skill-tag font-semibold text-teal-400">Google Maps API</span>
+                <span className="skill-tag">Geofencing Radar</span>
+                <span className="skill-tag">Live Proximity Dispatch</span>
+                <span className="skill-tag">Sub-Meter Telemetry</span>
+                <span className="skill-tag">Offline Sync Buffering</span>
               </div>
             </div>
 

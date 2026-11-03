@@ -54,14 +54,12 @@ LinkedIn: https://linkedin.com/in/subhabratadash | GitHub: https://github.com/su
 PROFESSIONAL SUMMARY
 Results-driven Flutter Developer and AI-Powered Application Specialist with over 3 years of professional experience in mobile application engineering and systems architecture. Specialized in architecting high-performance cross-platform applications, integrating advanced AI models (OpenAI GPT, Gemini 3.8 Flash, Claude, LangGraph), establishing agentic workflows, and implementing complex geolocation/geofencing systems. Proven track record of delivering scalable apps using Flutter, Dart, Firebase, and REST APIs following Clean Architecture principles.
 
-TECHNICAL SKILLS
-• Mobile Development: Flutter, Dart, GetX, Provider, RiverPod 3.3, Bloc, Clean Architecture, AutoRoute, GoRouter
-• AI & Cloud Technologies: OpenAI GPT & Realtime WebRTC, Gemini 3.8 Flash, Claude, LangGraph, FastAPI, Agentic AI, Prompt Engineering, Google Cloud Run
-• Backend & Databases: Firebase, Hive (Local-First), PostgreSQL (Neon / Cloud SQL), MongoDB Atlas, Redis, MySQL, NoSQL, REST APIs, Microservices, Node.js 22 LTS
-• Geolocation & Mapping: Google Maps API, Geofencing Radar, Real-Time Asset Tracking, Sub-Meter GPS Telemetry
-• Hardware Bridges & Media: iOS AlarmKit & EventKit (DND Bypass), Android AlarmManager Foreground Services, Agora WebRTC, Socket.IO, RTMP Simulcasting (Mux)
-• AI IDEs & Developer Tools: Cursor, Antigravity, Windsurf, Claude Code, Git, GitHub, CI/CD, Postman
-• Programming Languages: Dart, Python, Java, C, PHP, TypeScript, SQL
+TECHNICAL SKILLS (ENGINEERING HIERARCHY)
+• #1 Priority — Advanced Flutter & Dart 3 Architecture: Clean Architecture, DDD, Riverpod 3.3, BLoC / Cubit, GetX, Dart 3 (Sealed Classes, Records, Pattern Matching), Isolate Concurrency (compute()), Custom RenderObjects, 60-120 FPS GPU profiling, iOS AlarmKit & Android AlarmManager hardware bridges, Agora WebRTC, Mux RTMP, Sub-Meter GPS Geofencing, Hive Local-First DB
+• #2 Priority — Python & Agentic AI Frameworks: FastAPI async microservices, LangGraph Supervisor Agents, Dynamic Tool Palette Pruning (PlannedToolLiteral), OpenAI GPT & Realtime WebRTC, Gemini 3.8 Flash, Claude, Celery & Redis Task Queues, MongoDB Atlas (Beanie ODM)
+• #3 Priority — Node.js & Distributed Backend Microservices: Node.js 22 LTS, PostgreSQL (Neon / Cloud SQL), Firebase Data Connect (GraphQL), Redis distributed concurrency locks, Idempotent Stripe Connect split payouts, Paystack checkout
+• #4 Priority — React & Modern Web Capabilities: Solid full-stack proficiency in React, Next.js (App Router, Turbopack), TypeScript, Tailwind CSS to build production web portals (myetana.com), developer cockpits, and administrative dashboards
+• Developer Tools: Cursor, Antigravity, Windsurf, Claude Code, Git, GitHub, CI/CD, Postman. Languages: Dart, Python, TypeScript, JavaScript, SQL, Java, C, PHP
 
 PROFESSIONAL EXPERIENCE
 Software Developer | Weavers-web Solutions Pvt. Ltd.
@@ -247,32 +245,44 @@ Signature: Subhabrata Das`;
           {/* Technical Skills Matrix */}
           <div>
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider border-b border-white/10 pb-1 mb-2">
-              Technical Skills Matrix
+              Technical Skills Matrix (Engineering Hierarchy)
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-              <div className="bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                <span className="font-semibold text-white block mb-1">Mobile Development & Architecture</span>
-                <span className="text-gray-300">Flutter, Dart 3 (Sealed Classes, Records, Pattern Matching), GetX, Provider, RiverPod 3.3, Bloc, Clean Architecture, AutoRoute, GoRouter.</span>
+              <div className="bg-white/[0.03] p-2.5 rounded-lg border border-[#00D9FF]/30">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-semibold text-white">#1 Advanced Flutter & Dart 3 Mastery</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#00D9FF]/20 text-[#00D9FF] font-bold">Top Priority</span>
+                </div>
+                <span className="text-gray-300">Clean Architecture, DDD, Riverpod 3.3, BLoC/Cubit, GetX, Dart 3 (Sealed Classes, Records, Pattern Matching), Isolate Concurrency (compute()), Custom RenderObjects, 60-120 FPS GPU profiling, Hive Local-First DB.</span>
+              </div>
+              <div className="bg-white/[0.03] p-2.5 rounded-lg border border-purple-500/30">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-semibold text-white">#2 Python & Agentic AI Architecture</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-400 font-bold">Priority 2</span>
+                </div>
+                <span className="text-gray-300">FastAPI async microservices, LangGraph Supervisor Agents, Dynamic Tool-Palette Pruning (PlannedToolLiteral), OpenAI GPT & Realtime WebRTC, Gemini 3.8 Flash, Claude, Celery & Redis task queues.</span>
+              </div>
+              <div className="bg-white/[0.03] p-2.5 rounded-lg border border-emerald-500/30">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-semibold text-white">#3 Node.js 22 & Scalable Microservices</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-bold">Priority 3</span>
+                </div>
+                <span className="text-gray-300">Node.js 22 LTS, PostgreSQL (Neon, Cloud SQL), Firebase Data Connect (managed GraphQL), Cloud Firestore, Redis distributed concurrency locks, Idempotent Stripe Connect split payouts.</span>
+              </div>
+              <div className="bg-white/[0.03] p-2.5 rounded-lg border border-amber-500/30">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-semibold text-white">#4 React & Modern Web Capabilities</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 font-bold">Supporting</span>
+                </div>
+                <span className="text-gray-300">React 18/19, Next.js App Router, TypeScript, Tailwind CSS, SSR/SSG, web portals (myetana.com), responsive developer consoles and client dashboards.</span>
               </div>
               <div className="bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                <span className="font-semibold text-white block mb-1">AI & Agentic Frameworks</span>
-                <span className="text-gray-300">OpenAI GPT & Realtime WebRTC, Gemini 3.8 Flash, Claude, LangGraph Supervisor Routing, Planned Tool Palettes, FastAPI, Prompt Engineering.</span>
+                <span className="font-semibold text-white block mb-1">Hardware Bridges & Real-Time Media</span>
+                <span className="text-gray-300">iOS AlarmKit & EventKit (DND Bypass), Android AlarmManager Foreground Services, Agora WebRTC low-latency rooms, Mux RTMP simulcast, Socket.IO duplex streaming.</span>
               </div>
               <div className="bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                <span className="font-semibold text-white block mb-1">Backend, Microservices & Databases</span>
-                <span className="text-gray-300">Node.js 22 LTS, FastAPI (Python), PostgreSQL (Neon, Cloud SQL), Firebase Data Connect (GraphQL), Cloud Firestore, MongoDB Atlas, Redis, Hive (Local-First).</span>
-              </div>
-              <div className="bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                <span className="font-semibold text-white block mb-1">Geolocation, Mapping & Hardware Bridges</span>
-                <span className="text-gray-300">Google Maps API, Geofencing Radar, Real-Time Asset Tracking, iOS AlarmKit & EventKit (DND Bypass), Android AlarmManager Foreground Services.</span>
-              </div>
-              <div className="bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                <span className="font-semibold text-white block mb-1">Media Streaming & Monetization</span>
-                <span className="text-gray-300">Agora WebRTC (Live Broadcast & RTC Rooms), Socket.IO Duplex, Mux RTMP Simulcast, Stripe Connect (Split Payouts), Paystack, RevenueCat.</span>
-              </div>
-              <div className="bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
-                <span className="font-semibold text-white block mb-1">Tools & Programming Languages</span>
-                <span className="text-gray-300">Cursor, Antigravity, Windsurf, Claude Code, Git, GitHub, CI/CD, Postman. Languages: Dart, Python, Java, C, PHP, TypeScript, SQL.</span>
+                <span className="font-semibold text-white block mb-1">Spatial Telemetry & Developer Tooling</span>
+                <span className="text-gray-300">Google Maps API, Geofencing Radar, Sub-Meter Telemetry. Cursor, Antigravity, Windsurf, Claude Code, Git, GitHub CI/CD, Postman.</span>
               </div>
             </div>
           </div>

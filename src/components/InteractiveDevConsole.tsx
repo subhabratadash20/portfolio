@@ -195,7 +195,15 @@ export default function InteractiveDevConsole() {
         break;
       case "skills":
         response =
-          "TECHNICAL PROFICIENCIES:\n• Mobile Architecture : Flutter, Dart 3, Riverpod 3, GetX, GoRouter, AutoRoute, Bloc\n• Databases & Realtime: PostgreSQL, GraphQL (Firebase Data Connect), Firestore, Redis, Hive DB\n• AI & Infra          : Multi-Agent LLMs, LangGraph, Gemini 3.8 Flash, Node.js 22 LTS, Docker, WebRTC, Idempotent APIs";
+          "TECHNICAL PROFICIENCIES & ARCHITECTURE STACK:\n" +
+          "• #1 Top Priority — Advanced Flutter & Dart 3:\n" +
+          "  Clean Architecture, DDD, Riverpod 3.3, BLoC, GetX, Dart Isolates (compute), Custom RenderObjects, 60-120 FPS GPU profiling, iOS AlarmKit & Android AlarmManager hardware bridges, Agora WebRTC, Mux RTMP, Sub-Meter GPS Geofencing, Hive Local-First DB\n" +
+          "• #2 Priority — Python & Agentic AI:\n" +
+          "  FastAPI async microservices, LangGraph Supervisor Agents, Dynamic Tool-Palette Pruning (PlannedToolLiteral), OpenAI GPT & Realtime WebRTC, Gemini 3.8 Flash, Claude, Celery & Redis task queues, MongoDB Atlas (Beanie ODM)\n" +
+          "• #3 Priority — Node.js 22 LTS & Microservices:\n" +
+          "  Node.js 22 LTS REST APIs, PostgreSQL (Neon / Cloud SQL), Firebase Data Connect (GraphQL), Cloud Firestore, Redis distributed locks, Idempotent Stripe Connect split payouts\n" +
+          "• #4 Priority — React & Modern Web (Full-Stack Delivery):\n" +
+          "  React 18/19, Next.js App Router, TypeScript, Tailwind CSS, SSR/SSG, web portals (myetana.com), responsive developer cockpits and client dashboards";
         break;
       case "telemetry":
         response =

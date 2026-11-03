@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 interface MarkdownRendererProps {
   content: string;
@@ -9,6 +9,8 @@ interface MarkdownRendererProps {
 }
 
 export default function MarkdownRenderer({ content, isStreaming, onAction }: MarkdownRendererProps) {
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
   // Parse markdown lines into structured blocks
   const parseInline = (text: string): React.ReactNode[] => {
     // Regular expressions for bold, code, link, italic
@@ -131,6 +133,130 @@ export default function MarkdownRenderer({ content, isStreaming, onAction }: Mar
               title="Preview ATS Resume in interactive modal"
             >
               <span>👁️ Preview</span>
+            </button>
+          </div>
+        </div>
+      );
+      continue;
+    }
+
+    // Custom Action Token: [[ACTION:CONTACT_PROJECT:Title|Details]]
+    if (trimmed.includes("[[ACTION:CONTACT_PROJECT:")) {
+      flushList();
+      const raw = trimmed.replace(/^.*?\[\[ACTION:CONTACT_PROJECT:/, "").replace(/\]\].*?$/, "");
+      const separatorIdx = raw.indexOf("|");
+      const projectTitle = separatorIdx !== -1 ? raw.slice(0, separatorIdx).trim() : "Custom Application & Architecture";
+      const projectDetails = separatorIdx !== -1 ? raw.slice(separatorIdx + 1).trim() : raw.trim();
+
+      const subject = encodeURIComponent(`Project Inquiry: ${projectTitle}`);
+      const body = encodeURIComponent(
+        `Hi Subhabrata,\n\nI reviewed your portfolio and would like to consult with you on building a project.\n\n` +
+        `Project Title: ${projectTitle}\n\n` +
+        `Scope & Requirements Overview:\n${projectDetails}\n\n` +
+        `Target Timeline / Budget:\n[Please specify]\n\n` +
+        `Let's schedule a call to discuss architecture and implementation.\n\n` +
+        `Best regards,\n[Your Name]\n[Your Company / Contact Info]`
+      );
+      const mailtoUrl = `mailto:subhabratadash1@gmail.com?subject=${subject}&body=${body}`;
+
+      renderedElements.push(
+        <div
+          key={`action-project-${i}`}
+          className="my-3 p-4 rounded-xl border border-emerald-500/40 bg-gradient-to-r from-emerald-500/10 via-[#00D9FF]/10 to-transparent flex flex-col gap-3 shadow-lg shadow-black/40"
+        >
+          <div className="flex items-start gap-3">
+            <div className="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-lg shrink-0">
+              🚀
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  Project Inquiry
+                </span>
+                <span className="text-[11px] text-gray-400">Direct Founder & Client Intake</span>
+              </div>
+              <div className="font-bold text-white text-xs sm:text-sm mt-1 truncate">{projectTitle}</div>
+              <div className="text-xs text-gray-300 mt-1 bg-black/40 p-2 rounded-lg border border-white/5 font-mono text-[11px] leading-relaxed">
+                {projectDetails}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-white/10">
+            <a
+              href={mailtoUrl}
+              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-lg bg-emerald-400 hover:bg-emerald-300 text-black font-bold text-xs transition shadow-md shadow-emerald-500/25 flex items-center justify-center gap-1.5 cursor-pointer"
+              title="Open your email client with pre-filled project brief"
+            >
+              <span>📬 Email Subhabrata with Project Scope</span>
+            </a>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText("subhabratadash1@gmail.com");
+                setCopiedEmail(true);
+                setTimeout(() => setCopiedEmail(false), 2000);
+              }}
+              className="px-3 py-2 rounded-lg bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition flex items-center justify-center gap-1 cursor-pointer"
+              title="Copy direct email address"
+            >
+              <span>{copiedEmail ? "✓ Copied Email" : "📋 Copy Email"}</span>
+            </button>
+            <a
+              href="https://linkedin.com/in/subhabratadash"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-2 rounded-lg bg-[#0077b5]/20 text-[#00D9FF] hover:bg-[#0077b5]/30 border border-[#0077b5]/30 font-medium text-xs transition flex items-center justify-center gap-1"
+            >
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      );
+      continue;
+    }
+
+    // Custom Action Token: [[ACTION:CONTACT_MAILTO:Subject|Body]]
+    if (trimmed.includes("[[ACTION:CONTACT_MAILTO:")) {
+      flushList();
+      const raw = trimmed.replace(/^.*?\[\[ACTION:CONTACT_MAILTO:/, "").replace(/\]\].*?$/, "");
+      const separatorIdx = raw.indexOf("|");
+      const emailSubject = separatorIdx !== -1 ? raw.slice(0, separatorIdx).trim() : "Engineering Consultation with Subhabrata Das";
+      const emailBody = separatorIdx !== -1 ? raw.slice(separatorIdx + 1).trim() : "Hi Subhabrata,\n\nI would like to discuss an engineering opportunity with you.\n\nBest regards,";
+
+      const mailtoUrl = `mailto:subhabratadash1@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+      renderedElements.push(
+        <div
+          key={`action-mailto-${i}`}
+          className="my-3 p-3.5 rounded-xl border border-[#00D9FF]/40 bg-gradient-to-r from-[#00D9FF]/10 via-[#7C3AED]/10 to-transparent flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg shadow-black/40"
+        >
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <div className="w-9 h-9 rounded-lg bg-[#00D9FF]/20 border border-[#00D9FF]/40 flex items-center justify-center text-lg shrink-0">
+              ✉️
+            </div>
+            <div>
+              <div className="font-bold text-white text-xs sm:text-sm">{emailSubject}</div>
+              <div className="text-[11px] text-gray-400">Direct Senior Architect Inbox • subhabratadash1@gmail.com</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <a
+              href={mailtoUrl}
+              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-lg bg-[#00D9FF] text-black font-bold text-xs hover:bg-[#00D9FF]/90 transition shadow-md shadow-[#00D9FF]/25 flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+            >
+              <span>📬 Send Email</span>
+            </a>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText("subhabratadash1@gmail.com");
+                setCopiedEmail(true);
+                setTimeout(() => setCopiedEmail(false), 2000);
+              }}
+              className="px-3 py-2 rounded-lg bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition flex items-center justify-center gap-1 cursor-pointer shrink-0"
+            >
+              <span>{copiedEmail ? "✓ Copied" : "📋 Copy"}</span>
             </button>
           </div>
         </div>
