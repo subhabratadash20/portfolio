@@ -70,13 +70,16 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // The sphere is centered in the viewport.
-      // As the user scrolls, container top moves from ~300px down to negative.
-      // Progress 0 starts when container is centered (rect.top ≈ windowHeight * 0.45).
-      // Progress 1 reaches full grid when user scrolls container up (rect.top ≈ windowHeight * 0.05).
-      const start = windowHeight * 0.42;
-      const end = windowHeight * 0.05;
-      const progress = Math.min(Math.max((start - rect.top) / (start - end), 0), 1);
+      // Track the vertical midpoint of the sphere container relative to the screen height
+      const containerCenter = rect.top + rect.height * 0.4;
+      const screenCenter = windowHeight * 0.5;
+
+      // Trigger starts when container center enters the lower-middle of the screen (screenCenter + 180px)
+      // Completes into the full grid right when the container reaches the exact center of the screen (screenCenter - 20px)
+      const start = screenCenter + 180;
+      const end = screenCenter - 20;
+
+      const progress = Math.min(Math.max((start - containerCenter) / (start - end), 0), 1);
 
       scrollProgressRef.current = progress;
     };
