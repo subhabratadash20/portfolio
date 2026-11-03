@@ -23,10 +23,13 @@ export default function Projects() {
                             description={project.description}
                             tags={project.tags}
                             features={project.features.flatMap(f => f.items).slice(0, 3)}
+                            isLive={project.isLive}
+                            metrics={project.metrics}
                             links={{
                                 details: `/projects/${project.slug}`,
                                 appStore: project.links.appStore,
-                                playStore: project.links.playStore
+                                playStore: project.links.playStore,
+                                demo: project.links.demo,
                             }}
                             icon={<span className="text-5xl">{project.emoji}</span>}
                         />

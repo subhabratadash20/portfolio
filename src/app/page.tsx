@@ -4,84 +4,12 @@ import profilePhoto from "../../1770286377375(1).png";
 import LegacyCanvas from "@/components/LegacyCanvas";
 import LegacyInteractions from "@/components/LegacyInteractions";
 import Navbar from "@/components/Navbar";
+import ProjectShowcase from "@/components/ProjectShowcase";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Subhabrata Das | Flutter Developer & AI Specialist",
   description: "Portfolio of Subhabrata Das, a specialized Flutter Developer and AI Engineer building scalable cross-platform applications.",
-};
-
-const projectCardFeatures: Record<string, string[]> = {
-  konnectax: [
-    "Multi-platform simulcasting via Mux",
-    "Unified live comments system",
-    "OAuth social platform integration",
-  ],
-  plugg: [
-    "AI-powered matchmaking algorithm",
-    "Real-time chat with rich media",
-    "RevenueCat subscription system",
-  ],
-  "nora-ai": [
-    "Dual TTS (OpenAI & ElevenLabs)",
-    "Smart alarm & calendar integration",
-    "Offline-first architecture",
-  ],
-  "diy-marketplace": [
-    "Dual-role marketplace",
-    "Arabic & English (RTL support)",
-    "Seller analytics dashboard",
-  ],
-  stylaa: [
-    "Dual-platform (users & businesses)",
-    "Real-time appointment scheduling",
-    "AI-based service recommendations",
-  ],
-  groundmetrx: [
-    "Real-time asset tracking",
-    "Optimized delivery routes",
-    "Functional offline mode",
-  ],
-};
-
-const projectPlaceholders: Record<string, ReactNode> = {
-  konnectax: (
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <polygon points="23 7 16 12 23 17 23 7"></polygon>
-      <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-    </svg>
-  ),
-  plugg: (
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-    </svg>
-  ),
-  "nora-ai": (
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"></path>
-      <circle cx="7.5" cy="14.5" r="1.5"></circle>
-      <circle cx="16.5" cy="14.5" r="1.5"></circle>
-    </svg>
-  ),
-  "diy-marketplace": (
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="9" cy="21" r="1"></circle>
-      <circle cx="20" cy="21" r="1"></circle>
-      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-    </svg>
-  ),
-  stylaa: (
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-    </svg>
-  ),
-  groundmetrx: (
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="12" cy="12" r="10"></circle>
-      <line x1="2" y1="12" x2="22" y2="12"></line>
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-    </svg>
-  ),
 };
 
 type LogoNode = {
@@ -508,62 +436,8 @@ export default function Home() {
             <span className="section-number">04.</span>
             Featured Projects
           </h2>
-          <div className="projects-grid">
-            {projects.map((project) => (
-              <article key={project.slug} className="project-card glass-card animate-on-scroll" data-tilt="true" data-slug={project.slug}>
-                <div className="project-image">
-                  {/* Animated gradient mesh background */}
-                  <div className="project-image-mesh" />
-                  <div className="project-overlay"></div>
-                  {/* Floating icon placeholder */}
-                  <div className="project-placeholder">
-                    {projectPlaceholders[project.slug]}
-                  </div>
-                  {/* Subtitle label at bottom of image */}
-                  <div className="project-image-label">
-                    <span className="project-image-label-emoji">{project.emoji}</span>
-                    <span className="project-image-label-text">{project.subtitle}</span>
-                  </div>
-                </div>
-                <div className="project-content">
-                  <div className="project-tags">
-                    {project.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="project-tag">{tag}</span>
-                    ))}
-                  </div>
-                  <h3 className="project-title">{project.emoji} {project.title}</h3>
-                  <p className="project-subtitle">{project.subtitle}</p>
-                  <p className="project-description">{project.description}</p>
-                  <ul className="project-features">
-                    {(projectCardFeatures[project.slug] || []).map((feature) => (
-                      <li key={feature}>{feature}</li>
-                    ))}
-                  </ul>
-                  <div className="project-links">
-                    <a href={`/projects/${project.slug}`} className="project-link project-link--details" title="View Details">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                      </svg>
-                      Details
-                    </a>
-                    <a href={project.links.appStore || "#"} target="_blank" rel="noopener noreferrer" className="project-link" title="App Store">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"></path>
-                        <path d="M12 8v8m-4-4h8"></path>
-                      </svg>
-                    </a>
-                    <a href={project.links.playStore || "#"} target="_blank" rel="noopener noreferrer" className="project-link" title="Google Play">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-          <p className="projects-note animate-on-scroll">+ Additional projects including FLINKI, FAMILY BOND, and more</p>
+          <ProjectShowcase />
+          <p className="projects-note animate-on-scroll">+ Additional client solutions, enterprise modules &amp; ongoing production releases</p>
         </div>
       </section>
 

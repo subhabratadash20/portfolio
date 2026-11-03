@@ -6,10 +6,13 @@ interface ProjectCardProps {
     description: string;
     tags: string[];
     features: string[];
+    isLive?: boolean;
+    metrics?: string;
     links: {
         details?: string;
         appStore?: string;
         playStore?: string;
+        demo?: string;
     };
     icon?: React.ReactNode;
 }
@@ -20,12 +23,20 @@ export default function ProjectCard({
     description,
     tags,
     features,
+    isLive,
+    metrics,
     links,
     icon,
 }: ProjectCardProps) {
     return (
         <article className="glass-card rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 group">
             <div className="relative h-48 bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center p-8 group-hover:scale-[1.02] transition-transform duration-500">
+                {isLive && (
+                    <div className="project-live-badge">
+                        <span className="project-live-dot" />
+                        <span>Live</span>
+                    </div>
+                )}
                 <div className="text-secondary opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 transform">
                     {icon || (
                         <svg className="w-16 h-16 text-white/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
@@ -38,6 +49,12 @@ export default function ProjectCard({
             </div>
 
             <div className="p-8">
+                {metrics && (
+                    <div className="project-metric-pill">
+                        <span>⚡ {metrics}</span>
+                    </div>
+                )}
+
                 <div className="flex flex-wrap gap-2 mb-4">
                     {tags.map((tag) => (
                         <span key={tag} className="px-3 py-1 bg-white/5 rounded-full text-xs font-medium text-accent border border-white/5">
@@ -75,7 +92,49 @@ export default function ProjectCard({
                             Details
                         </Link>
                     )}
-                    {/* Add other links if needed */}
+                    {links.demo && (
+                        <a
+                            href={links.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 rounded-lg text-sm text-accent font-medium hover:bg-accent hover:text-black transition-all hover:translate-y-[2px]"
+                            title="Live Demo"
+                        >
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            Demo
+                        </a>
+                    )}
+                    {links.appStore && links.appStore !== "#" && (
+                        <a
+                            href={links.appStore}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-text-secondary font-medium hover:bg-white/10 hover:text-white transition-all hover:translate-y-[2px]"
+                            title="App Store"
+                        >
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"></path>
+                                <path d="M12 8v8m-4-4h8"></path>
+                            </svg>
+                            App Store
+                        </a>
+                    )}
+                    {links.playStore && links.playStore !== "#" && (
+                        <a
+                            href={links.playStore}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-text-secondary font-medium hover:bg-white/10 hover:text-white transition-all hover:translate-y-[2px]"
+                            title="Google Play"
+                        >
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            Play Store
+                        </a>
+                    )}
                 </div>
             </div>
         </article>

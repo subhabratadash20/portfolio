@@ -56,27 +56,61 @@ export default async function ProjectDetail({ params }: PageProps) {
                 <div className="container">
                     <div className="project-hero-content animate-on-scroll">
                         <div className="project-emoji">{project.emoji}</div>
+                        {project.isLive && (
+                            <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                Production Deployed &amp; Live
+                            </div>
+                        )}
                         <h1 className="project-hero-title">{project.title}</h1>
                         <p className="project-hero-subtitle">{project.subtitle}</p>
+                        {project.metrics && (
+                            <p className="inline-block px-4 py-1.5 mb-6 text-sm font-mono text-cyan-300 bg-cyan-950/40 border border-cyan-800/40 rounded-lg">
+                                ⚡ {project.metrics}
+                            </p>
+                        )}
                         <div className="project-hero-tags">
                             {project.tags.map((tag) => (
                                 <span key={tag} className="tag">{tag}</span>
                             ))}
                         </div>
                         <div className="project-hero-links">
-                            <a href={project.links.appStore || "#"} className="btn btn-primary">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"></path>
-                                    <path d="M12 8v8m-4-4h8"></path>
-                                </svg>
-                                App Store
-                            </a>
-                            <a href={project.links.playStore || "#"} className="btn btn-secondary">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                                </svg>
-                                Play Store
-                            </a>
+                            {project.links.demo && (
+                                <a href={project.links.demo} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                                    </svg>
+                                    Live Endpoint
+                                </a>
+                            )}
+                            {project.links.appStore && project.links.appStore !== "#" ? (
+                                <a
+                                    href={project.links.appStore}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn btn-secondary"
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"></path>
+                                        <path d="M12 8v8m-4-4h8"></path>
+                                    </svg>
+                                    App Store
+                                </a>
+                            ) : null}
+                            {project.links.playStore && project.links.playStore !== "#" ? (
+                                <a
+                                    href={project.links.playStore}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn btn-secondary"
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                    </svg>
+                                    Play Store
+                                </a>
+                            ) : null}
                         </div>
                     </div>
                 </div>
