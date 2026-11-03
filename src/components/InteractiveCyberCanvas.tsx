@@ -25,32 +25,43 @@ export default function InteractiveCyberCanvas() {
       isDown: false,
     };
 
-    // Particle pool
-    const count = window.innerWidth < 768 ? 60 : 140;
-    const particles = Array.from({ length: count }, () => ({
+    // Nebula Particle Pool
+    const particleCount = window.innerWidth < 768 ? 50 : 120;
+    const nebulaParticles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       vx: (Math.random() - 0.5) * 1.2,
       vy: (Math.random() - 0.5) * 1.2,
-      originX: Math.random() * width,
-      originY: Math.random() * height,
-      size: Math.random() * 2.5 + 1.2,
+      size: Math.random() * 2.8 + 1.2,
       color: Math.random() > 0.4 ? "#00D9FF" : "#A78BFA",
-      pulse: Math.random() * Math.PI * 2,
-      orbitR: Math.random() * 80 + 30,
-      orbitAngle: Math.random() * Math.PI * 2,
+    }));
+
+    // Matrix Rain Columns Setup
+    const matrixFontSize = 16;
+    let matrixColumns = Math.floor(width / matrixFontSize);
+    let matrixDrops = Array.from({ length: matrixColumns }, () => Math.floor(Math.random() * -50));
+    const matrixChars = "01010101<>/{};:=+*&%#@$!_~FlutterDartNodeAI";
+
+    // Warp Stars Pool
+    const warpCount = window.innerWidth < 768 ? 100 : 250;
+    const warpStars = Array.from({ length: warpCount }, () => ({
+      x: (Math.random() - 0.5) * width * 2,
+      y: (Math.random() - 0.5) * height * 2,
+      z: Math.random() * width,
+      prevZ: Math.random() * width,
     }));
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      matrixColumns = Math.floor(width / matrixFontSize);
+      matrixDrops = Array.from({ length: matrixColumns }, () => Math.floor(Math.random() * -50));
     };
 
     const handleMouseMove = (e: MouseEvent) => {
       mouse.targetX = e.clientX;
       mouse.targetY = e.clientY;
     };
-
     const handleMouseDown = () => {
       mouse.isDown = true;
     };
@@ -63,68 +74,128 @@ export default function InteractiveCyberCanvas() {
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
 
-    let frame = 0;
-
     const render = () => {
-      frame++;
-      // Smooth mouse lerp
+      // Smooth mouse movement
       mouse.x += (mouse.targetX - mouse.x) * 0.1;
       mouse.y += (mouse.targetY - mouse.y) * 0.1;
 
-      // Dark futuristic trail
-      ctx.fillStyle = activeMode === "warp" ? "rgba(10, 10, 15, 0.25)" : "rgba(10, 10, 15, 0.45)";
-      ctx.fillRect(0, 0, width, height);
+      /* ========================================================
+         MODE 1: MATRIX CYBER RAIN (Striking digital code streams)
+         ======================================================== */
+      if (activeMode === "matrix") {
+        // High opacity trail for distinct rain effect
+        ctx.fillStyle = "rgba(10, 10, 15, 0.18)";
+        ctx.fillRect(0, 0, width, height);
 
-      // Cyber Grid Underlay
-      ctx.strokeStyle = "rgba(124, 58, 237, 0.04)";
-      ctx.lineWidth = 1;
-      const gridSize = 60;
-      const offsetX = (mouse.x * 0.04) % gridSize;
-      const offsetY = (mouse.y * 0.04) % gridSize;
+        ctx.font = `${matrixFontSize}px "JetBrains Mono", monospace`;
 
-      ctx.beginPath();
-      for (let x = offsetX; x < width; x += gridSize) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-      }
-      for (let y = offsetY; y < height; y += gridSize) {
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-      }
-      ctx.stroke();
+        for (let i = 0; i < matrixDrops.length; i++) {
+          const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+          const x = i * matrixFontSize;
+          const y = matrixDrops[i] * matrixFontSize;
 
-      // Ambient Interactive Spotlight behind cursor
-      const spotGrad = ctx.createRadialGradient(
-        mouse.x,
-        mouse.y,
-        0,
-        mouse.x,
-        mouse.y,
-        mouse.isDown ? 380 : 250
-      );
-      spotGrad.addColorStop(0, mouse.isDown ? "rgba(0, 217, 255, 0.18)" : "rgba(124, 58, 237, 0.12)");
-      spotGrad.addColorStop(0.5, "rgba(0, 217, 255, 0.04)");
-      spotGrad.addColorStop(1, "transparent");
-      ctx.fillStyle = spotGrad;
-      ctx.fillRect(0, 0, width, height);
-
-      // Render & Interconnect Particles
-      for (let i = 0; i < count; i++) {
-        const p = particles[i];
-
-        if (activeMode === "warp") {
-          // Warp drive towards cursor
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          p.x += (dx / dist) * 4;
-          p.y += (dy / dist) * 4;
-          if (dist < 30) {
-            p.x = Math.random() * width;
-            p.y = Math.random() * height;
+          // Interactive cursor disruption
+          const distToMouse = Math.hypot(x - mouse.x, y - mouse.y);
+          if (distToMouse < 90) {
+            ctx.fillStyle = "#00D9FF"; // Bright cyan glitch near cursor
+            ctx.shadowColor = "#00D9FF";
+            ctx.shadowBlur = 12;
+          } else {
+            // Matrix neon green & emerald gradient
+            ctx.fillStyle = matrixDrops[i] % 4 === 0 ? "#E0F2FE" : "#10B981";
+            ctx.shadowColor = "#10B981";
+            ctx.shadowBlur = 6;
           }
-        } else {
-          // Standard physics with cursor repulsion / gravity
+
+          ctx.fillText(char, x, y);
+          ctx.shadowBlur = 0;
+
+          if (y > height && Math.random() > 0.975) {
+            matrixDrops[i] = 0;
+          }
+          matrixDrops[i]++;
+        }
+      }
+
+      /* ========================================================
+         MODE 2: WARP DRIVE (Hyperspace starfield acceleration)
+         ======================================================== */
+      else if (activeMode === "warp") {
+        ctx.fillStyle = "rgba(10, 10, 15, 0.35)";
+        ctx.fillRect(0, 0, width, height);
+
+        const cx = mouse.x;
+        const cy = mouse.y;
+        const speed = mouse.isDown ? 35 : 18;
+
+        for (let i = 0; i < warpStars.length; i++) {
+          const s = warpStars[i];
+          s.prevZ = s.z;
+          s.z -= speed;
+
+          if (s.z <= 0) {
+            s.z = width;
+            s.prevZ = width;
+            s.x = (Math.random() - 0.5) * width * 2;
+            s.y = (Math.random() - 0.5) * height * 2;
+          }
+
+          const k = 280 / s.z;
+          const px = s.x * k + cx;
+          const py = s.y * k + cy;
+
+          const prevK = 280 / s.prevZ;
+          const ppx = s.x * prevK + cx;
+          const ppy = s.y * prevK + cy;
+
+          if (px >= 0 && px <= width && py >= 0 && py <= height) {
+            const alpha = Math.min(1, (1 - s.z / width) * 1.5);
+            ctx.strokeStyle = `rgba(0, 217, 255, ${alpha})`;
+            ctx.lineWidth = Math.max(1, (1 - s.z / width) * 3);
+            ctx.beginPath();
+            ctx.moveTo(ppx, ppy);
+            ctx.lineTo(px, py);
+            ctx.stroke();
+          }
+        }
+      }
+
+      /* ========================================================
+         MODE 3: NEBULA CONSTELLATION (Deep Violet & Cyan Mesh)
+         ======================================================== */
+      else {
+        ctx.fillStyle = "rgba(10, 10, 15, 0.45)";
+        ctx.fillRect(0, 0, width, height);
+
+        // Cyber Grid Underlay
+        ctx.strokeStyle = "rgba(124, 58, 237, 0.05)";
+        ctx.lineWidth = 1;
+        const gridSize = 60;
+        const offsetX = (mouse.x * 0.04) % gridSize;
+        const offsetY = (mouse.y * 0.04) % gridSize;
+
+        ctx.beginPath();
+        for (let x = offsetX; x < width; x += gridSize) {
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, height);
+        }
+        for (let y = offsetY; y < height; y += gridSize) {
+          ctx.moveTo(0, y);
+          ctx.lineTo(width, y);
+        }
+        ctx.stroke();
+
+        // Spotlight behind cursor
+        const spot = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, mouse.isDown ? 360 : 240);
+        spot.addColorStop(0, mouse.isDown ? "rgba(0, 217, 255, 0.22)" : "rgba(124, 58, 237, 0.16)");
+        spot.addColorStop(0.6, "rgba(0, 217, 255, 0.04)");
+        spot.addColorStop(1, "transparent");
+        ctx.fillStyle = spot;
+        ctx.fillRect(0, 0, width, height);
+
+        // Update & Render Particles
+        for (let i = 0; i < particleCount; i++) {
+          const p = nebulaParticles[i];
           p.x += p.vx;
           p.y += p.vy;
 
@@ -133,38 +204,38 @@ export default function InteractiveCyberCanvas() {
 
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const dist = Math.hypot(dx, dy);
 
           if (dist < mouse.radius) {
-            const force = (1 - dist / mouse.radius) * (mouse.isDown ? -8 : 3.5);
+            const force = (1 - dist / mouse.radius) * (mouse.isDown ? -8 : 4);
             p.x -= (dx / dist) * force;
             p.y -= (dy / dist) * force;
           }
-        }
 
-        // Draw connections
-        for (let j = i + 1; j < count; j++) {
-          const p2 = particles[j];
-          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 110) {
-            const alpha = (1 - dist / 110) * 0.28;
-            ctx.strokeStyle = `rgba(167, 139, 250, ${alpha})`;
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
+          // Connect adjacent particles
+          for (let j = i + 1; j < particleCount; j++) {
+            const p2 = nebulaParticles[j];
+            const connDist = Math.hypot(p.x - p2.x, p.y - p2.y);
+            if (connDist < 120) {
+              const alpha = (1 - connDist / 120) * 0.35;
+              ctx.strokeStyle = `rgba(167, 139, 250, ${alpha})`;
+              ctx.lineWidth = 0.9;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
           }
-        }
 
-        // Draw particle node
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
+          // Render glowing particle node
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 10;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
       }
 
       animId = requestAnimationFrame(render);
@@ -196,9 +267,9 @@ export default function InteractiveCyberCanvas() {
           pointerEvents: "none",
         }}
       />
-      {/* Floating Canvas Mode Switcher HUD */}
+      {/* HUD Mode Switcher */}
       <div className="canvas-hud animate-on-scroll animated">
-        <span className="hud-label">CANVAS MATRIX:</span>
+        <span className="hud-label">CANVAS MODE:</span>
         {(["nebula", "matrix", "warp"] as const).map((mode) => (
           <button
             key={mode}
@@ -206,7 +277,7 @@ export default function InteractiveCyberCanvas() {
             className={`hud-pill ${activeMode === mode ? "active" : ""}`}
             onClick={() => setActiveMode(mode)}
           >
-            {mode.toUpperCase()}
+            {mode === "matrix" ? "MATRIX RAIN" : mode === "warp" ? "WARP SPEED" : "NEBULA MESH"}
           </button>
         ))}
       </div>
