@@ -1,47 +1,143 @@
 "use client";
 
-import { useState } from "react";
-import { Terminal, ShieldCheck, Cpu, Database, Flame, Sparkles, Copy, Check } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Terminal, ShieldCheck, Cpu, Database, Flame, Sparkles, Copy, Check, Play, Eraser } from "lucide-react";
+
+type LogEntry = {
+  id: string;
+  cmd?: string;
+  text: string;
+  type?: string;
+  isStreaming?: boolean;
+};
+
+const SUGGESTED_COMMANDS = ["apps", "skills", "telemetry", "contact", "clear"];
 
 export default function InteractiveDevConsole() {
   const [activeTab, setActiveTab] = useState<"terminal" | "telemetry" | "stack">("terminal");
   const [inputCmd, setInputCmd] = useState("");
   const [copied, setCopied] = useState(false);
-  const [history, setHistory] = useState<Array<{ cmd?: string; text: string; type?: string }>>([
-    { text: "Antigravity DevEngine v5.2.0-LTS initialized [Node v22.14 / Dart 3.11]", type: "system" },
-    { text: "Type 'help', 'apps', 'skills', or 'contact' for fast CLI inspection.", type: "system" },
+  const [isTyping, setIsTyping] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
+  const logsContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const [history, setHistory] = useState<LogEntry[]>([
+    {
+      id: "init-1",
+      text: "Antigravity DevEngine v5.2.0-LTS initialized [Node v22.14 / Dart 3.11]",
+      type: "system",
+    },
+    {
+      id: "init-2",
+      text: "Interactive terminal active. Type or click suggestions below to inspect systems.",
+      type: "system",
+    },
   ]);
 
-  const handleCommand = (e: React.FormEvent) => {
-    e.preventDefault();
-    const cmd = inputCmd.trim().toLowerCase();
-    if (!cmd) return;
+  // Auto-scroll to bottom of logs on history update
+  useEffect(() => {
+    if (logsContainerRef.current) {
+      logsContainerRef.current.scrollTop = logsContainerRef.current.scrollHeight;
+    }
+  }, [history]);
+
+  // Stream output with realistic character-by-character typewriter animation
+  const streamResponse = (userCmd: string, responseText: string) => {
+    const entryId = `entry-${Date.now()}`;
+    setIsTyping(true);
+
+    // Initial placeholder entry
+    setHistory((prev) => [
+      ...prev,
+      { id: entryId, cmd: userCmd, text: "", type: "normal", isStreaming: true },
+    ]);
+
+    let charIdx = 0;
+    const speed = Math.max(8, Math.min(22, 1200 / responseText.length)); // dynamic typing speed
+
+    const interval = setInterval(() => {
+      charIdx++;
+      const currentChunk = responseText.slice(0, charIdx);
+
+      setHistory((prev) =>
+        prev.map((item) =>
+          item.id === entryId
+            ? {
+                ...item,
+                text: currentChunk,
+                isStreaming: charIdx < responseText.length,
+              }
+            : item
+        )
+      );
+
+      if (charIdx >= responseText.length) {
+        clearInterval(interval);
+        setIsTyping(false);
+      }
+    }, speed);
+  };
+
+  // Perform clean wipe / clearing animation
+  const handleClear = () => {
+    setIsClearing(true);
+    setTimeout(() => {
+      setHistory([
+        {
+          id: `clear-${Date.now()}`,
+          text: "Terminal buffer cleared. System ready.",
+          type: "system",
+        },
+      ]);
+      setIsClearing(false);
+      setInputCmd("");
+    }, 450);
+  };
+
+  const executeCommand = (rawCmd: string) => {
+    const cmd = rawCmd.trim().toLowerCase();
+    if (!cmd || isTyping) return;
+
+    setInputCmd("");
+
+    if (cmd === "clear") {
+      handleClear();
+      return;
+    }
 
     let response = "";
     switch (cmd) {
       case "help":
-        response = "Available commands: 'apps' (list live apps), 'skills' (core stack), 'contact' (reach out), 'clear'";
+        response =
+          "AVAILABLE COMMANDS:\n• 'apps'      : Production releases (BluFix AI, Rent Roll Pulse, Etana Oroko, Konnectax, Plugg)\n• 'skills'    : Complete mobile, backend & database tech stack\n• 'telemetry' : Real-time SLA, P95 latency and GPU target benchmarks\n• 'contact'   : Direct senior architect communication endpoints\n• 'clear'     : Wipe terminal buffer with clear animation";
         break;
       case "apps":
-        response = "PRODUCTION RELEASES: BluFix AI (Smart Dispatch), Rent Roll Pulse (FinTech Valuation), Etana Oroko (RTC Social), Konnectax (Tax Compliance SaaS), Plugg (AI Matchmaking).";
+        response =
+          "PRODUCTION SYSTEMS DEPLOYED:\n[1] BluFix AI         -> Multi-Agent Diagnostic Dispatch & Technician Radar (Node 22 / Postgres / Flutter)\n[2] Rent Roll Pulse   -> FinTech Real Estate Valuation & Automated AMI PDF Engine\n[3] Etana Oroko       -> Dual-Identity Social RTC & Agora WebRTC Live Broadcasts\n[4] Konnectax         -> Tax Compliance SaaS (Live on iOS App Store & Google Play)\n[5] Plugg             -> AI-Powered Realtime Matchmaking & Compatibility Graph";
         break;
       case "skills":
-        response = "PRIMARY: Flutter, Dart, Riverpod, Node.js 22, PostgreSQL, Firebase Data Connect, WebRTC, Gemini AI.";
+        response =
+          "TECHNICAL PROFICIENCIES:\n• Mobile Architecture : Flutter, Dart, Riverpod 3, GetX, GoRouter, AutoRoute, Bloc\n• Databases & Realtime: PostgreSQL, GraphQL (Firebase Data Connect), Firestore, Redis, Hive DB\n• AI & Infra          : Multi-Agent LLMs, Gemini 3.8 Flash, Node.js 22 LTS, Docker, WebRTC, Idempotent APIs";
+        break;
+      case "telemetry":
+        response =
+          "LIVE PRODUCTION TELEMETRY:\n• SLA Uptime Target   : 99.98% High Availability\n• Mobile Frame Rate   : 60 FPS Smooth GPU Rendering\n• API P95 Response    : < 140ms Global Edge Routing\n• Production Release  : 15+ Apps & Systems Shipped";
         break;
       case "contact":
-        response = "DIRECT: subhabratadas2002@gmail.com | LinkedIn: /in/subhabratadash | GitHub: /subhabratadash20";
+        response =
+          "DIRECT CONTACT ENDPOINTS:\n• Email    : subhabratadas2002@gmail.com\n• LinkedIn : https://linkedin.com/in/subhabratadash\n• GitHub   : https://github.com/subhabratadash20\n• Status   : Open to Senior Mobile & AI Systems Engineering Opportunities";
         break;
-      case "clear":
-        setHistory([]);
-        setInputCmd("");
-        return;
       default:
-        response = `Command not recognized: '${cmd}'. Type 'help' for options.`;
+        response = `Command '${cmd}' not recognized. Type 'help' or click one of the suggested commands.`;
         break;
     }
 
-    setHistory((prev) => [...prev, { cmd: inputCmd, text: response }]);
-    setInputCmd("");
+    streamResponse(rawCmd, response);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    executeCommand(inputCmd);
   };
 
   const copyEmail = () => {
@@ -62,7 +158,7 @@ export default function InteractiveDevConsole() {
             Senior Architecture & <span className="text-gradient">Live Telemetry</span>
           </h2>
           <p className="cockpit-sub">
-            Directly probe production architecture metrics, test the developer CLI emulator, or explore backend systems.
+            Directly probe production architecture metrics, test the developer CLI emulator with streaming output, or explore backend systems.
           </p>
         </div>
 
@@ -106,33 +202,64 @@ export default function InteractiveDevConsole() {
             </button>
           </div>
 
-          {/* Tab 1: Terminal */}
+          {/* Tab 1: Terminal with Typing & Clearing Animations */}
           {activeTab === "terminal" && (
             <div className="terminal-body">
-              <div className="terminal-logs">
-                {history.map((h, i) => (
-                  <div key={i} className="log-line">
+              {/* Suggested quick buttons */}
+              <div className="terminal-suggestions">
+                <span className="sugg-label">QUICK COMMANDS:</span>
+                {SUGGESTED_COMMANDS.map((cmd) => (
+                  <button
+                    key={cmd}
+                    type="button"
+                    className="sugg-pill"
+                    onClick={() => executeCommand(cmd)}
+                    disabled={isTyping || isClearing}
+                  >
+                    {cmd === "clear" ? <Eraser size={11} /> : <Play size={10} />}
+                    <span>{cmd}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Logs Stream */}
+              <div
+                className={`terminal-logs ${isClearing ? "terminal-clearing-active" : ""}`}
+                ref={logsContainerRef}
+              >
+                {history.map((h) => (
+                  <div key={h.id} className="log-line animate-fade-in">
                     {h.cmd && (
                       <div className="log-prompt">
                         <span className="prompt-sym">❯</span>
                         <span className="prompt-cmd">{h.cmd}</span>
                       </div>
                     )}
-                    <div className={`log-text ${h.type || ""}`}>{h.text}</div>
+                    <div className={`log-text ${h.type || ""}`}>
+                      <pre className="terminal-pre">{h.text}</pre>
+                      {h.isStreaming && <span className="typing-cursor-blink">▋</span>}
+                    </div>
                   </div>
                 ))}
               </div>
-              <form onSubmit={handleCommand} className="terminal-input-bar">
+
+              {/* Input Form */}
+              <form onSubmit={handleFormSubmit} className="terminal-input-bar">
                 <span className="prompt-sym">❯</span>
                 <input
                   type="text"
                   value={inputCmd}
                   onChange={(e) => setInputCmd(e.target.value)}
-                  placeholder="Type a command (try 'apps', 'skills', 'contact')..."
+                  placeholder="Type a command (try 'apps', 'skills', 'telemetry', 'clear')..."
                   className="terminal-input"
+                  disabled={isTyping || isClearing}
                 />
-                <button type="submit" className="terminal-enter-btn">
-                  EXECUTE
+                <button
+                  type="submit"
+                  className="terminal-enter-btn"
+                  disabled={isTyping || isClearing}
+                >
+                  {isTyping ? "STREAMING..." : "EXECUTE"}
                 </button>
               </form>
             </div>
@@ -175,7 +302,7 @@ export default function InteractiveDevConsole() {
                 <div className="metric-icon">
                   <Sparkles size={20} color="#A78BFA" />
                 </div>
-                <div className="metric-number">10+</div>
+                <div className="metric-number">15+</div>
                 <div className="metric-label">Production Systems Shipped</div>
                 <div className="metric-bar">
                   <div className="bar-fill" style={{ width: "100%" }} />

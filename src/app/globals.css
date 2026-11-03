@@ -3793,3 +3793,110 @@ button {
     padding: 2px 6px;
   }
 }
+
+
+/* =========================================
+   Terminal Streaming & Clear Animations
+   ========================================= */
+.terminal-suggestions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sugg-label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+.sugg-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #00D9FF;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sugg-pill:hover:not(:disabled) {
+  background: rgba(0, 217, 255, 0.15);
+  border-color: #00D9FF;
+  transform: translateY(-1px);
+}
+
+.sugg-pill:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.terminal-pre {
+  font-family: var(--font-mono);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.55;
+  margin: 0;
+  font-size: 0.83rem;
+}
+
+.typing-cursor-blink {
+  display: inline-block;
+  color: #00D9FF;
+  margin-left: 3px;
+  animation: cursorBlink 0.7s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-clearing-active {
+  animation: terminalWipe 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes terminalWipe {
+  0% {
+    opacity: 1;
+    transform: scaleY(1);
+    filter: blur(0px);
+  }
+  50% {
+    opacity: 0.5;
+    filter: blur(4px) brightness(1.5);
+    background: rgba(0, 217, 255, 0.08);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(0.8);
+    filter: blur(8px);
+  }
+}
+
+.animate-fade-in {
+  animation: logFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes logFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
