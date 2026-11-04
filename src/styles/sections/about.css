@@ -1,6 +1,10 @@
 /* =========================================
    About Me Section Styles
    ========================================= */
+.section.about {
+  padding-top: var(--space-xl);
+}
+
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;

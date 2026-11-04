@@ -532,10 +532,10 @@
   max-width: 1360px;
   overflow-x: clip;
   overflow-y: visible;
-  min-height: 1080px;
+  min-height: 580px;
   height: auto;
-  padding-bottom: var(--space-3xl);
-  margin: 0 auto var(--space-lg);
+  padding-bottom: 0;
+  margin: 0 auto;
   perspective: 1200px;
   transform-style: preserve-3d;
 }
@@ -626,16 +626,7 @@
   letter-spacing: 0.03em;
 }
 
-@media (max-width: 1200px) {
-  .orbital-sphere-wrapper {
-    min-height: 1220px;
-  }
-}
-
 @media (max-width: 900px) {
-  .orbital-sphere-wrapper {
-    min-height: 1480px;
-  }
   .orbital-sphere-wrapper .pipeline-center,
   .orbital-rings-overlay,
   .orbital-nodes-stage {
@@ -649,7 +640,7 @@
 
 @media (max-width: 768px) {
   .orbital-sphere-wrapper {
-    min-height: 1320px;
+    min-height: 480px;
     overflow-x: clip;
     overflow-y: visible;
   }
@@ -672,9 +663,6 @@
 }
 
 @media (max-width: 480px) {
-  .orbital-sphere-wrapper {
-    min-height: 1420px;
-  }
   .orbital-sphere-wrapper .pipeline-center,
   .orbital-rings-overlay,
   .orbital-nodes-stage {
@@ -687,9 +675,6 @@
 }
 
 @media (max-width: 400px) {
-  .orbital-sphere-wrapper {
-    min-height: 1620px;
-  }
   .orbital-sphere-wrapper .pipeline-center,
   .orbital-rings-overlay,
   .orbital-nodes-stage {

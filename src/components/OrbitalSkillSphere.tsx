@@ -129,7 +129,7 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       const gridStartY = isMobile ? (winW < 400 ? 55 : 70) : 160;
       const rows = Math.ceil(SKILL_NODES.length / cols);
       const stageTop = isMobile ? (winW < 400 ? 160 : winW < 480 ? 180 : 220) : (winW < 900 ? 250 : 280);
-      const requiredGridBottom = stageTop + gridStartY + (rows - 1) * rowHeight + (isMobile ? 130 : 170);
+      const requiredGridBottom = stageTop + gridStartY + (rows - 1) * rowHeight + (isMobile ? 55 : 68);
       containerRef.current.style.minHeight = `${Math.ceil(requiredGridBottom)}px`;
     };
 
@@ -240,7 +240,7 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
 
         // 3. Smooth blend between 3D Orbit and Clean Grid
         const ease = p * p * (3 - 2 * p); // smoothstep
-        let currentX = (1 - ease) * orbitX + ease * gridX;
+        const currentX = (1 - ease) * orbitX + ease * gridX;
         let currentY = (1 - ease) * orbitY + ease * gridY;
         const currentZ = (1 - ease) * orbitZ;
 
