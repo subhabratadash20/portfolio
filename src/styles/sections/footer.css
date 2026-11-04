@@ -22,16 +22,8 @@
       grid-template-columns: 1fr;
   }
 
-  .skills-grid {
-      grid-template-columns: 1fr;
-  }
-
   .contact-links {
       grid-template-columns: repeat(2, 1fr);
-  }
-
-  .projects-grid {
-      grid-template-columns: 1fr;
   }
 
   .hire-grid {

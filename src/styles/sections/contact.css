@@ -179,10 +179,6 @@
   transition-property: opacity, background, border-color, box-shadow, filter, backdrop-filter, color;
 }
 
-.project-card.animate-on-scroll.animated:hover {
-  transform: none;
-}
-
 
 
 /* 1-Click Clipboard Copy Feedback Tooltip */

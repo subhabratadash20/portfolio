@@ -186,6 +186,20 @@ export default function ProjectShowcase() {
     return () => window.removeEventListener("resize", updatePill);
   }, [selectedFilter]);
 
+  // Ensure filtered project cards animate immediately upon filter change
+  const isInitialFilterMount = useRef(true);
+  useEffect(() => {
+    if (isInitialFilterMount.current) {
+      isInitialFilterMount.current = false;
+      return;
+    }
+    const rafId = requestAnimationFrame(() => {
+      const cards = document.querySelectorAll<HTMLElement>(".projects-grid .project-card");
+      cards.forEach((card) => card.classList.add("animated"));
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [selectedFilter]);
+
   // Re-bind tilt effect when filtered projects change with strictly clamped 4-deg tactile elevation
   useEffect(() => {
     const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;

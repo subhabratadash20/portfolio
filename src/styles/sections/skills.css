@@ -64,23 +64,26 @@
     0 0 20px rgba(124, 58, 237, 0.12),
     0 0 40px rgba(0, 217, 255, 0.06),
     0 15px 40px rgba(0, 0, 0, 0.3);
-  transform: translateY(-6px);
+  transform: translateY(-4px);
 }
 
 .skill-category-header {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 .skill-icon {
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--gradient-primary);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--border-radius-md);
   color: white;
   transition: all 0.4s ease;
@@ -170,302 +173,361 @@
 
 @media (hover: none) and (pointer: coarse) {
   .skill-tag:hover {
-      transform: none;
+    transform: none;
   }
 
   .skill-tag:active {
-      background: rgba(124, 58, 237, 0.3);
+    background: rgba(124, 58, 237, 0.3);
   }
 }
 
-
-
-/* --- 03. Technical Proficiencies: Alternating Hyperspace Slide-In & Focal Zoom --- */
+/* =========================================
+   03. Technical Proficiencies: 1:1 Mouse-Scroll-Driven Scrollytelling Deck
+   ========================================= */
 .section.skills {
-  overflow: hidden;
+  padding: 0 !important;
   position: relative;
+  overflow: visible;
+  width: 100%;
 }
 
-.skills-hyperspace-container {
+.skills-scrolly-track {
   position: relative;
   width: 100%;
-  overflow: hidden;
-  padding: 4px 0 16px 0;
+  height: 480vh; /* Generous 1:1 scrub depth across 7 cards */
+  min-height: 3800px;
+  background: transparent;
 }
 
-.skills-sequence-controls {
+.skills-sticky-viewport {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow: hidden; /* Crucial: clips horizontal fly-in travel so window never scrolls horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(var(--space-2xl) + 40px) var(--space-lg) var(--space-xl);
+  box-sizing: border-box;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Stage Header Area */
+.skills-stage-header {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  z-index: 20;
+}
+
+.skills-scrolly-title {
+  margin-bottom: var(--space-xs) !important;
+  font-size: clamp(1.35rem, 1.15rem + 1.2vw, 2.2rem);
+  text-align: center;
+  justify-content: center;
+}
+
+/* Cyber HUD Bar */
+.skills-hud-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-xl);
-  padding: 8px 16px;
-  background: rgba(13, 13, 20, 0.7);
-  border: 1px solid rgba(0, 217, 255, 0.18);
+  width: 100%;
+  padding: 8px 18px;
+  background: rgba(14, 14, 24, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 9999px;
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+  gap: 12px;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-@media (max-width: 600px) {
-  .skills-sequence-controls {
-    flex-direction: column;
-    gap: 10px;
-    border-radius: 16px;
-    padding: 10px 14px;
-    align-items: stretch;
-  }
-  .skills-sequence-status {
-    justify-content: center;
-  }
-  .skills-replay-btn {
-    width: 100%;
-    min-height: 44px;
-    justify-content: center;
-  }
+.skills-hud-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.skills-sequence-status {
+.skills-hud-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: hudPulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes hudPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+.skills-hud-counter {
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 1.8vw, 0.84rem);
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+.skills-hud-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid currentColor;
+}
+
+.skills-hud-actions {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.skills-status-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #00D9FF;
-  box-shadow: 0 0 10px #00D9FF;
-  animation: pulse 2s infinite;
-}
-
-.skills-status-text {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.75);
-  text-transform: uppercase;
-}
-
-.skills-replay-btn {
+/* 7 Segmented Step Pills */
+.skills-hud-steps {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
-  background: rgba(0, 217, 255, 0.08);
-  border: 1px solid rgba(0, 217, 255, 0.3);
+}
+
+.skills-hud-step-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  touch-action: manipulation;
+}
+
+.skills-hud-step-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transform: scale(1.15);
+}
+
+.skills-hud-step-btn.active {
+  color: #000000;
+  font-weight: 800;
+  transform: scale(1.18);
+}
+
+.skills-replay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
-  color: #00D9FF;
-  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.72rem;
   font-weight: 600;
   cursor: pointer;
-  min-height: 40px;
-  touch-action: manipulation;
   transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
 .skills-replay-btn:hover {
   background: rgba(0, 217, 255, 0.2);
   border-color: #00D9FF;
-  box-shadow: 0 0 14px rgba(0, 217, 255, 0.4);
-  transform: scale(1.03);
+  color: #00D9FF;
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.3);
 }
 
-.skills-replay-btn:hover .replay-icon {
-  transform: rotate(-180deg);
-  transition: transform 0.4s ease;
+/* Center Cards Stage */
+.skills-cards-stage {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
 }
 
-.skills-card-idle {
-  opacity: 0;
-  transform: scale(0.9);
+.skill-scrolly-card-wrapper {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  max-width: 660px;
+  height: max-content;
+  will-change: transform, opacity, filter;
+  transform-origin: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.skill-thematic-card {
-  will-change: transform, opacity, filter, box-shadow;
+.skill-scrolly-card-wrapper .skill-category {
+  width: 100%;
+  padding: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+  border-radius: 1.25rem;
+  box-sizing: border-box;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.skill-thematic-card.skill-fly-in-left {
-  animation: skillFlyInLeft 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.skill-tag-highlight {
+  font-weight: 700 !important;
+  border-width: 1.5px !important;
 }
 
-.skill-thematic-card.skill-fly-in-right {
-  animation: skillFlyInRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Stage Footer: Scrolly Hint & Scrub Track */
+.skills-stage-footer {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
 }
 
-.skill-thematic-card.skill-fly-in-center {
-  animation: skillFlyInCenter 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.skills-scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
 }
 
-@keyframes skillFlyInLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-140px) scale(0.82);
-    filter: blur(6px) brightness(0.7);
-  }
-  48% {
-    opacity: 1;
-    transform: translateX(0) scale(1.08);
-    filter: blur(0px) brightness(1.28);
-    box-shadow: 0 0 45px rgba(0, 217, 255, 0.65), 0 0 15px rgba(0, 217, 255, 0.9);
-  }
-  75% {
-    transform: scale(1.03);
-    filter: brightness(1.1);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: brightness(1);
-  }
+.scroll-hint-arrow {
+  color: var(--color-accent);
+  animation: bounceHint 1.8s infinite;
 }
 
-@keyframes skillFlyInRight {
-  0% {
-    opacity: 0;
-    transform: translateX(140px) scale(0.82);
-    filter: blur(6px) brightness(0.7);
-  }
-  48% {
-    opacity: 1;
-    transform: translateX(0) scale(1.08);
-    filter: blur(0px) brightness(1.28);
-    box-shadow: 0 0 45px rgba(192, 132, 252, 0.65), 0 0 15px rgba(192, 132, 252, 0.9);
-  }
-  75% {
-    transform: scale(1.03);
-    filter: brightness(1.1);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: brightness(1);
-  }
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
 }
 
-@keyframes skillFlyInCenter {
-  0% {
-    opacity: 0;
-    transform: translateY(70px) scale(0.82);
-    filter: blur(6px) brightness(0.7);
-  }
-  48% {
-    opacity: 1;
-    transform: translateY(0) scale(1.08);
-    filter: blur(0px) brightness(1.28);
-    box-shadow: 0 0 45px rgba(251, 113, 133, 0.65), 0 0 15px rgba(251, 113, 133, 0.9);
-  }
-  75% {
-    transform: scale(1.03);
-    filter: brightness(1.1);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: brightness(1);
-  }
+.skills-scrub-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
 }
 
-/* Spotlight Hover Focus Mode */
-.skill-thematic-card.skill-spotlight-active {
-  transform: scale(1.04) !important;
-  z-index: 10;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+.skills-scrub-bar {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  border-radius: 9999px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
 }
 
-.skill-thematic-card.skill-spotlight-dimmed {
-  opacity: 0.55 !important;
-  filter: grayscale(30%) blur(0.4px);
-  transform: scale(0.98);
-  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
-}
-
-
-
-.skills-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-@media (max-width: 1024px) {
-  .skills-grid {
-      grid-template-columns: repeat(2, 1fr);
-  }
-}
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .timeline {
-      padding-left: var(--space-2xl);
+  .skills-scrolly-track {
+    height: 420vh;
+    min-height: 2900px;
   }
 
-  .timeline::before {
-      left: 10px;
+  .skills-sticky-viewport {
+    padding: calc(var(--space-xl) + 40px) var(--space-md) var(--space-md);
   }
 
-  .timeline-marker {
-      left: calc(-1 * var(--space-2xl) + 3px);
+  .skills-hud-bar {
+    padding: 6px 12px;
+    gap: 8px;
   }
 
-  .skills-grid {
-      grid-template-columns: 1fr;
+  .skills-hud-badge {
+    display: none; /* Hide badge text on mobile to avoid overcrowding */
+  }
+
+  .skills-hud-step-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 0.62rem;
+  }
+
+  .skills-cards-stage {
+    min-height: 320px;
+  }
+
+  .skill-scrolly-card-wrapper {
+    max-width: 95vw;
+  }
+
+  .skill-scrolly-card-wrapper .skill-category {
+    padding: var(--space-md);
+    border-radius: 1rem;
+  }
+
+  .skills-scroll-hint {
+    font-size: 0.65rem;
   }
 }
 
-
-
-/* Responsive Skills */
-@media (max-width: 768px) {
-  /* Skills Grid Mobile */
-  .skills-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-lg);
-  }
-
-  .skill-category {
-      padding: var(--space-lg);
-  }
-
-  .skill-category-header {
-      gap: var(--space-sm);
-      margin-bottom: var(--space-lg);
-  }
-
-  .skill-icon {
-      width: 40px;
-      height: 40px;
-  }
-
-  .skill-category h3 {
-      font-size: var(--text-lg);
-  }
-
-  /* Clamped travel distances on mobile to avoid overflow: purely vertical transforms */
-  @keyframes skillFlyInLeft {
-    0% { opacity: 0; transform: translateY(25px) scale(0.95); filter: none; }
-    50% { opacity: 1; transform: translateY(0) scale(1.01); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  @keyframes skillFlyInRight {
-    0% { opacity: 0; transform: translateY(25px) scale(0.95); filter: none; }
-    50% { opacity: 1; transform: translateY(0) scale(1.01); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  @keyframes skillFlyInCenter {
-    0% { opacity: 0; transform: translateY(25px) scale(0.95); filter: none; }
-    50% { opacity: 1; transform: translateY(0) scale(1.01); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
+@media (max-width: 640px) {
+  .skills-hud-card-name {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
-  /* Skill tags */
-  .skill-tags {
-      gap: var(--space-xs);
+  .skills-hud-steps {
+    gap: 4px;
   }
 
-  .skill-tag {
-      padding: var(--space-xs) var(--space-sm);
-      font-size: var(--text-xs);
+  .skills-hud-step-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 0.58rem;
   }
 
+  .skills-replay-btn span {
+    display: none;
+  }
 
+  .skills-replay-btn {
+    padding: 5px 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-scrolly-card-wrapper {
+    transition: opacity 0.3s ease !important;
+  }
+  .skills-hud-pulse,
+  .scroll-hint-arrow {
+    animation: none !important;
+  }
 }

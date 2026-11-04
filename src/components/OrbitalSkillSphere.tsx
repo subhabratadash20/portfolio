@@ -114,8 +114,33 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       setCurrentLayer(ARCH_LAYERS[layerIdx]);
     };
 
+    const updateContainerBounds = () => {
+      if (!containerRef.current) return;
+      const winW = window.innerWidth;
+      const isMobile = winW < 768;
+      let cols = 7;
+      if (winW < 400) cols = 2;
+      else if (winW < 640) cols = 3;
+      else if (winW < 900) cols = 4;
+      else if (winW < 1200) cols = 6;
+      else cols = 7;
+
+      const rowHeight = isMobile ? (winW < 400 ? 92 : 105) : 148;
+      const gridStartY = isMobile ? (winW < 400 ? 55 : 70) : 160;
+      const rows = Math.ceil(SKILL_NODES.length / cols);
+      const stageTop = isMobile ? (winW < 400 ? 160 : winW < 480 ? 180 : 220) : (winW < 900 ? 250 : 280);
+      const requiredGridBottom = stageTop + gridStartY + (rows - 1) * rowHeight + (isMobile ? 130 : 170);
+      containerRef.current.style.minHeight = `${Math.ceil(requiredGridBottom)}px`;
+    };
+
+    const handleResize = () => {
+      updateContainerBounds();
+      handleScroll();
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
+    updateContainerBounds();
     handleScroll();
 
     let lastTime = performance.now();
@@ -276,7 +301,7 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener("resize", handleResize);
       observer.disconnect();
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };

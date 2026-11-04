@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Zap, RotateCcw } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { RotateCcw } from "lucide-react";
 
 interface SkillCardData {
   id: string;
@@ -12,7 +12,6 @@ interface SkillCardData {
   iconColor: string;
   accentColor: string;
   flyDirection: "left" | "right" | "center";
-  delayMs: number;
   icon: (color: string) => React.ReactNode;
   tags: Array<{ text: string; highlight?: boolean }>;
 }
@@ -27,7 +26,6 @@ const SKILL_CARDS: SkillCardData[] = [
     iconColor: "#00D9FF",
     accentColor: "rgba(0, 217, 255, 0.4)",
     flyDirection: "left",
-    delayMs: 0,
     icon: (color) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
@@ -55,7 +53,6 @@ const SKILL_CARDS: SkillCardData[] = [
     iconColor: "#C084FC",
     accentColor: "rgba(192, 132, 252, 0.4)",
     flyDirection: "right",
-    delayMs: 450,
     icon: (color) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
         <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z" />
@@ -83,7 +80,6 @@ const SKILL_CARDS: SkillCardData[] = [
     iconColor: "#34D399",
     accentColor: "rgba(52, 211, 153, 0.4)",
     flyDirection: "left",
-    delayMs: 900,
     icon: (color) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
         <polyline points="16,18 22,12 16,6" />
@@ -109,7 +105,6 @@ const SKILL_CARDS: SkillCardData[] = [
     iconColor: "#FBBF24",
     accentColor: "rgba(251, 191, 36, 0.4)",
     flyDirection: "right",
-    delayMs: 1350,
     icon: (color) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
@@ -136,7 +131,6 @@ const SKILL_CARDS: SkillCardData[] = [
     iconColor: "#60A5FA",
     accentColor: "rgba(96, 165, 250, 0.4)",
     flyDirection: "left",
-    delayMs: 1800,
     icon: (color) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
         <polygon points="23 7 16 12 23 17 23 7" />
@@ -161,7 +155,6 @@ const SKILL_CARDS: SkillCardData[] = [
     iconColor: "#2DD4BF",
     accentColor: "rgba(45, 212, 191, 0.4)",
     flyDirection: "right",
-    delayMs: 2250,
     icon: (color) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -184,8 +177,7 @@ const SKILL_CARDS: SkillCardData[] = [
     title: "Mobile Release & DevOps",
     iconColor: "#FB7185",
     accentColor: "rgba(251, 113, 133, 0.4)",
-    flyDirection: "center",
-    delayMs: 2700,
+    flyDirection: "left",
     icon: (color) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
         <circle cx="12" cy="12" r="3" />
@@ -204,125 +196,382 @@ const SKILL_CARDS: SkillCardData[] = [
 ];
 
 export default function SkillsInteractiveGrid() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [hasEntered, setHasEntered] = useState(false);
-  const [replayKey, setReplayKey] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
+  const animFrameRef = useRef<number | null>(null);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setHasEntered(true);
-            observer.disconnect();
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
+  // Jump smoothly to a specific card via HUD navigation (center of card index)
+  const scrollToCard = useCallback((cardIndex: number) => {
+    if (!trackRef.current) return;
+    const rect = trackRef.current.getBoundingClientRect();
+    const trackTop = window.scrollY + rect.top;
+    const scrollableDist = rect.height - window.innerHeight;
+    if (scrollableDist <= 0) return;
+    // Card idx focal center is at s = 0.48 + idx * 1.0; total span is 7.0
+    const targetP = Math.max(0, Math.min(1, (0.48 + cardIndex) / 7.0));
+    const targetY = trackTop + targetP * scrollableDist;
+    window.scrollTo({
+      top: targetY,
+      behavior: "smooth",
+    });
   }, []);
 
-  const handleReplay = () => {
-    setHasEntered(false);
-    setTimeout(() => {
-      setReplayKey((k) => k + 1);
-      setHasEntered(true);
-    }, 50);
-  };
+  const handleReplay = useCallback(() => {
+    scrollToCard(0);
+  }, [scrollToCard]);
+
+  // 1:1 Mouse-Scroll-Driven Scrollytelling Engine
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    let isReducedMotion = false;
+    if (typeof window !== "undefined") {
+      isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    const updateDeck = () => {
+      const rect = track.getBoundingClientRect();
+      const windowH = window.innerHeight;
+      const windowW = window.innerWidth;
+      const isMobile = windowW < 768;
+
+      const scrollableDist = rect.height - windowH;
+      if (scrollableDist <= 0) return;
+
+      // Scrub progress in [0, 1] relative to the track
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / scrollableDist));
+
+      // Direct DOM update on bottom progress bar for 120 FPS response
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = `scaleX(${progress})`;
+      }
+
+      // Map progress across 7 cards: span of 7.0 with centers at 0.48 + i * 1.0
+      const totalSpan = 7.0;
+      const s = progress * totalSpan;
+
+      // Update active focal card index for HUD indicator (transitions at midpoints 0.98, 1.98, etc.)
+      const currentActive = Math.max(
+        0,
+        Math.min(SKILL_CARDS.length - 1, Math.round((s - 0.48) / 1.0))
+      );
+      if (currentActive !== activeIndexRef.current) {
+        activeIndexRef.current = currentActive;
+        setActiveIndex(currentActive);
+      }
+
+      // Safe travel distances that guarantee cards fly completely off-screen
+      const travelDistX = Math.round(windowW * 0.5 + (isMobile ? 240 : 420));
+
+      // Scrub and position each card
+      SKILL_CARDS.forEach((card, i) => {
+        const cardEl = cardRefs.current[i];
+        if (!cardEl) return;
+
+        // Card i center is at 0.48 + i * 1.0
+        const cardCenter = 0.48 + i * 1.0;
+        const delta = s - cardCenter;
+
+        // Cards outside active window [-0.50, +0.50] are completely hidden
+        if (Math.abs(delta) >= 0.50) {
+          cardEl.style.opacity = "0";
+          cardEl.style.visibility = "hidden";
+          cardEl.style.pointerEvents = "none";
+          const offX = card.flyDirection === "left" ? -travelDistX : travelDistX;
+          cardEl.style.transform = `translate3d(${offX}px, 0, 0) scale(0.88)`;
+          return;
+        }
+
+        cardEl.style.visibility = "visible";
+        cardEl.style.pointerEvents = Math.abs(delta) <= 0.18 ? "auto" : "none";
+
+        if (isReducedMotion) {
+          // Stationary crossfade for users with reduced motion
+          const isCurrent = Math.abs(delta) <= 0.18;
+          const opacity = Math.max(0, 1 - Math.abs(delta) * 2.2);
+          cardEl.style.opacity = `${opacity.toFixed(3)}`;
+          cardEl.style.transform = isCurrent ? "scale(1)" : "scale(0.96)";
+          cardEl.style.filter = "none";
+          return;
+        }
+
+        let tx = 0;
+        let ty = 0;
+        let scale = 1;
+        let opacity = 1;
+        let blurPx = 0;
+        const maxZoom = isMobile ? 1.03 : 1.06;
+
+        if (delta < -0.12) {
+          // === ENTRANCE PHASE (card flies in from outside of screen to center) ===
+          // delta goes from -0.48 to -0.12
+          const t = Math.max(0, Math.min(1, (delta - (-0.48)) / (-0.12 - (-0.48))));
+          const easeIn = 1 - Math.pow(1 - t, 2.5); // smooth deceleration into center
+
+          if (card.flyDirection === "left") {
+            tx = -travelDistX * (1 - easeIn);
+          } else {
+            tx = travelDistX * (1 - easeIn);
+          }
+          ty = 0;
+
+          scale = 0.88 + (maxZoom - 0.88) * easeIn;
+          opacity = Math.max(0, Math.min(1, easeIn * 1.35));
+          blurPx = (1 - easeIn) * 5;
+
+        } else if (delta <= 0.12) {
+          // === FOCAL DWELL WINDOW (centered, active zoom & neon flash) ===
+          tx = 0;
+          ty = 0;
+          scale = maxZoom;
+          opacity = 1;
+          blurPx = 0;
+
+        } else {
+          // === EXIT PHASE (card smoothly transitions out as user continues scrolling) ===
+          // delta goes from +0.12 to +0.48
+          const t = Math.max(0, Math.min(1, (delta - 0.12) / (0.48 - 0.12)));
+          const easeOut = Math.pow(t, 2.2); // smooth acceleration departure
+
+          if (card.flyDirection === "left") {
+            tx = -travelDistX * easeOut;
+          } else {
+            tx = travelDistX * easeOut;
+          }
+          ty = -35 * easeOut; // subtle cinematic upward lift
+
+          scale = maxZoom - (maxZoom - 0.88) * easeOut;
+          opacity = Math.max(0, 1 - easeOut * 1.35);
+          blurPx = easeOut * 5;
+        }
+
+        cardEl.style.opacity = `${opacity.toFixed(3)}`;
+        cardEl.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+        cardEl.style.filter = blurPx > 0.4 ? `blur(${blurPx.toFixed(1)}px)` : "none";
+      });
+    };
+
+    const handleScroll = () => {
+      if (!animFrameRef.current) {
+        animFrameRef.current = requestAnimationFrame(() => {
+          updateDeck();
+          animFrameRef.current = null;
+        });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+    updateDeck();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    };
+  }, []);
+
+  const activeCard = SKILL_CARDS[activeIndex] || SKILL_CARDS[0];
 
   return (
-    <div
-      ref={containerRef}
-      className="skills-hyperspace-container"
-      key={replayKey}
-    >
-      {/* Interactive Controls Bar */}
-      <div className="skills-sequence-controls">
-        <div className="skills-sequence-status">
-          <span className="skills-status-indicator" />
-          <span className="skills-status-text">
-            {hasEntered ? "GPU HYPERSPACE SEQUENCE: ACTIVE" : "SCROLL TO INITIALIZE"}
-          </span>
-        </div>
-        <button
-          type="button"
-          className="skills-replay-btn"
-          onClick={handleReplay}
-          title="Replay alternating fly-in and focal zoom sequence"
-          aria-label="Replay fly-in sequence"
-        >
-          <RotateCcw size={13} className="replay-icon" />
-          <span>Replay Fly-In Sequence</span>
-        </button>
-      </div>
+    <div className="skills-scrolly-track" ref={trackRef}>
+      {/* Sticky Pinned Viewport Stage */}
+      <div className="skills-sticky-viewport">
+        {/* Stage Header with Pinned Title & Cyber HUD */}
+        <header className="skills-stage-header">
+          <h2 className="section-title skills-scrolly-title">
+            <span className="section-number">03.</span>
+            Technical Proficiencies &amp; Architecture Stack
+          </h2>
 
-      {/* Grid of 7 Curated Cards */}
-      <div className="skills-grid skills-hyperspace-grid">
-        {SKILL_CARDS.map((card, index) => {
-          const isHovered = hoveredIndex === index;
-          const isDimmed = hoveredIndex !== null && !isHovered;
-
-          // Animation class determination
-          let flyClass = "";
-          if (card.flyDirection === "left") flyClass = "skill-fly-in-left";
-          else if (card.flyDirection === "right") flyClass = "skill-fly-in-right";
-          else flyClass = "skill-fly-in-center";
-
-          return (
-            <div
-              key={card.id}
-              className={`skill-category glass-card skill-thematic-card ${hasEntered ? flyClass : "skill-card-idle"} ${
-                isHovered ? "skill-spotlight-active" : ""
-              } ${isDimmed ? "skill-spotlight-dimmed" : ""}`}
-              style={{
-                animationDelay: `${card.delayMs}ms`,
-                borderColor: isHovered ? card.badgeColor : undefined,
-                boxShadow: isHovered ? `0 0 35px ${card.accentColor}` : undefined,
-              }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div className="skill-category-header">
-                <div
-                  className="skill-icon"
-                  style={{ color: card.iconColor }}
-                >
-                  {card.icon(card.iconColor)}
-                </div>
-                <div>
-                  <span
-                    className="text-[10px] font-bold uppercase tracking-wider block"
-                    style={{ color: card.badgeColor }}
-                  >
-                    {card.badge}
+          {/* Scrollytelling HUD Bar */}
+          <div
+            className="skills-hud-bar"
+            style={{
+              borderColor: activeCard.badgeColor,
+              boxShadow: `0 0 25px ${activeCard.accentColor}, 0 6px 20px rgba(0, 0, 0, 0.7)`,
+            }}
+          >
+            <div className="skills-hud-info">
+              <span
+                className="skills-hud-pulse"
+                style={{
+                  backgroundColor: activeCard.badgeColor,
+                  boxShadow: `0 0 10px ${activeCard.badgeColor}`,
+                }}
+              />
+              <div className="skills-hud-counter">
+                <span className="font-semibold text-white">
+                  [{activeCard.number} / 07
+                  <span className="skills-hud-card-name">
+                    {" : "}
+                    <strong style={{ color: activeCard.badgeColor }}>
+                      {activeCard.title}
+                    </strong>
                   </span>
-                  <h3 className="text-white">{card.title}</h3>
-                </div>
+                  ]
+                </span>
               </div>
-              <div className="skill-tags">
-                {card.tags.map((tag) => (
-                  <span
-                    key={tag.text}
-                    className={`skill-tag ${tag.highlight ? "font-semibold" : ""}`}
-                    style={tag.highlight ? { color: card.badgeColor } : undefined}
-                  >
-                    {tag.text}
-                  </span>
-                ))}
-              </div>
+              <span
+                className="skills-hud-badge"
+                style={{
+                  color: activeCard.badgeColor,
+                  backgroundColor: `${activeCard.badgeColor}18`,
+                  borderColor: `${activeCard.badgeColor}55`,
+                }}
+              >
+                {activeCard.badge}
+              </span>
             </div>
-          );
-        })}
+
+            <div className="skills-hud-actions">
+              {/* 7 Segmented Step Pills */}
+              <div
+                className="skills-hud-steps"
+                role="tablist"
+                aria-label="Skill Deck Cards"
+              >
+                {SKILL_CARDS.map((card, idx) => {
+                  const isActive = activeIndex === idx;
+                  return (
+                    <button
+                      key={card.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      className={`skills-hud-step-btn ${isActive ? "active" : ""}`}
+                      style={{
+                        borderColor: isActive ? card.badgeColor : undefined,
+                        boxShadow: isActive ? `0 0 12px ${card.accentColor}` : undefined,
+                        backgroundColor: isActive ? card.badgeColor : undefined,
+                      }}
+                      onClick={() => scrollToCard(idx)}
+                      title={`Jump to 0${idx + 1}: ${card.title}`}
+                    >
+                      <span className="sr-only">{card.title}</span>
+                      <span>{card.number}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Replay Button */}
+              <button
+                type="button"
+                className="skills-replay-btn"
+                onClick={handleReplay}
+                title="Scroll back to first skill card"
+                aria-label="Replay skill deck sequence"
+              >
+                <RotateCcw size={12} />
+                <span>Replay</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* Center Focal Deck Stage */}
+        <div className="skills-cards-stage">
+          {SKILL_CARDS.map((card, index) => {
+            const isFocal = activeIndex === index;
+            return (
+              <div
+                key={card.id}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                className="skill-scrolly-card-wrapper"
+                aria-hidden={!isFocal}
+              >
+                <div
+                  className="skill-category glass-card skill-thematic-card"
+                  style={{
+                    borderColor: isFocal ? card.badgeColor : undefined,
+                    boxShadow: isFocal
+                      ? `0 0 45px ${card.accentColor}, 0 20px 45px rgba(0, 0, 0, 0.75)`
+                      : undefined,
+                  }}
+                >
+                  <div className="skill-category-header">
+                    <div
+                      className="skill-icon"
+                      style={{
+                        color: card.iconColor,
+                        background: `linear-gradient(135deg, ${card.badgeColor}33, ${card.accentColor})`,
+                        borderColor: card.badgeColor,
+                      }}
+                    >
+                      {card.icon(card.iconColor)}
+                    </div>
+                    <div>
+                      <span
+                        className="text-[11px] font-bold uppercase tracking-wider block font-mono"
+                        style={{ color: card.badgeColor }}
+                      >
+                        {card.badge}
+                      </span>
+                      <h3 className="text-white text-xl font-bold">{card.title}</h3>
+                    </div>
+                    <span
+                      className="skill-card-order-tag font-mono text-xs opacity-60 ml-auto"
+                      style={{ color: card.badgeColor }}
+                    >
+                      #{card.number}
+                    </span>
+                  </div>
+
+                  <div className="skill-tags">
+                    {card.tags.map((tag) => (
+                      <span
+                        key={tag.text}
+                        className={`skill-tag ${tag.highlight ? "skill-tag-highlight" : ""}`}
+                        style={
+                          tag.highlight
+                            ? {
+                                color: card.badgeColor,
+                                borderColor: card.badgeColor,
+                                backgroundColor: `${card.badgeColor}22`,
+                                boxShadow: `0 0 12px ${card.accentColor}`,
+                              }
+                            : undefined
+                        }
+                      >
+                        {tag.text}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Stage Footer: Scrollytelling Hint & Scrub Progress Bar */}
+        <footer className="skills-stage-footer">
+          <div className="skills-scroll-hint">
+            <span className="scroll-hint-arrow">↓</span>
+            <span>
+              SCROLL MOUSE / SWIPE TO CYCLE DECK [{activeCard.number} / 07]
+            </span>
+            <span className="scroll-hint-arrow">↓</span>
+          </div>
+          <div className="skills-scrub-track" aria-hidden="true">
+            <div
+              ref={progressBarRef}
+              className="skills-scrub-bar"
+              style={{
+                backgroundColor: activeCard.badgeColor,
+                boxShadow: `0 0 12px ${activeCard.badgeColor}`,
+              }}
+            />
+          </div>
+        </footer>
       </div>
     </div>
   );

@@ -5,11 +5,17 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: var(--space-xl);
+  padding: var(--space-sm) 0 var(--space-2xl);
+  overflow: visible;
 }
 
 .project-card {
-  overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--border-radius-lg);
+  overflow: visible;
 }
 
 .project-image {
@@ -20,6 +26,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
 }
 
 .project-placeholder {
@@ -35,6 +42,9 @@
 
 .project-content {
   padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .project-tags {
@@ -91,6 +101,8 @@
   display: flex;
   gap: var(--space-md);
   flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: var(--space-md);
 }
 
 .project-link {
@@ -533,4 +545,10 @@
     font-size: 0.72rem;
     padding: 0.45rem 0.4rem;
   }
+}
+
+.section.projects {
+  overflow-x: clip;
+  overflow-y: visible;
+  padding-bottom: var(--space-4xl);
 }
