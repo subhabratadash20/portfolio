@@ -303,57 +303,81 @@ export default function SkillsInteractiveGrid() {
 
         let tx = 0;
         let ty = 0;
-        let scale = 1;
         let opacity = 1;
         let blurPx = 0;
-        const maxZoom = isMobile ? 1.03 : 1.06;
 
-        if (delta < -0.12) {
+        // Configuration
+        const dwellHalf = 0.12; // Centered focal window: [-0.12, +0.12]
+        const minScale = 0.88;
+        const restScale = 1.00;
+        const maxScale = isMobile ? 1.07 : 1.14;
+        const maxZ = isMobile ? 14 : 30;
+
+        let scale = restScale;
+        let focalFactor = 0;
+
+        if (delta < -dwellHalf) {
           // === ENTRANCE PHASE (card flies in from outside of screen to center) ===
-          // delta goes from -0.48 to -0.12
-          const t = Math.max(0, Math.min(1, (delta - (-0.48)) / (-0.12 - (-0.48))));
+          // delta goes from -0.48 to -dwellHalf (-0.12)
+          const t = Math.max(0, Math.min(1, (delta - (-0.48)) / (-dwellHalf - (-0.48))));
           const easeIn = 1 - Math.pow(1 - t, 2.5); // smooth deceleration into center
-
-          if (card.flyDirection === "left") {
-            tx = -travelDistX * (1 - easeIn);
-          } else {
-            tx = travelDistX * (1 - easeIn);
-          }
+          tx = (card.flyDirection === "left" ? -travelDistX : travelDistX) * (1 - easeIn);
           ty = 0;
-
-          scale = 0.88 + (maxZoom - 0.88) * easeIn;
-          opacity = Math.max(0, Math.min(1, easeIn * 1.35));
-          blurPx = (1 - easeIn) * 5;
-
-        } else if (delta <= 0.12) {
-          // === FOCAL DWELL WINDOW (centered, active zoom & neon flash) ===
+          scale = minScale + (restScale - minScale) * easeIn;
+          opacity = Math.max(0, Math.min(1, easeIn * 1.4));
+          blurPx = (1 - easeIn) * 4.5;
+        } else if (delta <= dwellHalf) {
+          // === CENTERED FOCAL DWELL ZONE (card is stationary horizontally, dynamically zooms) ===
+          // delta goes from -dwellHalf to +dwellHalf, peaking exactly at delta = 0
           tx = 0;
           ty = 0;
-          scale = maxZoom;
           opacity = 1;
           blurPx = 0;
 
+          // Continuous scroll-proportional focal curve peaking at delta = 0
+          // Power 1.15 produces immediate tangible sensitivity to every tick of wheel/trackpad
+          const normFocal = Math.abs(delta) / dwellHalf; // 0 at exact center, 1 at boundaries
+          focalFactor = Math.max(0, 1 - Math.pow(normFocal, 1.15));
+          scale = restScale + (maxScale - restScale) * focalFactor;
         } else {
           // === EXIT PHASE (card smoothly transitions out as user continues scrolling) ===
-          // delta goes from +0.12 to +0.48
-          const t = Math.max(0, Math.min(1, (delta - 0.12) / (0.48 - 0.12)));
+          // delta goes from +dwellHalf (+0.12) to +0.48
+          const t = Math.max(0, Math.min(1, (delta - dwellHalf) / (0.48 - dwellHalf)));
           const easeOut = Math.pow(t, 2.2); // smooth acceleration departure
-
-          if (card.flyDirection === "left") {
-            tx = -travelDistX * easeOut;
-          } else {
-            tx = travelDistX * easeOut;
-          }
+          tx = (card.flyDirection === "left" ? -travelDistX : travelDistX) * easeOut;
           ty = -35 * easeOut; // subtle cinematic upward lift
-
-          scale = maxZoom - (maxZoom - 0.88) * easeOut;
-          opacity = Math.max(0, 1 - easeOut * 1.35);
-          blurPx = easeOut * 5;
+          scale = restScale - (restScale - minScale) * easeOut;
+          opacity = Math.max(0, 1 - easeOut * 1.4);
+          blurPx = easeOut * 4.5;
         }
 
+        // Dynamic 3D elevation (translateZ: 0px to 30px) in 1:1 sync with centered focal zoom
+        const tz = maxZ * focalFactor;
+
+        // Dynamic Domain Neon Aura & Card Brightness peaking at delta = 0
+        const glowBlur = Math.round(18 + 36 * focalFactor);
+        const shadowY = Math.round(10 + 20 * focalFactor);
+        const shadowBlur = Math.round(20 + 25 * focalFactor);
+        const shadowAlpha = (0.45 + 0.35 * focalFactor).toFixed(2);
+        const dynamicGlow = `0 0 ${glowBlur}px ${card.accentColor}, 0 ${shadowY}px ${shadowBlur}px rgba(0, 0, 0, ${shadowAlpha})`;
+        const brightness = (0.96 + 0.14 * focalFactor).toFixed(2);
+
+        // Apply 3D transforms, opacity, and filter to wrapper
         cardEl.style.opacity = `${opacity.toFixed(3)}`;
-        cardEl.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
-        cardEl.style.filter = blurPx > 0.4 ? `blur(${blurPx.toFixed(1)}px)` : "none";
+        cardEl.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, ${tz.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+        cardEl.style.filter = blurPx > 0.3
+          ? `blur(${blurPx.toFixed(1)}px) brightness(${brightness})`
+          : `brightness(${brightness})`;
+
+        // Apply domain neon aura directly to wrapper CSS variable and inner card element
+        cardEl.style.setProperty("--card-glow", dynamicGlow);
+        const innerEl = cardEl.firstElementChild as HTMLElement | null;
+        if (innerEl) {
+          innerEl.style.boxShadow = dynamicGlow;
+          innerEl.style.borderColor = Math.abs(delta) <= dwellHalf + 0.04
+            ? card.badgeColor
+            : "rgba(255, 255, 255, 0.12)";
+        }
       });
     };
 
@@ -493,9 +517,6 @@ export default function SkillsInteractiveGrid() {
                   className="skill-category glass-card skill-thematic-card"
                   style={{
                     borderColor: isFocal ? card.badgeColor : undefined,
-                    boxShadow: isFocal
-                      ? `0 0 45px ${card.accentColor}, 0 20px 45px rgba(0, 0, 0, 0.75)`
-                      : undefined,
                   }}
                 >
                   <div className="skill-category-header">

@@ -371,6 +371,10 @@
   align-items: center;
   justify-content: center;
   min-height: 380px;
+  perspective: 1200px;
+  perspective-origin: center center;
+  overflow: visible;
+  transform-style: preserve-3d;
 }
 
 .skill-scrolly-card-wrapper {
@@ -378,10 +382,11 @@
   inset: 0;
   margin: auto;
   width: 100%;
-  max-width: 660px;
+  max-width: min(84vw, 640px);
   height: max-content;
   will-change: transform, opacity, filter;
   transform-origin: center center;
+  transform-style: preserve-3d;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -392,7 +397,9 @@
   padding: clamp(1.25rem, 1rem + 1.2vw, 2rem);
   border-radius: 1.25rem;
   box-sizing: border-box;
-  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: var(--card-glow, 0 10px 30px rgba(0, 0, 0, 0.5));
+  will-change: transform, box-shadow;
+  transition: border-color 0.25s ease;
 }
 
 .skill-tag-highlight {
@@ -480,10 +487,12 @@
 
   .skills-cards-stage {
     min-height: 320px;
+    perspective: 800px;
+    overflow: visible;
   }
 
   .skill-scrolly-card-wrapper {
-    max-width: 95vw;
+    max-width: min(88vw, 440px);
   }
 
   .skill-scrolly-card-wrapper .skill-category {
