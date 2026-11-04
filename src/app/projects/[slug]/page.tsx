@@ -1,5 +1,6 @@
 import { projects } from "@/data/projects";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import LegacyCanvas from "@/components/LegacyCanvas";
 import LegacyInteractions from "@/components/LegacyInteractions";
 
@@ -40,15 +41,15 @@ export default async function ProjectDetail({ params }: PageProps) {
 
             <nav className="nav" id="nav">
                 <div className="nav-container">
-                    <a href="/" className="nav-logo">
+                    <Link href="/" className="nav-logo">
                         <span className="logo-bracket">&lt;</span>SD<span className="logo-bracket">/&gt;</span>
-                    </a>
-                    <a href="/#projects" className="back-link">
+                    </Link>
+                    <Link href="/#projects" className="back-link">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M19 12H5M12 19l-7-7 7-7" />
                         </svg>
                         Back to Projects
-                    </a>
+                    </Link>
                 </div>
             </nav>
 
@@ -177,12 +178,12 @@ export default async function ProjectDetail({ params }: PageProps) {
 
             <footer className="footer">
                 <div className="container">
-                    <a href="/#projects" className="btn btn-secondary">
+                    <Link href="/#projects" className="btn btn-secondary">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M19 12H5M12 19l-7-7 7-7" />
                         </svg>
                         Back to All Projects
-                    </a>
+                    </Link>
                 </div>
             </footer>
 

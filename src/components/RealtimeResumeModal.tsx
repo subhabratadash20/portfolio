@@ -138,45 +138,47 @@ Signature: Subhabrata Das`;
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-2 sm:p-6 overflow-y-auto">
-      <div className="relative w-full max-w-4xl max-h-[94vh] bg-[#0c0d14] border border-[#00D9FF]/40 rounded-2xl shadow-2xl flex flex-col overflow-hidden text-gray-200">
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-2 sm:p-6 overflow-y-auto"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        className="relative w-full max-w-4xl max-h-[92dvh] h-[92dvh] sm:h-auto bg-[#0c0d14] border border-[#00D9FF]/40 rounded-2xl shadow-2xl flex flex-col overflow-hidden text-gray-200"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header Bar */}
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 bg-[#121320] no-print shrink-0">
-          <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 px-3 sm:px-6 py-3 sm:py-4 border-b border-white/10 bg-[#121320] no-print shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#00D9FF] to-[#7C3AED] flex items-center justify-center text-black font-bold text-sm shrink-0">
               <Sparkles size={16} />
             </div>
-            <div>
-              <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                Official ATS Resume Preview
-                <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  Signed & Verified
+            <div className="min-w-0">
+              <h2 className="text-xs sm:text-base font-bold text-white flex items-center gap-1.5 flex-wrap">
+                <span>Official ATS Resume</span>
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 whitespace-nowrap">
+                  Verified
                 </span>
               </h2>
-              <p className="text-[11px] sm:text-xs text-gray-400">Generated dynamically • Updated with production projects & Weavers-web experience</p>
+              <p className="text-[10px] sm:text-xs text-gray-400 truncate">Live production projects & experience</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <a
               href="/Subhabrata_Das_Resume.pdf"
               download="Subhabrata_Das_Resume.pdf"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#00D9FF] text-black font-semibold text-xs hover:bg-[#00D9FF]/90 transition cursor-pointer shadow-md shadow-[#00D9FF]/25"
+              className="flex items-center gap-1.5 px-3 py-2 min-h-[40px] rounded-lg bg-[#00D9FF] text-black font-semibold text-xs hover:bg-[#00D9FF]/90 transition cursor-pointer shadow-md shadow-[#00D9FF]/25 touch-manipulation"
               title="Download signed ATS PDF directly"
             >
               <Download size={14} />
               <span>Download PDF</span>
             </a>
             <button
-              onClick={() => {
-                try {
-                  window.print();
-                } catch (e) {
-                  console.error("Print error:", e);
-                }
-              }}
+              onClick={handlePrint}
               type="button"
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition cursor-pointer"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-2 min-h-[40px] rounded-lg bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition cursor-pointer touch-manipulation"
               title="Print document"
             >
               <Printer size={13} />
@@ -185,16 +187,17 @@ Signature: Subhabrata Das`;
             <button
               onClick={handleCopy}
               type="button"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-2 min-h-[40px] rounded-lg bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition cursor-pointer touch-manipulation"
               title="Copy plaintext to clipboard"
             >
               {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
-              <span className="hidden sm:inline">{copied ? "Copied" : "Copy Text"}</span>
+              <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
             </button>
             <button
               onClick={onClose}
               type="button"
-              className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition cursor-pointer"
+              className="p-2 min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition cursor-pointer touch-manipulation"
+              aria-label="Close modal"
             >
               <X size={18} />
             </button>

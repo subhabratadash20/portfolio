@@ -241,25 +241,30 @@
    Mobile Performance Optimizations
    ========================================= */
 @media (max-width: 768px) {
-  /* Clamped travel distances on mobile to avoid overflow */
+  /* Clamped travel distances on mobile to avoid overflow: purely vertical transforms */
+  .animate-on-scroll.reveal-left,
+  .animate-on-scroll.reveal-right {
+    transform: translateY(20px);
+  }
+  .animate-on-scroll.reveal-left.animated,
+  .animate-on-scroll.reveal-right.animated {
+    transform: translateY(0);
+  }
+
   .stat-card.animate-on-scroll.stat-card-launch {
-    transform: translate(25px, 25px) scale(0.9);
+    transform: translateY(20px) scale(0.95);
   }
   .timeline-item.animate-on-scroll.timeline-branch-left,
   .timeline-item.animate-on-scroll.timeline-branch-right {
     transform: translateY(14px);
   }
-  .hire-card.animate-on-scroll.orbit-triad-card-1 {
-    transform: translate(-30px, -15px) rotate(-2deg);
-  }
-  .hire-card.animate-on-scroll.orbit-triad-card-2 {
-    transform: translateY(30px) scale(0.92);
-  }
+  .hire-card.animate-on-scroll.orbit-triad-card-1,
+  .hire-card.animate-on-scroll.orbit-triad-card-2,
   .hire-card.animate-on-scroll.orbit-triad-card-3 {
-    transform: translate(30px, -15px) rotate(2deg);
+    transform: translateY(20px) scale(0.95);
   }
   .contact-card.animate-on-scroll.channel-lock-card {
-    transform: translate(-15px, 15px) scale(0.96);
+    transform: translateY(15px) scale(0.98);
   }
   .cockpit-wrapper.animate-on-scroll.reveal-cockpit {
     transform: scale(0.95);
@@ -271,18 +276,18 @@
   }
 
   @keyframes skillFlyInLeft {
-    0% { opacity: 0; transform: translateX(-45px) scale(0.9); filter: none; }
-    50% { opacity: 1; transform: translateX(0) scale(1.02); }
-    100% { opacity: 1; transform: translateX(0) scale(1); }
+    0% { opacity: 0; transform: translateY(25px) scale(0.95); filter: none; }
+    50% { opacity: 1; transform: translateY(0) scale(1.01); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
   @keyframes skillFlyInRight {
-    0% { opacity: 0; transform: translateX(45px) scale(0.9); filter: none; }
-    50% { opacity: 1; transform: translateX(0) scale(1.02); }
-    100% { opacity: 1; transform: translateX(0) scale(1); }
+    0% { opacity: 0; transform: translateY(25px) scale(0.95); filter: none; }
+    50% { opacity: 1; transform: translateY(0) scale(1.01); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
   @keyframes skillFlyInCenter {
-    0% { opacity: 0; transform: translateY(35px) scale(0.9); filter: none; }
-    50% { opacity: 1; transform: translateY(0) scale(1.02); }
+    0% { opacity: 0; transform: translateY(25px) scale(0.95); filter: none; }
+    50% { opacity: 1; transform: translateY(0) scale(1.01); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
   /* Reduce backdrop-filter usage (very expensive on mobile) */

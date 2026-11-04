@@ -134,11 +134,13 @@
       font-size: var(--text-lg);
   }
 
-  .stat-label {
-      font-size: var(--text-xs);
+  .stat-card.animate-on-scroll.stat-card-launch {
+      transform: translateY(20px) scale(0.95) !important;
   }
 
-
+  .stat-card.animate-on-scroll.stat-card-launch.animated {
+      transform: translateY(0) scale(1) !important;
+  }
 }
 
 @media (max-width: 480px) {

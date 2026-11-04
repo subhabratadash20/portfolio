@@ -4,9 +4,12 @@
  
  /* Back Link */
  .back-link {
-     display: flex;
+     display: inline-flex;
      align-items: center;
      gap: var(--space-sm);
+     min-height: 44px;
+     padding: 6px 12px;
+     touch-action: manipulation;
      color: var(--color-text-secondary);
      font-weight: 500;
      transition: all var(--transition-fast);
@@ -28,6 +31,7 @@
      text-align: center;
      position: relative;
      z-index: 1;
+     overflow: clip;
      background: linear-gradient(180deg,
              rgba(124, 58, 237, 0.08) 0%,
              rgba(0, 217, 255, 0.05) 50%,
@@ -82,6 +86,8 @@
      background-clip: text;
      margin-bottom: var(--space-md);
      text-shadow: 0 0 60px rgba(124, 58, 237, 0.4);
+     word-break: break-word;
+     overflow-wrap: anywhere;
  }
  
  .project-hero-subtitle {
@@ -188,7 +194,7 @@
  /* Features Grid - Enhanced */
  .features-grid {
      display: grid;
-     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
      gap: var(--space-xl);
     max-width: 1000px;
     margin: 0 auto;

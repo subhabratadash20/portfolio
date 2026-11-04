@@ -28,6 +28,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-sm);
+  touch-action: manipulation;
 }
 
 .contact-icon {
@@ -50,6 +51,8 @@
 .contact-value {
   font-size: var(--text-sm);
   color: var(--color-text-tertiary);
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 
@@ -221,20 +224,24 @@
       padding: var(--space-lg);
   }
 
+  .contact-card.animate-on-scroll.channel-lock-card {
+      transform: translateY(15px) scale(0.98) !important;
+  }
+
+  .contact-card.animate-on-scroll.channel-lock-card.animated {
+      transform: translateY(0) scale(1) !important;
+  }
+
   .contact-intro {
       font-size: var(--text-lg);
       padding: 0 var(--space-sm);
   }
-
-
 }
 
 @media (max-width: 480px) {
   /* Contact */
   .contact-icon {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
   }
-
-
 }

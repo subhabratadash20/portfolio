@@ -45,6 +45,17 @@ export default function PortfolioAgentWidget() {
     return () => window.removeEventListener("open-cv-modal", handleOpenCvModal);
   }, []);
 
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
   // When widget is first opened by user, stream a fresh real-time dynamic greeting
   useEffect(() => {
     if (isOpen && !hasStreamedGreeting) {
@@ -203,7 +214,13 @@ export default function PortfolioAgentWidget() {
 
       {/* Floating Chat Modal */}
       {isOpen && (
-        <div className="portfolio-agent-modal glass-card no-print">
+        <>
+          <div
+            className="agent-modal-backdrop"
+            onClick={() => setIsOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="portfolio-agent-modal glass-card no-print">
           {/* Header */}
           <div className="agent-modal-header">
             <div className="agent-header-info">
@@ -351,6 +368,7 @@ export default function PortfolioAgentWidget() {
             </button>
           </form>
         </div>
+      </>
       )}
 
       {/* Realtime ATS Resume Modal */}

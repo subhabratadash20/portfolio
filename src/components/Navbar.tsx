@@ -57,11 +57,37 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobileMenuOpen]);
 
-  // Force navbar visible when mobile menu opens
+  // Force navbar visible and lock body scroll when mobile menu opens
   useEffect(() => {
     if (isMobileMenuOpen) {
       setVisible(true);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close menu on Escape key press or desktop resize
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    const handleResize = () => {
+      if (window.innerWidth > 900 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
+    };
   }, [isMobileMenuOpen]);
 
   const toggleMenu = () => setIsMobileMenuOpen((prev) => !prev);
@@ -80,12 +106,14 @@ export default function Navbar() {
     <>
       {/* Mobile menu backdrop */}
       <div
+        id="navBackdrop"
         className={`nav-backdrop ${isMobileMenuOpen ? "active" : ""}`}
         onClick={() => setIsMobileMenuOpen(false)}
       />
 
       {/* Main navigation */}
       <nav
+        id="nav"
         className="nav"
         style={{
           transform: visible ? "translateY(0)" : "translateY(-100%)",
@@ -163,9 +191,11 @@ export default function Navbar() {
           </div>
 
           <button
+            id="navToggle"
             className={`nav-toggle ${isMobileMenuOpen ? "active" : ""}`}
             onClick={toggleMenu}
             aria-label="Toggle navigation"
+            aria-expanded={isMobileMenuOpen}
           >
             <span
               style={{
@@ -184,7 +214,7 @@ export default function Navbar() {
             />
           </button>
 
-          <ul className={`nav-menu ${isMobileMenuOpen ? "active" : ""}`}>
+          <ul id="navMenu" className={`nav-menu ${isMobileMenuOpen ? "active" : ""}`}>
             <li><Link href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link></li>
             <li><Link href="#experience" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Experience</Link></li>
             <li><Link href="#skills" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Skills</Link></li>

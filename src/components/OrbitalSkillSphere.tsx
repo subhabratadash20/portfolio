@@ -131,7 +131,13 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
       timeRef.current += dt;
 
       const p = scrollProgressRef.current; // 0 to 1
-      const isMobile = window.innerWidth < 768;
+      const winW = window.innerWidth;
+      const isMobile = winW < 768;
+
+      // Scale orbit radius on mobile so 3D nodes never overflow the screen
+      const radiusScale = isMobile
+        ? Math.min(0.68, Math.max(0.40, (winW - 50) / 580))
+        : 1;
 
       // Direct DOM animation for layer badge ref
       if (layerBadgeRef.current) {
@@ -141,10 +147,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         layerBadgeRef.current.style.transform = `translateX(-50%) translateY(${badgeTranslateY}px)`;
       }
 
-      // Fade out orbital rings as user scrolls
+      // Fade out and scale orbital rings as user scrolls
       if (ringsRef.current) {
         ringsRef.current.style.opacity = `${Math.max(0, 1 - p * 2.2)}`;
-        ringsRef.current.style.transform = `scale(${1 - p * 0.15})`;
+        ringsRef.current.style.transform = `scale(${(1 - p * 0.15) * radiusScale})`;
       }
 
       // Smoothly fade out scroll indicator as user scrolls down into grid
@@ -156,26 +162,26 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
 
       // Animate profile photo: Zoom effect smoothly in sync with scroll progress p (1.0 -> 1.35)
       if (centerPhotoRef.current) {
-        const photoZoom = 1 + p * 0.35;
-        const photoY = p * (isMobile ? -140 : -190);
+        const photoZoom = isMobile ? (1 + p * 0.18) : (1 + p * 0.35);
+        const photoY = p * (isMobile ? -105 : -190);
         centerPhotoRef.current.style.transform = `translate(-50%, calc(-50% + ${photoY}px)) scale(${photoZoom})`;
-        centerPhotoRef.current.style.boxShadow = `0 0 ${40 + p * 50}px rgba(0, 217, 255, ${0.25 + p * 0.35}), 0 0 ${80 + p * 60}px rgba(124, 58, 237, ${0.2 + p * 0.3})`;
+        centerPhotoRef.current.style.boxShadow = `0 0 ${isMobile ? 25 + p * 25 : 40 + p * 50}px rgba(0, 217, 255, ${0.25 + p * 0.35}), 0 0 ${isMobile ? 40 + p * 30 : 80 + p * 60}px rgba(124, 58, 237, ${0.2 + p * 0.3})`;
         centerPhotoRef.current.style.zIndex = "2";
       }
 
       // Responsive grid geometry spanning the available screen width
-      const winW = window.innerWidth;
       let cols = 7;
-      if (winW < 600) cols = 3;
+      if (winW < 400) cols = 2;
+      else if (winW < 640) cols = 3;
       else if (winW < 900) cols = 4;
       else if (winW < 1200) cols = 6;
       else cols = 7;
 
-      const maxGridWidth = Math.min(winW - (isMobile ? 32 : 80), 1280);
+      const maxGridWidth = Math.min(winW - (isMobile ? 24 : 80), 1280);
       const colWidth = maxGridWidth / cols;
-      const rowHeight = isMobile ? 115 : 148;
+      const rowHeight = isMobile ? (winW < 400 ? 92 : 105) : 148;
       const totalWidth = (cols - 1) * colWidth;
-      const gridStartY = isMobile ? 120 : 160;
+      const gridStartY = isMobile ? (winW < 400 ? 55 : 70) : 160;
 
       // Update positions of each skill node with exploded anatomy
       SKILL_NODES.forEach((node, i) => {
@@ -186,11 +192,10 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         const direction = node.reverse ? -1 : 1;
         const angle = timeRef.current * node.speed * direction + (i * (Math.PI * 2)) / SKILL_NODES.length;
 
-        // Exploded layer radial & Z displacement (Sonic Lamb anatomy separation)
-        // Cohesive base orbit at p = 0; layers progressively peel apart as p increases
-        const layerDisplacement = (node.layer - 1) * 36 * p;
-        const layerZDisplacement = (node.layer - 1) * 45 * p;
-        const effectiveRadius = node.radius + layerDisplacement;
+        // Exploded layer radial & Z displacement scaled for screen bounds
+        const layerDisplacement = (node.layer - 1) * 36 * p * radiusScale;
+        const layerZDisplacement = (node.layer - 1) * 45 * p * radiusScale;
+        const effectiveRadius = (node.radius + layerDisplacement) * radiusScale;
 
         const bx = Math.cos(angle) * effectiveRadius;
         const by = Math.sin(angle) * effectiveRadius;
@@ -215,9 +220,9 @@ export default function OrbitalSkillSphere({ profilePhoto }: OrbitalSkillSphereP
         const currentZ = (1 - ease) * orbitZ;
 
         // Dynamic collision avoidance with profile photo
-        if (ease > 0.15 && Math.abs(currentX) < 160) {
-          const profileBottom = (isMobile ? -140 : -190) * p + 140 * (1 + p * 0.35) * 0.5;
-          const minSafeY = profileBottom + 30;
+        if (ease > 0.15 && Math.abs(currentX) < 140) {
+          const profileBottom = (isMobile ? -105 : -190) * p + 110 * (1 + p * 0.18) * 0.5;
+          const minSafeY = profileBottom + 20;
           if (currentY < minSafeY) {
             currentY = (1 - ease) * currentY + ease * minSafeY;
           }

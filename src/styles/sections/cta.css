@@ -176,6 +176,17 @@
   transition-delay: 280ms;
 }
 
+@media (max-width: 768px) {
+  .cta-warp-banner .btn-primary,
+  .cta-warp-banner .btn-secondary {
+    transform: translateY(15px);
+  }
+  .cta-warp-banner.animated .btn-primary,
+  .cta-warp-banner.animated .btn-secondary {
+    transform: translateY(0);
+  }
+}
+
 
 
 /* Sonic Lamb Breathing Radial Horizon Aura */

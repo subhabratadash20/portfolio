@@ -271,6 +271,7 @@
 @media (max-width: 768px) {
   /* Hire Grid Mobile */
   .hire-grid {
+      grid-template-columns: 1fr;
       gap: var(--space-md);
   }
 
@@ -278,5 +279,15 @@
       padding: var(--space-lg);
   }
 
+  .hire-card.animate-on-scroll.orbit-triad-card-1,
+  .hire-card.animate-on-scroll.orbit-triad-card-2,
+  .hire-card.animate-on-scroll.orbit-triad-card-3 {
+      transform: translateY(20px) scale(0.96) !important;
+  }
 
+  .hire-card.animate-on-scroll.orbit-triad-card-1.animated,
+  .hire-card.animate-on-scroll.orbit-triad-card-2.animated,
+  .hire-card.animate-on-scroll.orbit-triad-card-3.animated {
+      transform: translateY(0) scale(1) !important;
+  }
 }

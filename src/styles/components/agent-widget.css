@@ -6,8 +6,8 @@
    ========================================= */
 .portfolio-agent-launcher {
   position: fixed;
-  bottom: 24px;
-  left: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: calc(24px + env(safe-area-inset-left, 0px));
   z-index: 100;
 }
 
@@ -22,6 +22,7 @@
   border-radius: 9999px;
   cursor: pointer;
   color: #fff;
+  touch-action: manipulation;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 217, 255, 0.25);
   transition: all 0.25s ease;
 }
@@ -65,6 +66,17 @@
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.04em;
+}
+
+/* Chat Modal Backdrop Overlay */
+.agent-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 100;
+  animation: agentModalIn 0.25s ease forwards;
 }
 
 /* Chat Modal */
@@ -329,8 +341,10 @@
 }
 
 .agent-send-btn {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 8px;
   background: linear-gradient(135deg, #7C3AED 0%, #00D9FF 100%);
   border: none;
@@ -339,12 +353,62 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  touch-action: manipulation;
   transition: all 0.2s;
 }
 
 .agent-send-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .portfolio-agent-launcher {
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    left: calc(12px + env(safe-area-inset-left, 0px));
+  }
+
+  .portfolio-agent-modal {
+    position: fixed;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
+    width: calc(100% - 16px) !important;
+    max-width: calc(100% - 16px) !important;
+    height: min(560px, calc(100dvh - 84px - env(safe-area-inset-bottom, 0px))) !important;
+    border-radius: 14px;
+  }
+
+  .agent-input-field {
+    font-size: 16px; /* Stop iOS Safari zoom */
+    padding: 10px 12px;
+  }
+
+  .agent-send-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .agent-header-btn {
+    width: 36px;
+    height: 36px;
+    touch-action: manipulation;
+  }
+
+  .agent-chip {
+    min-height: 36px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    touch-action: manipulation;
+  }
+
+  .agent-modal-footer {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 

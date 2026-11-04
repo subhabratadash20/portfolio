@@ -157,7 +157,13 @@ export default function ProjectShowcase() {
   }, []);
 
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [pillStyle, setPillStyle] = useState<{ left: number; width: number; opacity: number }>({ left: 0, width: 0, opacity: 0 });
+  const [pillStyle, setPillStyle] = useState<{ left: number; top: number; width: number; height: number; opacity: number }>({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+    opacity: 0,
+  });
 
   // Update sliding pill on filter change & window resize
   useEffect(() => {
@@ -167,7 +173,9 @@ export default function ProjectShowcase() {
       if (activeBtn) {
         setPillStyle({
           left: activeBtn.offsetLeft,
+          top: activeBtn.offsetTop,
           width: activeBtn.offsetWidth,
+          height: activeBtn.offsetHeight,
           opacity: 1,
         });
       }
@@ -187,8 +195,8 @@ export default function ProjectShowcase() {
     const cleanups: Array<() => void> = [];
 
     cards.forEach((el) => {
-      let rotation = { x: 0, y: 0 };
-      let translation = { y: 0 };
+      const rotation = { x: 0, y: 0 };
+      const translation = { y: 0 };
       let target = { x: 0, y: 0, yTrans: 0 };
       let animationId: number | null = null;
       let isHovering = false;
@@ -281,10 +289,10 @@ export default function ProjectShowcase() {
             className="filter-sliding-pill"
             style={{
               position: "absolute",
-              top: 0,
-              bottom: 0,
+              top: pillStyle.top,
               left: pillStyle.left,
               width: pillStyle.width,
+              height: pillStyle.height,
               borderRadius: 9999,
               background: "linear-gradient(135deg, rgba(124, 58, 237, 0.45) 0%, rgba(0, 217, 255, 0.25) 100%)",
               border: "1px solid rgba(0, 217, 255, 0.6)",

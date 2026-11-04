@@ -67,4 +67,10 @@
   box-shadow: 0 0 14px rgba(0, 217, 255, 0.4);
 }
 
+@media (max-width: 900px) {
+  .canvas-hud {
+    display: none !important;
+  }
+}
+
 

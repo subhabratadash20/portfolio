@@ -413,5 +413,98 @@
   }
 }
 
+@media (max-width: 768px) {
+  .dev-cockpit-section {
+    padding: 60px 0;
+  }
+
+  .cockpit-header {
+    margin-bottom: 24px;
+    padding: 0 var(--space-sm);
+  }
+
+  .cockpit-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+
+  .console-topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .console-dots {
+    display: none;
+  }
+
+  .console-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    max-width: 100%;
+    gap: 4px;
+  }
+
+  .console-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .console-tab-btn {
+    flex-shrink: 0;
+    padding: 8px 10px;
+    font-size: 0.72rem;
+    min-height: 40px;
+    touch-action: manipulation;
+  }
+
+  .copy-cli-btn {
+    margin-left: auto;
+    font-size: 0.7rem;
+    min-height: 40px;
+    touch-action: manipulation;
+  }
+
+  .terminal-body {
+    padding: 14px 12px;
+    min-height: 240px;
+  }
+
+  .terminal-input {
+    font-size: 16px; /* Prevents auto-zoom on iOS */
+  }
+
+  .terminal-enter-btn {
+    min-height: 40px;
+    padding: 8px 12px;
+    touch-action: manipulation;
+  }
+
+  .terminal-suggestions {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .terminal-suggestions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sugg-pill {
+    flex-shrink: 0;
+    min-height: 36px;
+    padding: 6px 12px;
+    touch-action: manipulation;
+  }
+
+  .telemetry-grid,
+  .stack-grid {
+    grid-template-columns: 1fr;
+    padding: 16px 12px;
+  }
+}
+
 
 

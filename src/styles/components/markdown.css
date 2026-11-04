@@ -143,42 +143,6 @@
 }
 
 @media (max-width: 768px) {
-  .console-topbar {
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 10px 12px;
-  }
-  .console-dots {
-    display: none;
-  }
-  .console-tabs {
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    max-width: 100%;
-    padding-bottom: 2px;
-  }
-  .console-tabs::-webkit-scrollbar {
-    display: none;
-  }
-  .console-tab-btn {
-    flex-shrink: 0;
-    padding: 6px 10px;
-    font-size: 0.72rem;
-  }
-  .copy-cli-btn {
-    margin-left: auto;
-    font-size: 0.7rem;
-    padding: 4px 8px;
-  }
-  .portfolio-agent-modal {
-    left: 12px !important;
-    bottom: 74px !important;
-    width: calc(100vw - 24px) !important;
-    max-width: 440px !important;
-    height: min(580px, 80vh) !important;
-  }
   .embedded-copilot-container {
     height: 380px;
   }

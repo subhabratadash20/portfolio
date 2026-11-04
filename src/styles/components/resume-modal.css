@@ -81,3 +81,14 @@
   }
 }
 
+.printable-resume {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 640px) {
+  .printable-resume {
+    padding: 16px 12px !important;
+  }
+}
+
